@@ -116,3 +116,4 @@
  GET /canvas 200 in 2368ms
  GET /canvas 200 in 327ms
  GET /canvas 200 in 178ms
+ GET /canvas 200 in 219ms
