@@ -1,0 +1,118 @@
+   ▲ Next.js 15.5.9
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.3.11:3001
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+ ✓ Ready in 3.1s
+ ✓ Compiled /middleware in 281ms (114 modules)
+ ○ Compiling /apps ...
+ ✓ Compiled /apps in 34.6s (14864 modules)
+ GET /apps 200 in 26686ms
+ GET /apps 200 in 36214ms
+ ✓ Compiled in 2.5s (6816 modules)
+ ○ Compiling /install ...
+ ✓ Compiled /canvas in 30.2s (17134 modules)
+ HEAD /canvas 200 in 25862ms
+ GET /install 200 in 8550ms
+ GET /install 200 in 11530ms
+ GET /install 200 in 31716ms
+ GET /install 200 in 8551ms
+ GET /canvas 200 in 25879ms
+ GET /canvas 200 in 168ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 5.1s (17054 modules)
+ ✓ Compiled in 1ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 5281ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 3959ms
+ ✓ Compiled in 1ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 4522ms
+ GET /install 200 in 4451ms
+ GET /canvas 200 in 589ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 8.9s (17054 modules)
+ ✓ Compiled in 1ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 3576ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 3715ms
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 4316ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 4396ms
+ GET /canvas 200 in 2088ms
+ GET /canvas 200 in 174ms
+ ✓ Compiled in 3.1s (17054 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /canvas 200 in 1115ms
+ GET /install 200 in 1118ms
+ GET /canvas 200 in 269ms
+ GET /install 200 in 246ms
+ GET /canvas 200 in 153ms
+ GET /canvas 200 in 148ms
+ ✓ Compiled in 8.4s (17054 modules)
+ GET /canvas 200 in 670ms
+ GET /install 200 in 703ms
+ GET /canvas 200 in 249ms
+ GET /install 200 in 218ms
+ GET /canvas 200 in 104ms
+ GET /canvas 200 in 1027ms
+ ✓ Compiled in 14s (17054 modules)
+ GET /canvas 200 in 3425ms
+ GET /install 200 in 333ms
+ GET /canvas 200 in 367ms
+ GET /install 200 in 223ms
+ GET /canvas 200 in 163ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 3.5s (17054 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 3923ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 3840ms
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 4636ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 4625ms
+ GET /canvas 200 in 1996ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 4.2s (17054 modules)
+ ✓ Compiled in 1ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 3493ms
+ ✓ Compiled in 0ms (8979 modules)
+ GET /install 200 in 3552ms
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ ✓ Compiled in 0ms (8979 modules)
+ GET /canvas 200 in 3786ms
+ ✓ Compiled in 1ms (8979 modules)
+ GET /install 200 in 3872ms
+ GET /canvas 200 in 2368ms
+ GET /canvas 200 in 327ms
+ GET /canvas 200 in 178ms
