@@ -7,7 +7,7 @@ import { RiAddLine, RiAsterisk, RiCloseLine, RiDeleteBinLine, RiDraggable } from
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
 import Divider from '@/app/components/base/divider'
-import ConfirmAddVar from '@/app/components/app/configuration/config-prompt/confirm-add-var'
+// import ConfirmAddVar from '@/app/components/app/configuration/config-prompt/confirm-add-var'
 import PromptEditor from '@/app/components/base/prompt-editor'
 import type { OpeningStatement } from '@/app/components/base/features/types'
 import { getInputKeys } from '@/app/components/base/block-input'
@@ -232,14 +232,14 @@ const OpeningSettingModal = ({
           {t('common.operation.save')}
         </Button>
       </div>
-      {isShowConfirmAddVar && (
+      {/* {isShowConfirmAddVar && (
         <ConfirmAddVar
           varNameArr={notIncludeKeys}
           onConfirm={autoAddVar}
           onCancel={cancelAutoAddVar}
           onHide={hideConfirmAddVar}
         />
-      )}
+      )} */}
     </Modal>
   )
 }

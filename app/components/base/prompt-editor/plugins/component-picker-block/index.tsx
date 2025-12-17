@@ -36,7 +36,7 @@ import VarReferenceVars from '@/app/components/workflow/nodes/_base/components/v
 import { useEventEmitterContextContext } from '@/context/event-emitter'
 import { KEY_ESCAPE_COMMAND } from 'lexical'
 import { INSERT_CURRENT_BLOCK_COMMAND } from '../current-block'
-import { GeneratorType } from '@/app/components/app/configuration/config/automatic/types'
+// import { GeneratorType } from '@/app/components/app/configuration/config/automatic/types'
 import { INSERT_ERROR_MESSAGE_BLOCK_COMMAND } from '../error-message-block'
 import { INSERT_LAST_RUN_BLOCK_COMMAND } from '../last-run-block'
 
@@ -195,7 +195,7 @@ const ComponentPicker = ({
                         showManageInputField={workflowVariableBlock.showManageInputField}
                         onManageInputField={workflowVariableBlock.onManageInputField}
                         autoFocus={false}
-                        isInCodeGeneratorInstructionEditor={currentBlock?.generatorType === GeneratorType.code}
+                        isInCodeGeneratorInstructionEditor={currentBlock?.generatorType === 'code'}
                       />
                     </div>
                   )

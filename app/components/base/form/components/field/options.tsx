@@ -2,8 +2,10 @@ import cn from '@/utils/classnames'
 import { useFieldContext } from '../..'
 import type { LabelProps } from '../label'
 import Label from '../label'
-import type { Options } from '@/app/components/app/configuration/config-var/config-select'
-import ConfigSelect from '@/app/components/app/configuration/config-var/config-select'
+// import type { Options } from '@/app/components/app/configuration/config-var/config-select'
+// import ConfigSelect from '@/app/components/app/configuration/config-var/config-select'
+
+type Options = any
 
 type OptionsFieldProps = {
   label: string;
@@ -25,10 +27,11 @@ const OptionsField = ({
         label={label}
         {...(labelOptions ?? {})}
       />
-      <ConfigSelect
+      {/* <ConfigSelect
         options={field.state.value}
         onChange={value => field.handleChange(value)}
-      />
+      /> */}
+      <div>ConfigSelect Placeholder</div>
     </div>
   )
 }

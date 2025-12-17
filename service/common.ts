@@ -33,6 +33,11 @@ import type {
   ModelLoadBalancingConfig,
   ModelParameterRule,
   ModelProvider,
+} from '@/app/components/header/account-setting/model-provider-page/declarations'
+import {
+  CurrentSystemQuotaTypeEnum,
+  CustomConfigurationStatusEnum,
+  ModelStatusEnum,
   ModelTypeEnum,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import type { RETRIEVE_METHOD } from '@/types/app'
@@ -296,6 +301,7 @@ export const fetchDefaultModal: Fetcher<{ data: DefaultModelResponse }, string> 
     data: {
       provider: { provider: 'openai', label: { 'en_US': 'OpenAI' }, icon_small: { 'en_US': '' }, icon_large: { 'en_US': '' }, supported_model_types: [ModelTypeEnum.textGeneration] } as any,
       model: 'gpt-3.5-turbo',
+      model_type: ModelTypeEnum.textGeneration,
     },
   })
 }

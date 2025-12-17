@@ -3,10 +3,17 @@
 import type { ChangeEvent, FC } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import VarHighlight from '../../app/configuration/base/var-highlight'
+// import VarHighlight from '../../app/configuration/base/var-highlight'
 import Toast from '../toast'
 import classNames from '@/utils/classnames'
 import { checkKeys } from '@/utils/var'
+
+// Simple VarHighlight replacement
+const VarHighlight: FC<{ name: string }> = ({ name }) => (
+  <span className="mx-0.5 rounded-md bg-[#EEF4FF] px-1 text-xs font-medium text-[#155EEF]">
+    {name}
+  </span>
+)
 
 // regex to match the {{}} and replace it with a span
 const regex = /\{\{([^}]+)\}\}/g
