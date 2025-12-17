@@ -126,3 +126,14 @@
  GET /canvas 200 in 162ms
  GET /canvas 200 in 1694ms
  GET /canvas 200 in 143ms
+ GET /canvas 200 in 192ms
+ GET /canvas 200 in 191ms
+ ✓ Compiled in 12.7s (17033 modules)
+ GET /canvas 200 in 311ms
+ ✓ Compiled in 13.1s (17033 modules)
+ GET /canvas 200 in 1406ms
+ ✓ Compiled in 5s (17033 modules)
+ GET /canvas 200 in 280ms
+ ✓ Compiled in 3.1s (17033 modules)
+ GET /canvas 200 in 259ms
+ GET /canvas 200 in 389ms

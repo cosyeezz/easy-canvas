@@ -16,6 +16,15 @@ const CustomNode = (props: NodeProps) => {
   const nodeData = props.data
   const NodeComponent = useMemo(() => NodeComponentMap[nodeData.type], [nodeData.type])
 
+  if (!NodeComponent) {
+    console.error(`[CustomNode] Node component not found for type: ${nodeData.type}. Available types:`, Object.keys(NodeComponentMap));
+    return (
+      <BaseNode id={props.id} data={props.data}>
+         <div style={{ color: 'red', padding: 10 }}>Unknown Node Type: {String(nodeData.type)}</div>
+      </BaseNode>
+    );
+  }
+
   return (
     <>
       <BaseNode

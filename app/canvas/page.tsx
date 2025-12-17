@@ -7,6 +7,8 @@ import { CUSTOM_NODE } from '@/app/components/workflow/constants'
 import { EventEmitterContextProvider } from '@/context/event-emitter'
 import { availableNodesMetaData } from './node-defaults'
 
+console.log('BlockEnum in CanvasPage:', BlockEnum);
+
 export default function CanvasPage() {
   const initialNodes = [
     {
