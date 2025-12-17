@@ -9,7 +9,7 @@ import PlanBadge from '@/app/components/header/plan-badge'
 import { switchWorkspace } from '@/service/common'
 import { useWorkspacesContext } from '@/context/workspace-context'
 import { ToastContext } from '@/app/components/base/toast'
-import type { Plan } from '@/app/components/billing/type'
+// import type { Plan } from '@/app/components/billing/type'
 
 const WorkplaceSelector = () => {
   const { t } = useTranslation()
@@ -78,7 +78,7 @@ const WorkplaceSelector = () => {
                           <span className='h-6 bg-gradient-to-r from-components-avatar-shape-fill-stop-0 to-components-avatar-shape-fill-stop-100 bg-clip-text align-middle font-semibold uppercase leading-6 text-shadow-shadow-1 opacity-90'>{workspace?.name[0]?.toLocaleUpperCase()}</span>
                         </div>
                         <div className='system-md-regular line-clamp-1 grow cursor-pointer overflow-hidden text-ellipsis text-text-secondary'>{workspace.name}</div>
-                        <PlanBadge plan={workspace.plan as Plan} />
+                        {/* <PlanBadge plan={workspace.plan as Plan} /> */}
                       </div>
                     ))
                   }

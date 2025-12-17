@@ -137,3 +137,74 @@
  ✓ Compiled in 3.1s (17033 modules)
  GET /canvas 200 in 259ms
  GET /canvas 200 in 389ms
+ ⨯ ./app/education-apply/constants.ts
+Error: 
+
+Caused by:
+    0: Failed to read source code from /Users/dane/Easy/easy-canvas/app/education-apply/constants.ts
+    1: No such file or directory (os error 2)
+
+Import trace for requested module:
+./app/education-apply/constants.ts
+./context/modal-context.tsx
+./app/components/workflow/nodes/_base/components/workflow-panel/index.tsx
+./app/components/workflow/nodes/index.tsx
+./app/components/workflow/index.tsx
+./app/canvas/page.tsx
+ ○ Compiling /_error ...
+ ⨯ ./app/education-apply/constants.ts
+Error: 
+
+Caused by:
+    0: Failed to read source code from /Users/dane/Easy/easy-canvas/app/education-apply/constants.ts
+    1: No such file or directory (os error 2)
+
+Import trace for requested module:
+./app/education-apply/constants.ts
+./context/modal-context.tsx
+./app/components/workflow/nodes/_base/components/workflow-panel/index.tsx
+./app/components/workflow/nodes/index.tsx
+./app/components/workflow/index.tsx
+./app/canvas/page.tsx
+ GET /canvas 500 in 5329ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+ GET /canvas 500 in 217ms
+ GET /canvas 500 in 18ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/dane/Easy/easy-canvas/.next/routes-manifest.json'
+}
+ GET /canvas 500 in 131ms
+ GET /canvas 500 in 9ms
+[?25h

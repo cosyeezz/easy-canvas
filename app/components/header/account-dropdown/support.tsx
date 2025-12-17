@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import cn from '@/utils/classnames'
 import { useProviderContext } from '@/context/provider-context'
-import { Plan } from '@/app/components/billing/type'
+// import { Plan } from '@/app/components/billing/type'
 import { toggleZendeskWindow } from '@/app/components/base/zendesk/utils'
 import { mailToSupport } from '../utils/util'
 import { useAppContext } from '@/context/app-context'
@@ -21,9 +21,8 @@ export default function Support({ closeAccountDropdown }: SupportProps) {
   rounded-lg hover:bg-state-base-hover cursor-pointer gap-1
 `
   const { t } = useTranslation()
-  const { plan } = useProviderContext()
   const { userProfile, langGeniusVersionInfo } = useAppContext()
-  const hasDedicatedChannel = plan.type !== Plan.sandbox
+  const hasDedicatedChannel = false // plan.type !== Plan.sandbox
 
   return <Menu as="div" className="relative h-full w-full">
     {

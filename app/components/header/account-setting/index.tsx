@@ -24,7 +24,7 @@ import ApiBasedExtensionPage from './api-based-extension-page'
 import DataSourcePage from './data-source-page-new'
 import ModelProviderPage from './model-provider-page'
 import cn from '@/utils/classnames'
-import BillingPage from '@/app/components/billing/billing-page'
+// import BillingPage from '@/app/components/billing/billing-page'
 import CustomPage from '@/app/components/custom/custom-page'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import { useProviderContext } from '@/context/provider-context'
@@ -86,15 +86,15 @@ export default function AccountSetting({
       },
     ]
 
-    if (enableBilling) {
-      items.push({
-        key: ACCOUNT_SETTING_TAB.BILLING,
-        name: t('common.settings.billing'),
-        description: t('billing.plansCommon.receiptInfo'),
-        icon: <RiMoneyDollarCircleLine className={iconClassName} />,
-        activeIcon: <RiMoneyDollarCircleFill className={iconClassName} />,
-      })
-    }
+    // if (enableBilling) {
+    //   items.push({
+    //     key: ACCOUNT_SETTING_TAB.BILLING,
+    //     name: t('common.settings.billing'),
+    //     description: t('billing.plansCommon.receiptInfo'),
+    //     icon: <RiMoneyDollarCircleLine className={iconClassName} />,
+    //     activeIcon: <RiMoneyDollarCircleFill className={iconClassName} />,
+    //   })
+    // }
 
     items.push(
       {
@@ -238,7 +238,7 @@ export default function AccountSetting({
             <div className='px-4 pt-2 sm:px-8'>
               {activeMenu === 'provider' && <ModelProviderPage searchText={searchValue} />}
               {activeMenu === 'members' && <MembersPage />}
-              {activeMenu === 'billing' && <BillingPage />}
+              {/* {activeMenu === 'billing' && <BillingPage />} */}
               {activeMenu === 'data-source' && <DataSourcePage />}
               {activeMenu === 'api-based-extension' && <ApiBasedExtensionPage />}
               {activeMenu === 'custom' && <CustomPage />}

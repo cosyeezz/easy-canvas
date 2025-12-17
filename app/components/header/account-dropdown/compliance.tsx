@@ -14,7 +14,7 @@ import Toast from '../../base/toast'
 import Tooltip from '../../base/tooltip'
 import cn from '@/utils/classnames'
 import { useProviderContext } from '@/context/provider-context'
-import { Plan } from '@/app/components/billing/type'
+// import { Plan } from '@/app/components/billing/type'
 import { useModalContext } from '@/context/modal-context'
 import { ACCOUNT_SETTING_TAB } from '@/app/components/header/account-setting/constants'
 import { getDocDownloadUrl } from '@/service/common'
@@ -30,74 +30,7 @@ type UpgradeOrDownloadProps = {
   doc_name: DocName
 }
 const UpgradeOrDownload: FC<UpgradeOrDownloadProps> = ({ doc_name }) => {
-  const { t } = useTranslation()
-  const { plan } = useProviderContext()
-  const { setShowPricingModal, setShowAccountSettingModal } = useModalContext()
-  const isFreePlan = plan.type === Plan.sandbox
-
-  const handlePlanClick = useCallback(() => {
-    if (isFreePlan)
-      setShowPricingModal()
-    else
-      setShowAccountSettingModal({ payload: ACCOUNT_SETTING_TAB.BILLING })
-  }, [isFreePlan, setShowAccountSettingModal, setShowPricingModal])
-
-  const { isPending, mutate: downloadCompliance } = useMutation({
-    mutationKey: ['downloadCompliance', doc_name],
-    mutationFn: async () => {
-      try {
-        const ret = await getDocDownloadUrl(doc_name)
-        const a = document.createElement('a')
-        a.href = ret.url
-        a.click()
-        Toast.notify({
-          type: 'success',
-          message: t('common.operation.downloadSuccess'),
-        })
-      }
-      catch (error) {
-        console.error(error)
-        Toast.notify({
-          type: 'error',
-          message: t('common.operation.downloadFailed'),
-        })
-      }
-    },
-  })
-  const whichPlanCanDownloadCompliance = {
-    [DocName.SOC2_Type_I]: [Plan.professional, Plan.team],
-    [DocName.SOC2_Type_II]: [Plan.team],
-    [DocName.ISO_27001]: [Plan.team],
-    [DocName.GDPR]: [Plan.team, Plan.professional, Plan.sandbox],
-  }
-
-  const isCurrentPlanCanDownload = whichPlanCanDownloadCompliance[doc_name].includes(plan.type)
-  const handleDownloadClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    downloadCompliance()
-  }, [downloadCompliance])
-  if (isCurrentPlanCanDownload) {
-    return <Button loading={isPending} disabled={isPending} size='small' variant='secondary' className='flex items-center gap-[1px]' onClick={handleDownloadClick}>
-      <RiArrowDownCircleLine className='size-[14px] text-components-button-secondary-text-disabled' />
-      <span className='system-xs-medium px-[3px] text-components-button-secondary-text'>{t('common.operation.download')}</span>
-    </Button>
-  }
-  const upgradeTooltip: Record<Plan, string> = {
-    [Plan.sandbox]: t('common.compliance.sandboxUpgradeTooltip'),
-    [Plan.professional]: t('common.compliance.professionalUpgradeTooltip'),
-    [Plan.team]: '',
-    [Plan.enterprise]: '',
-  }
-  return <Tooltip asChild={false} popupContent={upgradeTooltip[plan.type]}>
-    <PremiumBadge color='blue' allowHover={true} onClick={handlePlanClick}>
-      <SparklesSoft className='flex h-3.5 w-3.5 items-center py-[1px] pl-[3px] text-components-premium-badge-indigo-text-stop-0' />
-      <div className='system-xs-medium'>
-        <span className='p-1'>
-          {t('billing.upgradeBtn.encourageShort')}
-        </span>
-      </div>
-    </PremiumBadge>
-  </Tooltip>
+  return null // Simply hide for now
 }
 
 export default function Compliance() {
