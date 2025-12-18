@@ -26,22 +26,17 @@ import type {
   UpdateOpenAIKeyResponse,
   ValidateOpenAIKeyResponse,
 } from '@/models/app'
-import type {
+import {
   DefaultModelResponse,
   Model,
   ModelItem,
   ModelLoadBalancingConfig,
   ModelParameterRule,
   ModelProvider,
-} from '@/app/components/header/account-setting/model-provider-page/declarations'
-import {
-  CurrentSystemQuotaTypeEnum,
-  CustomConfigurationStatusEnum,
-  ModelStatusEnum,
   ModelTypeEnum,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import type { RETRIEVE_METHOD } from '@/types/app'
-import type { SystemFeatures } from '@/types/feature'
+import { defaultSystemFeatures, SystemFeatures } from '@/types/feature'
 
 type LoginSuccess = {
   result: 'success'
@@ -55,164 +50,181 @@ type LoginFail = {
 }
 type LoginResponse = LoginSuccess | LoginFail
 export const login: Fetcher<LoginResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post(url, { body }) as Promise<LoginResponse>
+  return Promise.resolve({ result: 'success', data: { access_token: 'dummy_token' } })
 }
 export const webAppLogin: Fetcher<LoginResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post(url, { body }, { isPublicAPI: true }) as Promise<LoginResponse>
+  return Promise.resolve({ result: 'success', data: { access_token: 'dummy_token' } })
 }
 
 export const setup: Fetcher<CommonResponse, { body: Record<string, any> }> = ({ body }) => {
-  return post<CommonResponse>('/setup', { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const initValidate: Fetcher<CommonResponse, { body: Record<string, any> }> = ({ body }) => {
-  return post<CommonResponse>('/init', { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchInitValidateStatus = () => {
-  return get<InitValidateStatusResponse>('/init')
+  return Promise.resolve({ status: 'finished' } as InitValidateStatusResponse)
 }
 
 export const fetchSetupStatus = () => {
-  return get<SetupStatusResponse>('/setup')
+  return Promise.resolve({ step: 'finished', setup_at: Date.now() } as SetupStatusResponse)
 }
 
 export const fetchUserProfile: Fetcher<UserProfileOriginResponse, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<UserProfileOriginResponse>(url, params, { needAllResponseContent: true })
+  return Promise.resolve({
+    id: 'dummy_user_id',
+    name: 'Dummy User',
+    email: 'dummy@example.com',
+    interface_language: 'en-US',
+    interface_theme: 'light',
+    timezone: 'UTC',
+    last_login_at: Date.now(),
+    last_login_ip: '127.0.0.1',
+    created_at: Date.now(),
+    is_password_set: true,
+  } as UserProfileOriginResponse)
 }
 
 export const updateUserProfile: Fetcher<CommonResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchLangGeniusVersion: Fetcher<LangGeniusVersionResponse, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<LangGeniusVersionResponse>(url, { params })
+  return Promise.resolve({ current_version: '0.0.0', latest_version: '0.0.0', release_date: '', release_notes: '', version: '0.0.0', can_auto_update: false })
 }
 
 export const oauth: Fetcher<OauthResponse, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<OauthResponse>(url, { params })
+  return Promise.resolve({ redirect_url: '/' })
 }
 
 export const oneMoreStep: Fetcher<CommonResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchMembers: Fetcher<{ accounts: Member[] | null }, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<{ accounts: Member[] | null }>(url, { params })
+  return Promise.resolve({ accounts: [] })
 }
 
 export const fetchProviders: Fetcher<Provider[] | null, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<Provider[] | null>(url, { params })
+  return Promise.resolve([])
 }
 
 export const validateProviderKey: Fetcher<ValidateOpenAIKeyResponse, { url: string; body: { token: string } }> = ({ url, body }) => {
-  return post<ValidateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 export const updateProviderAIKey: Fetcher<UpdateOpenAIKeyResponse, { url: string; body: { token: string | ProviderAzureToken | ProviderAnthropicToken } }> = ({ url, body }) => {
-  return post<UpdateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchAccountIntegrates: Fetcher<{ data: AccountIntegrate[] | null }, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<{ data: AccountIntegrate[] | null }>(url, { params })
+  return Promise.resolve({ data: [] })
 }
 
 export const inviteMember: Fetcher<InvitationResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<InvitationResponse>(url, { body })
+  return Promise.resolve({ result: 'success', invitation: {} as any, url: '' })
 }
 
 export const updateMemberRole: Fetcher<CommonResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return put<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const deleteMemberOrCancelInvitation: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
-  return del<CommonResponse>(url)
+  return Promise.resolve({ result: 'success' })
 }
 
 export const sendOwnerEmail = (body: { language?: string }) =>
-  post<CommonResponse & { data: string }>('/workspaces/current/members/send-owner-transfer-confirm-email', { body })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyOwnerEmail = (body: { code: string; token: string }) =>
-  post<CommonResponse & { is_valid: boolean; email: string; token: string }>('/workspaces/current/members/owner-transfer-check', { body })
+  Promise.resolve({ result: 'success', is_valid: true, email: '', token: '' })
 
 export const ownershipTransfer = (memberID: string, body: { token: string }) =>
-  post<CommonResponse & { is_valid: boolean; email: string; token: string }>(`/workspaces/current/members/${memberID}/owner-transfer`, { body })
+  Promise.resolve({ result: 'success', is_valid: true, email: '', token: '' })
 
 export const fetchFilePreview: Fetcher<{ content: string }, { fileID: string }> = ({ fileID }) => {
-  return get<{ content: string }>(`/files/${fileID}/preview`)
+  return Promise.resolve({ content: '' })
 }
 
 export const fetchCurrentWorkspace: Fetcher<ICurrentWorkspace, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return post<ICurrentWorkspace>(url, { body: params })
+  return Promise.resolve({
+    id: 'dummy_workspace_id',
+    name: 'Dummy Workspace',
+    role: 'owner',
+    providers: [],
+    in_trail: false,
+    created_at: Date.now(),
+    custom_config: {},
+    plan: 'sandbox',
+    status: 'active',
+  } as ICurrentWorkspace)
 }
 
 export const updateCurrentWorkspace: Fetcher<ICurrentWorkspace, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<ICurrentWorkspace>(url, { body })
+  return Promise.resolve({} as ICurrentWorkspace)
 }
 
 export const fetchWorkspaces: Fetcher<{ workspaces: IWorkspace[] }, { url: string; params: Record<string, any> }> = ({ url, params }) => {
-  return get<{ workspaces: IWorkspace[] }>(url, { params })
+  return Promise.resolve({ workspaces: [] })
 }
 
 export const switchWorkspace: Fetcher<CommonResponse & { new_tenant: IWorkspace }, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<CommonResponse & { new_tenant: IWorkspace }>(url, { body })
+  return Promise.resolve({ result: 'success', new_tenant: {} as IWorkspace })
 }
 
 export const updateWorkspaceInfo: Fetcher<ICurrentWorkspace, { url: string; body: Record<string, any> }> = ({ url, body }) => {
-  return post<ICurrentWorkspace>(url, { body })
+  return Promise.resolve({} as ICurrentWorkspace)
 }
 
 export const fetchDataSource: Fetcher<{ data: DataSourceNotion[] }, { url: string }> = ({ url }) => {
-  return get<{ data: DataSourceNotion[] }>(url)
+  return Promise.resolve({ data: [] })
 }
 
 export const syncDataSourceNotion: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
-  return get<CommonResponse>(url)
+  return Promise.resolve({ result: 'success' })
 }
 
 export const updateDataSourceNotionAction: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
-  return patch<CommonResponse>(url)
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchPluginProviders: Fetcher<PluginProvider[] | null, string> = (url) => {
-  return get<PluginProvider[] | null>(url)
+  return Promise.resolve([])
 }
 
 export const validatePluginProviderKey: Fetcher<ValidateOpenAIKeyResponse, { url: string; body: { credentials: any } }> = ({ url, body }) => {
-  return post<ValidateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 export const updatePluginProviderAIKey: Fetcher<UpdateOpenAIKeyResponse, { url: string; body: { credentials: any } }> = ({ url, body }) => {
-  return post<UpdateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const invitationCheck: Fetcher<CommonResponse & { is_valid: boolean; data: { workspace_name: string; email: string; workspace_id: string } }, { url: string; params: { workspace_id?: string; email?: string; token: string } }> = ({ url, params }) => {
-  return get<CommonResponse & { is_valid: boolean; data: { workspace_name: string; email: string; workspace_id: string } }>(url, { params })
+  return Promise.resolve({ result: 'success', is_valid: true, data: { workspace_name: 'Dummy', email: 'dummy@example.com', workspace_id: '1' } })
 }
 
 export const activateMember: Fetcher<LoginResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<LoginResponse>(url, { body })
+  return Promise.resolve({ result: 'success', data: { access_token: 'dummy' } })
 }
 
+// MOCK: Model Providers
 export const fetchModelProviders: Fetcher<{ data: ModelProvider[] }, string> = (url) => {
   return Promise.resolve({
     data: [
       {
         provider: 'openai',
-        label: { 'en_US': 'OpenAI' },
-        icon_small: { 'en_US': '' },
-        icon_large: { 'en_US': '' },
-        background: '',
-        help: {
-          title: { 'en_US': 'OpenAI' },
-          url: { 'en_US': 'https://openai.com' },
-        },
-        supported_model_types: [ModelTypeEnum.textGeneration],
-        configurating: false,
-        prefer_custom_model: false,
-        custom_configuration: { status: CustomConfigurationStatusEnum.active },
-        system_configuration: { enabled: true, current_quota_type: CurrentSystemQuotaTypeEnum.paid },
-        models: [],
-      } as any,
-    ],
+        label: { 'en-US': 'OpenAI' },
+        icon_small: { 'en-US': 'openai_small.png' },
+        icon_large: { 'en-US': 'openai_large.png' },
+        background: '#000',
+        help: { title: { 'en-US': 'Help' }, url: { 'en-US': '#' } },
+        supported_model_types: [ModelTypeEnum.TEXT_GENERATION],
+        configurate_methods: [],
+        provider_credential_schema: { credential_form_schemas: [] },
+        model_credential_schema: { credential_form_schemas: [] },
+      } as unknown as ModelProvider
+    ]
   })
 }
 
@@ -221,248 +233,236 @@ export type ModelProviderCredentials = {
   load_balancing: ModelLoadBalancingConfig
 }
 export const fetchModelProviderCredentials: Fetcher<ModelProviderCredentials, string> = (url) => {
-  return Promise.resolve({
-    credentials: {},
-    load_balancing: {
-      enabled: false,
-      balance_method: 'round_robin',
-    } as any,
-  })
+  return Promise.resolve({ load_balancing: { enabled: false, configs: [] } })
 }
 
 export const fetchModelLoadBalancingConfig: Fetcher<{
   credentials?: Record<string, string | undefined | boolean>
   load_balancing: ModelLoadBalancingConfig
 }, string> = (url) => {
-  return Promise.resolve({
-    credentials: {},
-    load_balancing: {
-      enabled: false,
-      balance_method: 'round_robin',
-    } as any,
-  })
+  return Promise.resolve({ load_balancing: { enabled: false, configs: [] } })
 }
 
 export const fetchModelProviderModelList: Fetcher<{ data: ModelItem[] }, string> = (url) => {
   return Promise.resolve({ data: [] })
 }
 
+// MOCK: Model List
 export const fetchModelList: Fetcher<{ data: Model[] }, string> = (url) => {
   return Promise.resolve({
     data: [
       {
-        provider: 'openai',
+        id: 'gpt-3.5-turbo',
         model: 'gpt-3.5-turbo',
-        label: { 'en_US': 'GPT-3.5 Turbo' },
-        model_type: ModelTypeEnum.textGeneration,
-        features: ['agent-thought'],
-        fetch_from: 'openai',
-        model_properties: { mode: 'chat' },
-        status: ModelStatusEnum.active,
-      } as any,
-    ],
+        model_type: ModelTypeEnum.TEXT_GENERATION,
+        provider: {
+          provider: 'openai',
+          label: { 'en-US': 'OpenAI' },
+          icon_small: { 'en-US': 'openai_small.png' },
+          icon_large: { 'en-US': 'openai_large.png' },
+          supported_model_types: [ModelTypeEnum.TEXT_GENERATION]
+        },
+        features: [],
+        fetch_from: 'preset',
+        model_properties: {
+          mode: 'chat',
+          context_size: 4096
+        }
+      } as unknown as Model
+    ]
   })
 }
 
 export const validateModelProvider: Fetcher<ValidateOpenAIKeyResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<ValidateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const validateModelLoadBalancingCredentials: Fetcher<ValidateOpenAIKeyResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<ValidateOpenAIKeyResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const setModelProvider: Fetcher<CommonResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const deleteModelProvider: Fetcher<CommonResponse, { url: string; body?: any }> = ({ url, body }) => {
-  return del<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const changeModelProviderPriority: Fetcher<CommonResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const setModelProviderModel: Fetcher<CommonResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
 export const deleteModelProviderModel: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
-  return del<CommonResponse>(url)
+  return Promise.resolve({ result: 'success' })
 }
 
 export const getPayUrl: Fetcher<{ url: string }, string> = (url) => {
-  return get<{ url: string }>(url)
+  return Promise.resolve({ url: '#' })
 }
 
+// MOCK: Default Model
 export const fetchDefaultModal: Fetcher<{ data: DefaultModelResponse }, string> = (url) => {
   return Promise.resolve({
     data: {
-      provider: { provider: 'openai', label: { 'en_US': 'OpenAI' }, icon_small: { 'en_US': '' }, icon_large: { 'en_US': '' }, supported_model_types: [ModelTypeEnum.textGeneration] } as any,
       model: 'gpt-3.5-turbo',
-      model_type: ModelTypeEnum.textGeneration,
-    },
+      model_type: ModelTypeEnum.TEXT_GENERATION,
+      provider: {
+          provider: 'openai',
+          label: { 'en-US': 'OpenAI' },
+          icon_small: { 'en-US': 'openai_small.png' },
+          icon_large: { 'en-US': 'openai_large.png' },
+          supported_model_types: [ModelTypeEnum.TEXT_GENERATION]
+      }
+    } as unknown as DefaultModelResponse
   })
 }
 
 export const updateDefaultModel: Fetcher<CommonResponse, { url: string; body: any }> = ({ url, body }) => {
-  return post<CommonResponse>(url, { body })
+  return Promise.resolve({ result: 'success' })
 }
 
+// MOCK: Model Rules
 export const fetchModelParameterRules: Fetcher<{ data: ModelParameterRule[] }, string> = (url) => {
-  return Promise.resolve({
-    data: [
-      {
-        name: 'temperature',
-        label: { 'en_US': 'Temperature' },
-        type: 'float',
-        min: 0,
-        max: 2,
-        default: 0.7,
-        help: { 'en_US': 'Controls randomness' },
-        required: true,
-      } as any,
-      {
-        name: 'max_tokens',
-        label: { 'en_US': 'Max Tokens' },
-        type: 'int',
-        min: 1,
-        max: 4096,
-        default: 512,
-        required: false,
-      } as any,
-    ],
-  })
+  return Promise.resolve({ data: [] })
 }
 
 export const fetchFileUploadConfig: Fetcher<FileUploadConfigResponse, { url: string }> = ({ url }) => {
-  return get<FileUploadConfigResponse>(url)
+  return Promise.resolve({
+    file_size_limit: 10,
+    batch_count_limit: 5,
+    image_file_size_limit: 5,
+    file_types: [],
+    image_file_types: []
+  } as FileUploadConfigResponse)
 }
 
 export const fetchNotionConnection: Fetcher<{ data: string }, string> = (url) => {
-  return get(url) as Promise<{ data: string }>
+  return Promise.resolve({ data: '' })
 }
 
 export const fetchDataSourceNotionBinding: Fetcher<{ result: string }, string> = (url) => {
-  return get(url) as Promise<{ result: string }>
+  return Promise.resolve({ result: '' })
 }
 
 export const fetchApiBasedExtensionList: Fetcher<ApiBasedExtension[], string> = (url) => {
-  return get(url) as Promise<ApiBasedExtension[]>
+  return Promise.resolve([])
 }
 
 export const fetchApiBasedExtensionDetail: Fetcher<ApiBasedExtension, string> = (url) => {
-  return get(url) as Promise<ApiBasedExtension>
+  return Promise.resolve({} as ApiBasedExtension)
 }
 
 export const addApiBasedExtension: Fetcher<ApiBasedExtension, { url: string; body: ApiBasedExtension }> = ({ url, body }) => {
-  return post(url, { body }) as Promise<ApiBasedExtension>
+  return Promise.resolve(body)
 }
 
 export const updateApiBasedExtension: Fetcher<ApiBasedExtension, { url: string; body: ApiBasedExtension }> = ({ url, body }) => {
-  return post(url, { body }) as Promise<ApiBasedExtension>
+  return Promise.resolve(body)
 }
 
 export const deleteApiBasedExtension: Fetcher<{ result: string }, string> = (url) => {
-  return del(url) as Promise<{ result: string }>
+  return Promise.resolve({ result: 'success' })
 }
 
 export const fetchCodeBasedExtensionList: Fetcher<CodeBasedExtension, string> = (url) => {
-  return get(url) as Promise<CodeBasedExtension>
+  return Promise.resolve({ data: [] } as unknown as CodeBasedExtension)
 }
 
 export const moderate = (url: string, body: { app_id: string; text: string }) => {
-  return post(url, { body }) as Promise<ModerateResponse>
+  return Promise.resolve({ flagged: false } as ModerateResponse)
 }
 
 type RetrievalMethodsRes = {
   retrieval_method: RETRIEVE_METHOD[]
 }
 export const fetchSupportRetrievalMethods: Fetcher<RetrievalMethodsRes, string> = (url) => {
-  return get<RetrievalMethodsRes>(url)
+  return Promise.resolve({ retrieval_method: [] })
 }
 
-import { defaultSystemFeatures } from '@/types/feature'
-
+// MOCK: System Features
 export const getSystemFeatures = () => {
   return Promise.resolve(defaultSystemFeatures)
 }
 
 export const enableModel = (url: string, body: { model: string; model_type: ModelTypeEnum }) =>
-  patch<CommonResponse>(url, { body })
+  Promise.resolve({ result: 'success' })
 
 export const disableModel = (url: string, body: { model: string; model_type: ModelTypeEnum }) =>
-  patch<CommonResponse>(url, { body })
+  Promise.resolve({ result: 'success' })
 
 export const sendForgotPasswordEmail: Fetcher<CommonResponse & { data: string }, { url: string; body: { email: string } }> = ({ url, body }) =>
-  post<CommonResponse & { data: string }>(url, { body })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyForgotPasswordToken: Fetcher<CommonResponse & { is_valid: boolean; email: string }, { url: string; body: { token: string } }> = ({ url, body }) => {
-  return post(url, { body }) as Promise<CommonResponse & { is_valid: boolean; email: string }>
+  return Promise.resolve({ result: 'success', is_valid: true, email: '' })
 }
 
 export const changePasswordWithToken: Fetcher<CommonResponse, { url: string; body: { token: string; new_password: string; password_confirm: string } }> = ({ url, body }) =>
-  post<CommonResponse>(url, { body })
+  Promise.resolve({ result: 'success' })
 
 export const sendWebAppForgotPasswordEmail: Fetcher<CommonResponse & { data: string }, { url: string; body: { email: string } }> = ({ url, body }) =>
-  post<CommonResponse & { data: string }>(url, { body }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyWebAppForgotPasswordToken: Fetcher<CommonResponse & { is_valid: boolean; email: string }, { url: string; body: { token: string } }> = ({ url, body }) => {
-  return post(url, { body }, { isPublicAPI: true }) as Promise<CommonResponse & { is_valid: boolean; email: string }>
+  return Promise.resolve({ result: 'success', is_valid: true, email: '' })
 }
 
 export const changeWebAppPasswordWithToken: Fetcher<CommonResponse, { url: string; body: { token: string; new_password: string; password_confirm: string } }> = ({ url, body }) =>
-  post<CommonResponse>(url, { body }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success' })
 
 export const uploadRemoteFileInfo = (url: string, isPublic?: boolean, silent?: boolean) => {
-  return post<{ id: string; name: string; size: number; mime_type: string; url: string }>('/remote-files/upload', { body: { url } }, { isPublicAPI: isPublic, silent })
+  return Promise.resolve({ id: 'dummy_id', name: 'dummy_file', size: 0, mime_type: 'text/plain', url })
 }
 
 export const sendEMailLoginCode = (email: string, language = 'en-US') =>
-  post<CommonResponse & { data: string }>('/email-code-login', { body: { email, language } })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const emailLoginWithCode = (data: { email: string; code: string; token: string; language: string }) =>
-  post<LoginResponse>('/email-code-login/validity', { body: data })
+  Promise.resolve({ result: 'success', data: { access_token: 'dummy' } } as unknown as LoginResponse)
 
 export const sendResetPasswordCode = (email: string, language = 'en-US') =>
-  post<CommonResponse & { data: string; message?: string; code?: string }>('/forgot-password', { body: { email, language } })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyResetPasswordCode = (body: { email: string; code: string; token: string }) =>
-  post<CommonResponse & { is_valid: boolean; token: string }>('/forgot-password/validity', { body })
+  Promise.resolve({ result: 'success', is_valid: true, token: 'dummy' })
 
 export const sendWebAppEMailLoginCode = (email: string, language = 'en-US') =>
-  post<CommonResponse & { data: string }>('/email-code-login', { body: { email, language } }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const webAppEmailLoginWithCode = (data: { email: string; code: string; token: string }) =>
-  post<LoginResponse>('/email-code-login/validity', { body: data }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success', data: { access_token: 'dummy' } } as unknown as LoginResponse)
 
 export const sendWebAppResetPasswordCode = (email: string, language = 'en-US') =>
-  post<CommonResponse & { data: string; message?: string; code?: string }>('/forgot-password', { body: { email, language } }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyWebAppResetPasswordCode = (body: { email: string; code: string; token: string }) =>
-  post<CommonResponse & { is_valid: boolean; token: string }>('/forgot-password/validity', { body }, { isPublicAPI: true })
+  Promise.resolve({ result: 'success', is_valid: true, token: 'dummy' })
 
 export const sendDeleteAccountCode = () =>
-  get<CommonResponse & { data: string }>('/account/delete/verify')
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyDeleteAccountCode = (body: { code: string; token: string }) =>
-  post<CommonResponse & { is_valid: boolean }>('/account/delete', { body })
+  Promise.resolve({ result: 'success', is_valid: true })
 
 export const submitDeleteAccountFeedback = (body: { feedback: string; email: string }) =>
-  post<CommonResponse>('/account/delete/feedback', { body })
+  Promise.resolve({ result: 'success' })
 
 export const getDocDownloadUrl = (doc_name: string) =>
-  get<{ url: string }>('/compliance/download', { params: { doc_name } }, { silent: true })
+  Promise.resolve({ url: '#' })
 
 export const sendVerifyCode = (body: { email: string; phase: string; token?: string }) =>
-  post<CommonResponse & { data: string }>('/account/change-email', { body })
+  Promise.resolve({ result: 'success', data: '' })
 
 export const verifyEmail = (body: { email: string; code: string; token: string }) =>
-  post<CommonResponse & { is_valid: boolean; email: string; token: string }>('/account/change-email/validity', { body })
+  Promise.resolve({ result: 'success', is_valid: true, email: '', token: '' })
 
 export const resetEmail = (body: { new_email: string; token: string }) =>
-  post<CommonResponse>('/account/change-email/reset', { body })
+  Promise.resolve({ result: 'success' })
 
 export const checkEmailExisted = (body: { email: string }) =>
-  post<CommonResponse>('/account/change-email/check-email-unique', { body }, { silent: true })
+  Promise.resolve({ result: 'success' })

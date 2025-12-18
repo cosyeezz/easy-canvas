@@ -273,37 +273,25 @@ const BasePanel: FC<BasePanelProps> = ({
   const logParams = useLogs()
   const passedLogParams = useMemo(() => [BlockEnum.Tool, BlockEnum.Agent, BlockEnum.Iteration, BlockEnum.Loop].includes(data.type) ? logParams : {}, [data.type, logParams])
 
-  const storeBuildInTools = useStore(s => s.buildInTools)
-  const { data: buildInTools } = useAllBuiltInTools()
-  const currToolCollection = useMemo(() => {
-    const candidates = buildInTools ?? storeBuildInTools
-    return candidates?.find(item => canFindTool(item.id, data.provider_id))
-  }, [buildInTools, storeBuildInTools, data.provider_id])
-  const needsToolAuth = useMemo(() => {
-    return data.type === BlockEnum.Tool && currToolCollection?.allow_delete
-  }, [data.type, currToolCollection?.allow_delete])
+  const needsToolAuth = false
+  const currToolCollection = undefined
 
   // only fetch trigger plugins when the node is a trigger plugin
-  const { data: triggerPlugins = [] } = useAllTriggerPlugins(data.type === BlockEnum.TriggerPlugin)
-  const currentTriggerPlugin = useMemo(() => {
-    if (data.type !== BlockEnum.TriggerPlugin || !data.plugin_id || !triggerPlugins?.length)
-      return undefined
-    return triggerPlugins?.find(p => p.plugin_id === data.plugin_id)
-  }, [data.type, data.plugin_id, triggerPlugins])
+  const currentTriggerPlugin = undefined
   const { setDetail } = usePluginStore()
 
   useEffect(() => {
     if (currentTriggerPlugin) {
       setDetail({
-        name: currentTriggerPlugin.label[language],
-        plugin_id: currentTriggerPlugin.plugin_id || '',
-        plugin_unique_identifier: currentTriggerPlugin.plugin_unique_identifier || '',
-        id: currentTriggerPlugin.id,
-        provider: currentTriggerPlugin.name,
+        name: (currentTriggerPlugin as any).label[language],
+        plugin_id: (currentTriggerPlugin as any).plugin_id || '',
+        plugin_unique_identifier: (currentTriggerPlugin as any).plugin_unique_identifier || '',
+        id: (currentTriggerPlugin as any).id,
+        provider: (currentTriggerPlugin as any).name,
         declaration: {
           trigger: {
-            subscription_schema: currentTriggerPlugin.subscription_schema || [],
-            subscription_constructor: currentTriggerPlugin.subscription_constructor,
+            subscription_schema: (currentTriggerPlugin as any).subscription_schema || [],
+            subscription_constructor: (currentTriggerPlugin as any).subscription_constructor,
           },
         },
       })

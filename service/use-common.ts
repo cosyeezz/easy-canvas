@@ -13,7 +13,14 @@ const NAME_SPACE = 'common'
 export const useFileUploadConfig = () => {
   return useQuery<FileUploadConfigResponse>({
     queryKey: [NAME_SPACE, 'file-upload-config'],
-    queryFn: () => get<FileUploadConfigResponse>('/files/upload'),
+    queryFn: () => Promise.resolve({
+      file_size_limit: 10,
+      batch_count_limit: 5,
+      image_file_size_limit: 2,
+      video_file_size_limit: 10,
+      audio_file_size_limit: 5,
+      document_file_size_limit: 10,
+    } as FileUploadConfigResponse),
   })
 }
 
@@ -64,7 +71,9 @@ export const useMailRegister = () => {
 export const useFileSupportTypes = () => {
   return useQuery<FileTypesRes>({
     queryKey: [NAME_SPACE, 'file-types'],
-    queryFn: () => get<FileTypesRes>('/files/support-type'),
+    queryFn: () => Promise.resolve({
+      allowed_extensions: ['txt', 'pdf', 'md', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'png', 'jpg', 'jpeg', 'gif', 'webp'],
+    } as FileTypesRes),
   })
 }
 
@@ -75,9 +84,7 @@ type MemberResponse = {
 export const useMembers = () => {
   return useQuery<MemberResponse>({
     queryKey: [NAME_SPACE, 'members'],
-    queryFn: (params: Record<string, any>) => get<MemberResponse>('/workspaces/current/members', {
-      params,
-    }),
+    queryFn: () => Promise.resolve({ accounts: [] } as MemberResponse),
   })
 }
 
@@ -103,7 +110,7 @@ export type SchemaTypeDefinition = {
 export const useSchemaTypeDefinitions = () => {
   return useQuery<SchemaTypeDefinition[]>({
     queryKey: [NAME_SPACE, 'schema-type-definitions'],
-    queryFn: () => get<SchemaTypeDefinition[]>('/spec/schema-definitions'),
+    queryFn: () => Promise.resolve([]),
   })
 }
 
@@ -116,19 +123,7 @@ export const useIsLogin = () => {
     queryKey: [NAME_SPACE, 'is-login'],
     staleTime: 0,
     gcTime: 0,
-    queryFn: async (): Promise<isLogin> => {
-      try {
-        await get('/account/profile', {}, {
-          silent: true,
-        })
-      }
-      catch (e: any) {
-        if(e.status === 401)
-          return { logged_in: false }
-        return { logged_in: true }
-      }
-      return { logged_in: true }
-    },
+    queryFn: () => Promise.resolve({ logged_in: true }),
   })
 }
 

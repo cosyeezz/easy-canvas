@@ -44,8 +44,8 @@ jest.mock('@/app/components/billing/trigger-events-limit-modal', () => ({
 
 type DefaultPlanShape = typeof defaultPlan
 type ResetShape = {
-  apiRateLimit: number | null | undefined
-  triggerEvents: number | null | undefined
+  apiRateLimit: number | null
+  triggerEvents: number | null
 }
 type PlanShape = Omit<DefaultPlanShape, 'reset'> & { reset: ResetShape }
 type PlanOverrides = Partial<Omit<DefaultPlanShape, 'usage' | 'total' | 'reset'>> & {

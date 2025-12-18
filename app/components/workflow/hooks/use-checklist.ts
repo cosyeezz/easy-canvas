@@ -85,22 +85,21 @@ const PLUGIN_DEPENDENT_TYPES: BlockEnum[] = [
 
 export const useChecklist = (nodes: Node[], edges: Edge[]) => {
   const { t } = useTranslation()
-  const language = useGetLanguage()
   const { nodesMap: nodesExtraData } = useNodesMetaData()
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
+  const buildInTools: any[] = []
+  const customTools: any[] = []
+  const workflowTools: any[] = []
   const dataSourceList = useStore(s => s.dataSourceList)
-  const { data: strategyProviders } = useStrategyProviders()
-  const { data: triggerPlugins } = useAllTriggerPlugins()
+  const strategyProviders: any[] = []
+  const triggerPlugins: any[] = []
   const datasetsDetail = useDatasetsDetailStore(s => s.datasetsDetail)
   const getToolIcon = useGetToolIcon()
   const appMode = useAppStore.getState().appDetail?.mode
   const shouldCheckStartNode = appMode === AppModeEnum.WORKFLOW || appMode === AppModeEnum.ADVANCED_CHAT
 
   const map = useNodesAvailableVarList(nodes)
-  const { data: embeddingModelList } = useModelList(ModelTypeEnum.textEmbedding)
-  const { data: rerankModelList } = useModelList(ModelTypeEnum.rerank)
+  const embeddingModelList: any[] = []
+  const rerankModelList: any[] = []
 
   const getCheckData = useCallback((data: CommonNodeType<{}>) => {
     let checkData = data
@@ -252,20 +251,17 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
 
 export const useChecklistBeforePublish = () => {
   const { t } = useTranslation()
-  const language = useGetLanguage()
   const { notify } = useToastContext()
   const store = useStoreApi()
   const { nodesMap: nodesExtraData } = useNodesMetaData()
-  const { data: strategyProviders } = useStrategyProviders()
   const updateDatasetsDetail = useDatasetsDetailStore(s => s.updateDatasetsDetail)
-  const updateTime = useRef(0)
   const workflowStore = useWorkflowStore()
   const { getNodesAvailableVarList } = useGetNodesAvailableVarList()
-  const { data: embeddingModelList } = useModelList(ModelTypeEnum.textEmbedding)
-  const { data: rerankModelList } = useModelList(ModelTypeEnum.rerank)
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
+  const embeddingModelList: any[] = []
+  const rerankModelList: any[] = []
+  const buildInTools: any[] = []
+  const customTools: any[] = []
+  const workflowTools: any[] = []
   const appMode = useAppStore.getState().appDetail?.mode
   const shouldCheckStartNode = appMode === AppModeEnum.WORKFLOW || appMode === AppModeEnum.ADVANCED_CHAT
 
@@ -313,29 +309,20 @@ export const useChecklistBeforePublish = () => {
       notify({ type: 'error', message: t('workflow.common.maxTreeDepth', { depth: MAX_TREE_DEPTH }) })
       return false
     }
-    // Before publish, we need to fetch datasets detail, in case of the settings of datasets have been changed
-    const knowledgeRetrievalNodes = filteredNodes.filter(node => node.data.type === BlockEnum.KnowledgeRetrieval)
-    const allDatasetIds = knowledgeRetrievalNodes.reduce<string[]>((acc, node) => {
-      return Array.from(new Set([...acc, ...(node.data as CommonNodeType<KnowledgeRetrievalNodeType>).dataset_ids]))
-    }, [])
-    let datasets: DataSet[] = []
-    if (allDatasetIds.length > 0) {
-      updateTime.current = updateTime.current + 1
-      const currUpdateTime = updateTime.current
-      const { data: datasetsDetail } = await fetchDatasets({ url: '/datasets', params: { page: 1, ids: allDatasetIds } })
-      if (datasetsDetail && datasetsDetail.length > 0) {
-        // avoid old data to overwrite the new data
-        if (currUpdateTime < updateTime.current)
-          return false
-        datasets = datasetsDetail
-        updateDatasetsDetail(datasetsDetail)
-      }
-    }
+    
+    // No backend dataset fetch
+    const datasets: DataSet[] = []
+    
     const map = getNodesAvailableVarList(nodes)
     for (let i = 0; i < filteredNodes.length; i++) {
       const node = filteredNodes[i]
       let moreDataForCheckValid
       let usedVars: ValueSelector[] = []
+      
+      const strategyProviders: any[] = []
+      const triggerPlugins: any[] = []
+      const language = 'en-US'
+
       if (node.data.type === BlockEnum.Tool)
         moreDataForCheckValid = getToolCheckParams(node.data as ToolNodeType, buildInTools || [], customTools || [], workflowTools || [], language)
 
@@ -344,9 +331,9 @@ export const useChecklistBeforePublish = () => {
 
       if (node.data.type === BlockEnum.Agent) {
         const data = node.data as AgentNodeType
-        const isReadyForCheckValid = !!strategyProviders
-        const provider = strategyProviders?.find(provider => provider.declaration.identity.name === data.agent_strategy_provider_name)
-        const strategy = provider?.declaration.strategies?.find(s => s.identity.name === data.agent_strategy_name)
+        const isReadyForCheckValid = true
+        const provider = strategyProviders?.find(provider => (provider as any).declaration.identity.name === data.agent_strategy_provider_name)
+        const strategy = (provider as any)?.declaration.strategies?.find((s: any) => s.identity.name === data.agent_strategy_name)
         moreDataForCheckValid = {
           provider,
           strategy,
@@ -415,7 +402,7 @@ export const useChecklistBeforePublish = () => {
     }
 
     return true
-  }, [store, notify, t, language, nodesExtraData, strategyProviders, updateDatasetsDetail, getCheckData, workflowStore, buildInTools, customTools, workflowTools, shouldCheckStartNode])
+  }, [store, notify, t, nodesExtraData, updateDatasetsDetail, getCheckData, workflowStore, shouldCheckStartNode, getNodesAvailableVarList])
 
   return {
     handleCheckBeforePublish,

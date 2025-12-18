@@ -22,7 +22,7 @@ const NAME_SPACE = 'models'
 export const useModelProviderModelList = (provider: string) => {
   return useQuery({
     queryKey: [NAME_SPACE, 'model-list', provider],
-    queryFn: () => get<{ data: ModelItem[] }>(`/workspaces/current/model-providers/${provider}/models`),
+    queryFn: () => Promise.resolve({ data: [] }),
   })
 }
 
@@ -30,45 +30,31 @@ export const useGetProviderCredential = (enabled: boolean, provider: string, cre
   return useQuery({
     enabled,
     queryKey: [NAME_SPACE, 'model-list', provider, credentialId],
-    queryFn: () => get<ProviderCredential>(`/workspaces/current/model-providers/${provider}/credentials${credentialId ? `?credential_id=${credentialId}` : ''}`),
+    queryFn: () => Promise.resolve({} as ProviderCredential),
   })
 }
 
 export const useAddProviderCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: ProviderCredential) => post<{ result: string }>(`/workspaces/current/model-providers/${provider}/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: ProviderCredential) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useEditProviderCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: ProviderCredential) => put<{ result: string }>(`/workspaces/current/model-providers/${provider}/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: ProviderCredential) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useDeleteProviderCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      credential_id: string
-    }) => del<{ result: string }>(`/workspaces/current/model-providers/${provider}/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useActiveProviderCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      credential_id: string
-      model?: string
-      model_type?: ModelTypeEnum
-    }) => post<{ result: string }>(`/workspaces/current/model-providers/${provider}/credentials/switch`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }
 
@@ -83,7 +69,7 @@ export const useGetModelCredential = (
   return useQuery({
     enabled,
     queryKey: [NAME_SPACE, 'model-list', provider, model, modelType, credentialId],
-    queryFn: () => get<ModelCredential>(`/workspaces/current/model-providers/${provider}/models/credentials?model=${model}&model_type=${modelType}&config_from=${configFrom}${credentialId ? `&credential_id=${credentialId}` : ''}`),
+    queryFn: () => Promise.resolve({} as ModelCredential),
     staleTime: 0,
     gcTime: 0,
   })
@@ -91,65 +77,36 @@ export const useGetModelCredential = (
 
 export const useAddModelCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: ModelCredential) => post<{ result: string }>(`/workspaces/current/model-providers/${provider}/models/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: ModelCredential) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useEditModelCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: ModelCredential) => put<{ result: string }>(`/workspaces/current/model-providers/${provider}/models/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: ModelCredential) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useDeleteModelCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      credential_id: string
-      model?: string
-      model_type?: ModelTypeEnum
-    }) => del<{ result: string }>(`/workspaces/current/model-providers/${provider}/models/credentials`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useDeleteModel = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      model: string
-      model_type: ModelTypeEnum
-    }) => del<{ result: string }>(`/workspaces/current/model-providers/${provider}/models`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useActiveModelCredential = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      credential_id: string
-      model?: string
-      model_type?: ModelTypeEnum
-    }) => post<{ result: string }>(`/workspaces/current/model-providers/${provider}/models/credentials/switch`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }
 
 export const useUpdateModelLoadBalancingConfig = (provider: string) => {
   return useMutation({
-    mutationFn: (data: {
-      config_from: string
-      model: string
-      model_type: ModelTypeEnum
-      load_balancing: ModelLoadBalancingConfig
-      credential_id?: string
-    }) => post<{ result: string }>(`/workspaces/current/model-providers/${provider}/models`, {
-      body: data,
-    }),
+    mutationFn: (data: any) => Promise.resolve({ result: 'success' }),
   })
 }

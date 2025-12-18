@@ -18,7 +18,7 @@ const TriggerPluginList = ({
   searchText,
   onContentStateChange,
 }: TriggerPluginListProps) => {
-  const { data: triggerPluginsData } = useAllTriggerPlugins()
+  const triggerPluginsData: any[] = []
   const language = useGetLanguage()
 
   const normalizedSearch = searchText.trim().toLowerCase()

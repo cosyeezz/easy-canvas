@@ -56,7 +56,7 @@ export const useEducationStatus = (disable?: boolean) => {
     enabled: !disable,
     queryKey: [NAME_SPACE, 'education-status'],
     queryFn: () => {
-      return get<{ is_student: boolean, allow_refresh: boolean, expire_at: number | null }>('/account/education')
+      return Promise.resolve({ is_student: false, allow_refresh: false, expire_at: null })
     },
     retry: false,
     gcTime: 0, // No cache. Prevent switch account caused stale data

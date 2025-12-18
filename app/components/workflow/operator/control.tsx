@@ -1,15 +1,20 @@
 import type { MouseEvent } from 'react'
 import {
   memo,
+  useEffect,
+  useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from 'next-themes'
 import {
   RiAspectRatioFill,
   RiAspectRatioLine,
   RiCursorLine,
   RiFunctionAddLine,
   RiHand,
+  RiMoonLine,
   RiStickyNoteAddLine,
+  RiSunLine,
 } from '@remixicon/react'
 import {
   useNodesReadOnly,
@@ -30,6 +35,8 @@ import cn from '@/utils/classnames'
 
 const Control = () => {
   const { t } = useTranslation()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const controlMode = useStore(s => s.controlMode)
   const maximizeCanvas = useStore(s => s.maximizeCanvas)
   const { handleModePointer, handleModeHand } = useWorkflowMoveMode()
@@ -41,12 +48,20 @@ const Control = () => {
   } = useNodesReadOnly()
   const { handleToggleMaximizeCanvas } = useWorkflowCanvasMaximize()
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const addNote = (e: MouseEvent<HTMLDivElement>) => {
     if (getNodesReadOnly())
       return
 
     e.stopPropagation()
     handleAddNote()
+  }
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -113,6 +128,16 @@ const Control = () => {
           {!maximizeCanvas && <RiAspectRatioLine className='h-4 w-4' />}
         </div>
       </TipPopup>
+      {mounted && (
+        <TipPopup title={theme === 'dark' ? t('app.themeLight') : t('app.themeDark')}>
+          <div
+            className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg hover:bg-state-base-hover hover:text-text-secondary'
+            onClick={toggleTheme}
+          >
+            {theme === 'dark' ? <RiSunLine className='h-4 w-4' /> : <RiMoonLine className='h-4 w-4' />}
+          </div>
+        </TipPopup>
+      )}
       <MoreActions />
     </div>
   )

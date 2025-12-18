@@ -1496,7 +1496,9 @@ export const useNodesInteractions = () => {
         const bundledNodes = nodes.filter((node) => {
           if (!node.data._isBundled) return false
           if (node.type === CUSTOM_NOTE_NODE) return true
-          const { metaData } = nodesMetaDataMap![node.data.type as BlockEnum]
+          const meta = nodesMetaDataMap?.[node.data.type as BlockEnum]
+          if (!meta) return true
+          const { metaData } = meta
           if (metaData.isSingleton) return false
           return !node.data.isInIteration && !node.data.isInLoop
         })
@@ -1509,7 +1511,9 @@ export const useNodesInteractions = () => {
         const selectedNode = nodes.find((node) => {
           if (!node.data.selected) return false
           if (node.type === CUSTOM_NOTE_NODE) return true
-          const { metaData } = nodesMetaDataMap![node.data.type as BlockEnum]
+          const meta = nodesMetaDataMap?.[node.data.type as BlockEnum]
+          if (!meta) return true
+          const { metaData } = meta
           return !metaData.isSingleton
         })
 

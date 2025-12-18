@@ -6,25 +6,14 @@ import { useWorkflowStore } from '../../store'
 import type { ToolNodeType, ToolVarInputs } from './types'
 import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-crud'
-import { CollectionType } from '@/app/components/tools/types'
-import { updateBuiltInToolCredential } from '@/service/tools'
 import {
   getConfiguredValue,
   toolParametersToFormSchemas,
 } from '@/app/components/tools/utils/to-form-schema'
-import Toast from '@/app/components/base/toast'
 import type { InputVar } from '@/app/components/workflow/types'
 import {
   useNodesReadOnly,
 } from '@/app/components/workflow/hooks'
-import { canFindTool } from '@/utils'
-import {
-  useAllBuiltInTools,
-  useAllCustomTools,
-  useAllMCPTools,
-  useAllWorkflowTools,
-  useInvalidToolsByType,
-} from '@/service/use-tools'
 
 const useConfig = (id: string, payload: ToolNodeType) => {
   const workflowStore = useWorkflowStore()
@@ -36,76 +25,32 @@ const useConfig = (id: string, payload: ToolNodeType) => {
     id,
     payload,
   )
-  /*
-   * tool_configurations: tool setting, not dynamic setting (form type = form)
-   * tool_parameters: tool dynamic setting(form type = llm)
-   */
+
   const {
-    provider_id,
-    provider_type,
-    tool_name,
     tool_configurations,
     tool_parameters,
   } = inputs
-  const isBuiltIn = provider_type === CollectionType.builtIn
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
-  const { data: mcpTools } = useAllMCPTools()
-
-  const currentTools = useMemo(() => {
-    switch (provider_type) {
-      case CollectionType.builtIn:
-        return buildInTools || []
-      case CollectionType.custom:
-        return customTools || []
-      case CollectionType.workflow:
-        return workflowTools || []
-      case CollectionType.mcp:
-        return mcpTools || []
-      default:
-        return []
-    }
-  }, [buildInTools, customTools, mcpTools, provider_type, workflowTools])
-  const currCollection = useMemo(() => {
-    return currentTools.find(item => canFindTool(item.id, provider_id))
-  }, [currentTools, provider_id])
+  
+  // No-op for frontend-only
+  const currCollection = undefined
 
   // Auth
-  const needAuth = !!currCollection?.allow_delete
-  const isAuthed = !!currCollection?.is_team_authorization
-  const isShowAuthBtn = isBuiltIn && needAuth && !isAuthed
+  const isShowAuthBtn = false
   const [
     showSetAuth,
     { setTrue: showSetAuthModal, setFalse: hideSetAuthModal },
   ] = useBoolean(false)
 
-  const invalidToolsByType = useInvalidToolsByType(provider_type)
   const handleSaveAuth = useCallback(
     async (value: any) => {
-      await updateBuiltInToolCredential(currCollection?.name as string, value)
-
-      Toast.notify({
-        type: 'success',
-        message: t('common.api.actionSuccess'),
-      })
-      invalidToolsByType()
-      hideSetAuthModal()
+      // No-op
     },
-    [
-      currCollection?.name,
-      hideSetAuthModal,
-      t,
-      invalidToolsByType,
-      provider_type,
-    ],
+    [],
   )
 
-  const currTool = useMemo(() => {
-    return currCollection?.tools.find(tool => tool.name === tool_name)
-  }, [currCollection, tool_name])
+  const currTool = undefined
   const formSchemas = useMemo(() => {
-    return currTool ? toolParametersToFormSchemas(currTool.parameters) : []
+    return currTool ? toolParametersToFormSchemas((currTool as any).parameters) : []
   }, [currTool])
   const toolInputVarSchema = useMemo(() => {
     return formSchemas.filter((item: any) => item.form === 'llm')
@@ -206,7 +151,7 @@ const useConfig = (id: string, payload: ToolNodeType) => {
     [inputs, setInputs],
   )
 
-  const isLoading = currTool && (isBuiltIn ? !currCollection : false)
+  const isLoading = false
 
   const getMoreDataForCheckValid = () => {
     return {
@@ -230,7 +175,7 @@ const useConfig = (id: string, payload: ToolNodeType) => {
 
   const outputSchema = useMemo(() => {
     const res: any[] = []
-    const output_schema = currTool?.output_schema
+    const output_schema = (currTool as any)?.output_schema
     if (!output_schema || !output_schema.properties) return res
 
     Object.keys(output_schema.properties).forEach((outputKey) => {
@@ -265,7 +210,7 @@ const useConfig = (id: string, payload: ToolNodeType) => {
   }, [currTool])
 
   const hasObjectOutput = useMemo(() => {
-    const output_schema = currTool?.output_schema
+    const output_schema = (currTool as any)?.output_schema
     if (!output_schema || !output_schema.properties) return false
     const properties = output_schema.properties
     return Object.keys(properties).some(

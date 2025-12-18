@@ -46,7 +46,7 @@ export const nodesMap = nodes.reduce((acc, node) => {
   return acc
 }, {} as Record<BlockEnum, any>)
 
-export const availableNodesMetaData = {
+export const availableNodesMetaData: any = {
   nodes,
   nodesMap,
 }

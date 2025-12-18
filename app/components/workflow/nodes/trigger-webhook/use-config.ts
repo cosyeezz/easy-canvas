@@ -207,29 +207,13 @@ const useConfig = (id: string, payload: WebhookTriggerNodeType) => {
     if (inputs.webhook_url && inputs.webhook_url.length > 0)
       return
 
-    if (!appId)
-      return
-
-    try {
-      // Call backend to generate or fetch webhook url for this node
-      const response = await fetchWebhookUrl({ appId, nodeId: id })
-
-      const newInputs = produce(inputs, (draft) => {
-        draft.webhook_url = response.webhook_url
-        draft.webhook_debug_url = response.webhook_debug_url
-      })
-      setInputs(newInputs)
-    }
-    catch (error: unknown) {
-      // Fallback to mock URL when API is not ready or request fails
-      // Keep the UI unblocked and allow users to proceed in local/dev environments.
-      console.error('Failed to generate webhook URL:', error)
-      const newInputs = produce(inputs, (draft) => {
-        draft.webhook_url = ''
-      })
-      setInputs(newInputs)
-    }
-  }, [appId, id, inputs, setInputs])
+    // No-op or Mock URL for frontend-only
+    const newInputs = produce(inputs, (draft) => {
+      draft.webhook_url = 'https://example.com/webhook/mock'
+      draft.webhook_debug_url = 'https://example.com/webhook/mock/debug'
+    })
+    setInputs(newInputs)
+  }, [inputs, setInputs])
 
   return {
     readOnly,

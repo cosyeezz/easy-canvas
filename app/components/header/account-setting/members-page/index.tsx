@@ -16,10 +16,10 @@ import { useAppContext } from '@/context/app-context'
 import Avatar from '@/app/components/base/avatar'
 import type { InvitationResult } from '@/models/common'
 import { useProviderContext } from '@/context/provider-context'
-// import { Plan } from '@/app/components/billing/type'
+import { Plan } from '@/app/components/billing/type'
 import Button from '@/app/components/base/button'
-// import UpgradeBtn from '@/app/components/billing/upgrade-btn'
-// import { NUM_INFINITE } from '@/app/components/billing/config'
+import UpgradeBtn from '@/app/components/billing/upgrade-btn'
+import { NUM_INFINITE } from '@/app/components/billing/config'
 import { LanguagesSupported } from '@/i18n-config/language'
 import cn from '@/utils/classnames'
 import Tooltip from '@/app/components/base/tooltip'
@@ -52,9 +52,9 @@ const MembersPage = () => {
   const [invitationResults, setInvitationResults] = useState<InvitationResult[]>([])
   const [invitedModalVisible, setInvitedModalVisible] = useState(false)
   const accounts = data?.accounts || []
-  const { enableBilling, isAllowTransferWorkspace } = useProviderContext()
-  const isNotUnlimitedMemberPlan = false // enableBilling && plan.type !== Plan.team && plan.type !== Plan.enterprise
-  const isMemberFull = false // enableBilling && isNotUnlimitedMemberPlan && accounts.length >= plan.total.teamMembers
+  const { plan, enableBilling, isAllowTransferWorkspace } = useProviderContext()
+  const isNotUnlimitedMemberPlan = enableBilling && plan.type !== Plan.team && plan.type !== Plan.enterprise
+  const isMemberFull = enableBilling && isNotUnlimitedMemberPlan && accounts.length >= plan.total.teamMembers
   const [editWorkspaceModalVisible, setEditWorkspaceModalVisible] = useState(false)
   const [showTransferOwnershipModal, setShowTransferOwnershipModal] = useState(false)
 
@@ -84,7 +84,7 @@ const MembersPage = () => {
               </span>}
             </div>
             <div className='system-xs-medium mt-1 text-text-tertiary'>
-              {/* {enableBilling && isNotUnlimitedMemberPlan
+              {enableBilling && isNotUnlimitedMemberPlan
                 ? (
                   <div className='flex space-x-1'>
                     <div>{t('billing.plansCommon.member')}{locale !== LanguagesSupported[1] && accounts.length > 1 && 's'}</div>
@@ -93,18 +93,18 @@ const MembersPage = () => {
                     <div>{plan.total.teamMembers === NUM_INFINITE ? t('billing.plansCommon.unlimited') : plan.total.teamMembers}</div>
                   </div>
                 )
-                : ( */}
+                : (
                   <div className='flex space-x-1'>
                     <div>{accounts.length}</div>
                     <div>{t('billing.plansCommon.memberAfter')}{locale !== LanguagesSupported[1] && accounts.length > 1 && 's'}</div>
                   </div>
-                {/* )} */}
+                )}
             </div>
 
           </div>
-          {/* {isMemberFull && (
+          {isMemberFull && (
             <UpgradeBtn className='mr-2' loc='member-invite' />
-          )} */}
+          )}
           <Button variant='primary' className={cn('shrink-0')} disabled={!isCurrentWorkspaceManager || isMemberFull} onClick={() => setInviteModalVisible(true)}>
             <RiUserAddLine className='mr-1 h-4 w-4' />
             {t('common.members.invite')}

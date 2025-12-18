@@ -29,20 +29,14 @@ export const useSetWorkflowVarsWithValue = ({
 }: Params) => {
   const workflowStore = useWorkflowStore()
   const store = useStoreApi()
-  const invalidateConversationVarValues = useInvalidateConversationVarValues(flowType, flowId)
-  const invalidateSysVarValues = useInvalidateSysVarValues(flowType, flowId)
   const { handleCancelAllNodeSuccessStatus } = useNodesInteractionsWithoutSync()
   const { schemaTypeDefinitions } = useMatchSchemaType()
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
-  const { data: mcpTools } = useAllMCPTools()
   const dataSourceList = useStore(s => s.dataSourceList)
   const allPluginInfoList = {
-    buildInTools: buildInTools || [],
-    customTools: customTools || [],
-    workflowTools: workflowTools || [],
-    mcpTools: mcpTools || [],
+    buildInTools: [],
+    customTools: [],
+    workflowTools: [],
+    mcpTools: [],
     dataSourceList: dataSourceList || [],
   }
 
@@ -105,12 +99,10 @@ export const useSetWorkflowVarsWithValue = ({
     passedInSchemaTypeDefinitions?: SchemaTypeDefinition[]
   }) => {
     const { passInVars, vars, passedInAllPluginInfoList, passedInSchemaTypeDefinitions } = params
-    invalidateConversationVarValues()
-    invalidateSysVarValues()
-    const data = passInVars ? vars! : await fetchAllInspectVars(flowType, flowId)
+    const data = passInVars ? vars! : []
     setInspectVarsToStore(data, passedInAllPluginInfoList, passedInSchemaTypeDefinitions)
     handleCancelAllNodeSuccessStatus() // to make sure clear node output show the unset status
-  }, [invalidateConversationVarValues, invalidateSysVarValues, flowType, flowId, setInspectVarsToStore, handleCancelAllNodeSuccessStatus, schemaTypeDefinitions, getMatchedSchemaType])
+  }, [flowType, flowId, setInspectVarsToStore, handleCancelAllNodeSuccessStatus, schemaTypeDefinitions, getMatchedSchemaType])
   return {
     fetchInspectVars,
   }

@@ -11,6 +11,10 @@ import type {
   CustomModel,
   ModelProvider,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
+import {
+  EDUCATION_PRICING_SHOW_ACTION,
+  EDUCATION_VERIFYING_LOCALSTORAGE_ITEM,
+} from '@/app/education-apply/constants'
 import type { AccountSettingTab } from '@/app/components/header/account-setting/constants'
 import {
   ACCOUNT_SETTING_MODAL_ACTION,
@@ -30,8 +34,14 @@ import type { UpdatePluginPayload } from '@/app/components/plugins/types'
 import { removeSpecificQueryParam } from '@/utils'
 import { noop } from 'lodash-es'
 import dynamic from 'next/dynamic'
+import type { ExpireNoticeModalPayloadProps } from '@/app/education-apply/expire-notice-modal'
 import type { ModelModalModeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
+import { useProviderContext } from '@/context/provider-context'
 import { useAppContext } from '@/context/app-context'
+import {
+  type TriggerEventsLimitModalPayload,
+  useTriggerEventsLimitModal,
+} from './hooks/use-trigger-events-limit-modal'
 
 const AccountSetting = dynamic(() => import('@/app/components/header/account-setting'), {
   ssr: false,
@@ -43,6 +53,12 @@ const ModerationSettingModal = dynamic(() => import('@/app/components/base/featu
   ssr: false,
 })
 const ExternalDataToolModal = dynamic(() => import('@/app/components/app/configuration/tools/external-data-tool-modal'), {
+  ssr: false,
+})
+const Pricing = dynamic(() => import('@/app/components/billing/pricing'), {
+  ssr: false,
+})
+const AnnotationFullModal = dynamic(() => import('@/app/components/billing/annotation-full/modal'), {
   ssr: false,
 })
 const ModelModal = dynamic(() => import('@/app/components/header/account-setting/model-provider-page/model-modal'), {
@@ -58,6 +74,13 @@ const OpeningSettingModal = dynamic(() => import('@/app/components/base/features
   ssr: false,
 })
 const UpdatePlugin = dynamic(() => import('@/app/components/plugins/update-plugin'), {
+  ssr: false,
+})
+
+const ExpireNoticeModal = dynamic(() => import('@/app/education-apply/expire-notice-modal'), {
+  ssr: false,
+})
+const TriggerEventsLimitModal = dynamic(() => import('@/app/components/billing/trigger-events-limit-modal'), {
   ssr: false,
 })
 
@@ -98,8 +121,8 @@ export type ModalContextState = {
     onAutoAddPromptVariable?: (variable: PromptVariable[]) => void
   }> | null>>
   setShowUpdatePluginModal: Dispatch<SetStateAction<ModalState<UpdatePluginPayload> | null>>
-  setShowEducationExpireNoticeModal: Dispatch<SetStateAction<any> | null>
-  setShowTriggerEventsLimitModal: Dispatch<SetStateAction<any> | null>
+  setShowEducationExpireNoticeModal: Dispatch<SetStateAction<ModalState<ExpireNoticeModalPayloadProps> | null>>
+  setShowTriggerEventsLimitModal: Dispatch<SetStateAction<ModalState<TriggerEventsLimitModalPayload> | null>>
 }
 const PRICING_MODAL_QUERY_PARAM = 'pricing'
 const PRICING_MODAL_QUERY_VALUE = 'open'
@@ -155,12 +178,19 @@ export const ModalContextProvider = ({
     onAutoAddPromptVariable?: (variable: PromptVariable[]) => void
   }> | null>(null)
   const [showUpdatePluginModal, setShowUpdatePluginModal] = useState<ModalState<UpdatePluginPayload> | null>(null)
+  const [showEducationExpireNoticeModal, setShowEducationExpireNoticeModal] = useState<ModalState<ExpireNoticeModalPayloadProps> | null>(null)
   const { currentWorkspace } = useAppContext()
 
   const [showPricingModal, setShowPricingModal] = useState(
     searchParams.get(PRICING_MODAL_QUERY_PARAM) === PRICING_MODAL_QUERY_VALUE,
   )
+  const [showAnnotationFullModal, setShowAnnotationFullModal] = useState(false)
   const handleCancelAccountSettingModal = () => {
+    const educationVerifying = localStorage.getItem(EDUCATION_VERIFYING_LOCALSTORAGE_ITEM)
+
+    if (educationVerifying === 'yes')
+      localStorage.removeItem(EDUCATION_VERIFYING_LOCALSTORAGE_ITEM)
+
     removeSpecificQueryParam('action')
     removeSpecificQueryParam('tab')
     setShowAccountSettingModal(null)
@@ -204,9 +234,22 @@ export const ModalContextProvider = ({
     }
     else {
       url.searchParams.delete(PRICING_MODAL_QUERY_PARAM)
+      if (url.searchParams.get('action') === EDUCATION_PRICING_SHOW_ACTION)
+        url.searchParams.delete('action')
     }
     window.history.replaceState(null, '', url.toString())
   }, [showPricingModal])
+
+  const { plan, isFetchedPlan } = useProviderContext()
+  const {
+    showTriggerEventsLimitModal,
+    setShowTriggerEventsLimitModal,
+    persistTriggerEventsLimitModalDismiss,
+  } = useTriggerEventsLimitModal({
+    plan,
+    isFetchedPlan,
+    currentWorkspaceId: currentWorkspace?.id,
+  })
 
   const handleCancelModerationSettingModal = () => {
     setShowModerationSettingModal(null)
@@ -307,14 +350,14 @@ export const ModalContextProvider = ({
       setShowModerationSettingModal,
       setShowExternalDataToolModal,
       setShowPricingModal: handleShowPricingModal,
-      setShowAnnotationFullModal: noop,
+      setShowAnnotationFullModal: () => setShowAnnotationFullModal(true),
       setShowModelModal,
       setShowExternalKnowledgeAPIModal,
       setShowModelLoadBalancingModal,
       setShowOpeningModal,
       setShowUpdatePluginModal,
-      setShowEducationExpireNoticeModal: noop,
-      setShowTriggerEventsLimitModal: noop,
+      setShowEducationExpireNoticeModal,
+      setShowTriggerEventsLimitModal,
     }}>
       <>
         {children}
@@ -357,6 +400,19 @@ export const ModalContextProvider = ({
           )
         }
 
+        {
+          !!showPricingModal && (
+            <Pricing onCancel={handleCancelPricingModal} />
+          )
+        }
+
+        {
+          showAnnotationFullModal && (
+            <AnnotationFullModal
+              show={showAnnotationFullModal}
+              onHide={() => setShowAnnotationFullModal(false)} />
+          )
+        }
         {
           !!showModelModal && (
             <ModelModal
@@ -416,11 +472,34 @@ export const ModalContextProvider = ({
             />
           )
         }
+        {
+          !!showEducationExpireNoticeModal && (
+            <ExpireNoticeModal
+              {...showEducationExpireNoticeModal.payload}
+              onClose={() => setShowEducationExpireNoticeModal(null)}
+            />
+          )}
+        {
+          !!showTriggerEventsLimitModal && (
+            <TriggerEventsLimitModal
+              show
+              usage={showTriggerEventsLimitModal.payload.usage}
+              total={showTriggerEventsLimitModal.payload.total}
+              resetInDays={showTriggerEventsLimitModal.payload.resetInDays}
+              onClose={() => {
+                persistTriggerEventsLimitModalDismiss()
+                setShowTriggerEventsLimitModal(null)
+              }}
+              onUpgrade={() => {
+                persistTriggerEventsLimitModalDismiss()
+                setShowTriggerEventsLimitModal(null)
+                handleShowPricingModal()
+              }}
+            />
+          )}
       </>
     </ModalContext.Provider>
   )
 }
 
 export default ModalContext
-
-

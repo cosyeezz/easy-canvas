@@ -60,41 +60,20 @@ const AllStartBlocks = ({
   const entryNodeTypes = availableBlocksTypes?.length
     ? availableBlocksTypes
     : ENTRY_NODE_TYPES
-  const enableTriggerPlugin = entryNodeTypes.includes(BlockEnumValue.TriggerPlugin)
-  const { data: triggerProviders = [] } = useAllTriggerPlugins(enableTriggerPlugin)
-  const providerMap = useMemo(() => {
-    const map = new Map<string, TriggerWithProvider>()
-    triggerProviders.forEach((provider) => {
-      const keys = [
-        provider.plugin_id,
-        provider.plugin_unique_identifier,
-        provider.id,
-      ].filter(Boolean) as string[]
-      keys.forEach((key) => {
-        if (!map.has(key))
-          map.set(key, provider)
-      })
-    })
-    return map
-  }, [triggerProviders])
-  const invalidateTriggers = useInvalidateAllTriggerPlugins()
+  const enableTriggerPlugin = false // Disable trigger plugins to avoid backend calls
+  const triggerProviders: any[] = []
+  const providerMap = useMemo(() => new Map<string, any>(), [])
   const trimmedSearchText = searchText.trim()
   const hasSearchText = trimmedSearchText.length > 0
   const hasFilter = hasSearchText || tags.length > 0
-  const {
-    plugins: featuredPlugins = [],
-    isLoading: featuredLoading,
-  } = useFeaturedTriggersRecommendations(enableTriggerPlugin && enable_marketplace && !hasFilter)
-  const {
-    queryPluginsWithDebounced: fetchPlugins,
-    plugins: marketplacePlugins = [],
-  } = useMarketplacePlugins()
+  
+  const featuredPlugins: any[] = []
+  const featuredLoading = false
+  const marketplacePlugins: any[] = []
 
-  const shouldShowFeatured = enableTriggerPlugin
-    && enable_marketplace
-    && !hasFilter
+  const shouldShowFeatured = false
   const shouldShowTriggerListTitle = hasStartBlocksContent || hasPluginContent
-  const shouldShowMarketplaceFooter = enable_marketplace && !hasFilter
+  const shouldShowMarketplaceFooter = false
 
   const handleStartBlocksContentChange = useCallback((hasContent: boolean) => {
     setHasStartBlocksContent(hasContent)

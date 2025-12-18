@@ -224,19 +224,7 @@ const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
   const [selectedDatasetsLoaded, setSelectedDatasetsLoaded] = useState(false)
   // datasets
   useEffect(() => {
-    (async () => {
-      const inputs = inputRef.current
-      const datasetIds = inputs.dataset_ids
-      if (datasetIds?.length > 0) {
-        const { data: dataSetsWithDetail } = await fetchDatasets({ url: '/datasets', params: { page: 1, ids: datasetIds } as any })
-        setSelectedDatasets(dataSetsWithDetail)
-      }
-      const newInputs = produce(inputs, (draft) => {
-        draft.dataset_ids = datasetIds
-      })
-      setInputs(newInputs)
-      setSelectedDatasetsLoaded(true)
-    })()
+    setSelectedDatasetsLoaded(true)
   }, [])
 
   useEffect(() => {

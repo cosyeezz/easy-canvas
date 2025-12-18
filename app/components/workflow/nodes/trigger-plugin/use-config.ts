@@ -73,7 +73,7 @@ const normalizeEventParameters = (
 
 const useConfig = (id: string, payload: PluginTriggerNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly()
-  const { data: triggerPlugins = [] } = useAllTriggerPlugins()
+  const triggerPlugins: any[] = []
 
   const { inputs, setInputs: doSetInputs } = useNodeCrud<PluginTriggerNodeType>(
     id,
@@ -101,16 +101,16 @@ const useConfig = (id: string, payload: PluginTriggerNodeType) => {
   const currentProvider = useMemo<TriggerWithProvider | undefined>(() => {
     return triggerPlugins.find(
       provider =>
-        provider.name === provider_name
-        || provider.id === provider_id
-        || (provider_id && provider.plugin_id === provider_id),
+        (provider as any).name === provider_name
+        || (provider as any).id === provider_id
+        || (provider_id && (provider as any).plugin_id === provider_id),
     )
   }, [triggerPlugins, provider_name, provider_id])
 
-  const { data: subscriptions = [] } = useTriggerSubscriptions(provider_id || '')
+  const subscriptions: any[] = []
 
   const subscriptionSelected = useMemo(() => {
-    return subscriptions?.find(s => s.id === subscription_id)
+    return (subscriptions as any[])?.find(s => s.id === subscription_id)
   }, [subscriptions, subscription_id])
 
   const currentEvent = useMemo<Event | undefined>(() => {

@@ -14,13 +14,26 @@ import BasePanel from './_base/components/workflow-panel'
 
 const CustomNode = (props: NodeProps) => {
   const nodeData = props.data
-  const NodeComponent = useMemo(() => NodeComponentMap[nodeData.type], [nodeData.type])
+  // Debug log
+  if (!nodeData.type) {
+    // console.log('[CustomNode Debug] Missing type in data:', props.data, 'Node ID:', props.id);
+  }
+  const NodeComponent = useMemo(() => {
+    // Fallback for HMR/Hydration issues
+    if (!nodeData.type) return null
+    return NodeComponentMap[nodeData.type]
+  }, [nodeData.type])
 
   if (!NodeComponent) {
-    console.error(`[CustomNode] Node component not found for type: ${nodeData.type}. Available types:`, Object.keys(NodeComponentMap));
+    // Only log if type exists but component is missing
+    if (nodeData.type) {
+      console.warn(`[CustomNode] Node component not found for type: ${nodeData.type}.`);
+    }
     return (
       <BaseNode id={props.id} data={props.data}>
-         <div style={{ color: 'red', padding: 10 }}>Unknown Node Type: {String(nodeData.type)}</div>
+         <div style={{ color: 'red', padding: 10 }}>
+            {nodeData.type ? `Unknown Node Type: ${nodeData.type}` : 'Initializing Node...'}
+         </div>
       </BaseNode>
     );
   }

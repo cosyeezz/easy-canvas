@@ -14,18 +14,23 @@ import type { FlowType } from '@/types/common'
 import { getFlowPrefix } from './utils'
 
 export const fetchWorkflowDraft = (url: string) => {
-  return get(url, {}, { silent: true }) as Promise<FetchWorkflowDraftResponse>
+  return Promise.resolve({
+    graph: { nodes: [], edges: [] },
+    features: {},
+    environment_variables: [],
+    conversation_variables: [],
+  }) as Promise<FetchWorkflowDraftResponse>
 }
 
 export const syncWorkflowDraft = ({ url, params }: {
   url: string
   params: Pick<FetchWorkflowDraftResponse, 'graph' | 'features' | 'environment_variables' | 'conversation_variables'>
 }) => {
-  return post<CommonResponse & { updated_at: number; hash: string }>(url, { body: params }, { silent: true })
+  return Promise.resolve({ updated_at: Date.now(), hash: 'mock-hash' })
 }
 
 export const fetchNodesDefaultConfigs: Fetcher<NodesDefaultConfigsResponse, string> = (url) => {
-  return get<NodesDefaultConfigsResponse>(url)
+  return Promise.resolve({}) as Promise<NodesDefaultConfigsResponse>
 }
 
 export const fetchWorkflowRunHistory: Fetcher<WorkflowRunHistoryResponse, string> = (url) => {
@@ -57,15 +62,11 @@ export const stopWorkflowRun = (url: string) => {
 }
 
 export const fetchNodeDefault = (appId: string, blockType: BlockEnum, query = {}) => {
-  return get(`apps/${appId}/workflows/default-workflow-block-configs/${blockType}`, {
-    params: { q: JSON.stringify(query) },
-  })
+  return Promise.resolve({})
 }
 
 export const fetchPipelineNodeDefault = (pipelineId: string, blockType: BlockEnum, query = {}) => {
-  return get(`rag/pipelines/${pipelineId}/workflows/default-workflow-block-configs/${blockType}`, {
-    params: { q: JSON.stringify(query) },
-  })
+  return Promise.resolve({})
 }
 
 // TODO: archived

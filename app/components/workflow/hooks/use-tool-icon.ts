@@ -52,12 +52,7 @@ const findTriggerPluginIcon = (
 }
 
 export const useToolIcon = (data?: Node['data']) => {
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
-  const { data: mcpTools } = useAllMCPTools()
   const dataSourceList = useStore(s => s.dataSourceList)
-  const { data: triggerPlugins } = useAllTriggerPlugins()
   const { theme } = useTheme()
 
   const toolIcon = useMemo(() => {
@@ -65,64 +60,11 @@ export const useToolIcon = (data?: Node['data']) => {
       return ''
 
     if (isTriggerPluginNode(data)) {
-      const icon = findTriggerPluginIcon(
-        [
-          data.plugin_id,
-          data.provider_id,
-          data.provider_name,
-        ],
-        triggerPlugins,
-        theme,
-      )
-      if (icon)
-        return icon
+      // No backend fetch for triggers
+      return ''
     }
 
     if (isToolNode(data)) {
-      let primaryCollection: ToolWithProvider[] | undefined
-      switch (data.provider_type) {
-        case CollectionType.custom:
-          primaryCollection = customTools
-          break
-        case CollectionType.mcp:
-          primaryCollection = mcpTools
-          break
-        case CollectionType.workflow:
-          primaryCollection = workflowTools
-          break
-        case CollectionType.builtIn:
-        default:
-          primaryCollection = buildInTools
-          break
-      }
-
-      const collectionsToSearch = [
-        primaryCollection,
-        buildInTools,
-        customTools,
-        workflowTools,
-        mcpTools,
-      ] as Array<ToolWithProvider[] | undefined>
-
-      const seen = new Set<ToolWithProvider[]>()
-      for (const collection of collectionsToSearch) {
-        if (!collection || seen.has(collection))
-          continue
-        seen.add(collection)
-        const matched = collection.find((toolWithProvider) => {
-          if (canFindTool(toolWithProvider.id, data.provider_id))
-            return true
-          if (data.plugin_id && toolWithProvider.plugin_id === data.plugin_id)
-            return true
-          return data.provider_name === toolWithProvider.name
-        })
-        if (matched) {
-          const icon = resolveIconByTheme(theme, matched.icon, matched.icon_dark)
-          if (icon)
-            return icon
-        }
-      }
-
       const fallbackIcon = resolveIconByTheme(theme, data.provider_icon, data.provider_icon_dark)
       if (fallbackIcon)
         return fallbackIcon
@@ -134,83 +76,25 @@ export const useToolIcon = (data?: Node['data']) => {
       return dataSourceList?.find(toolWithProvider => toolWithProvider.plugin_id === data.plugin_id)?.icon || ''
 
     return ''
-  }, [data, dataSourceList, buildInTools, customTools, workflowTools, mcpTools, triggerPlugins, theme])
+  }, [data, dataSourceList, theme])
 
   return toolIcon
 }
 
 export const useGetToolIcon = () => {
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
-  const { data: mcpTools } = useAllMCPTools()
-  const { data: triggerPlugins } = useAllTriggerPlugins()
   const workflowStore = useWorkflowStore()
   const { theme } = useTheme()
 
   const getToolIcon = useCallback((data: Node['data']) => {
     const {
-      buildInTools: storeBuiltInTools,
-      customTools: storeCustomTools,
-      workflowTools: storeWorkflowTools,
-      mcpTools: storeMcpTools,
       dataSourceList,
     } = workflowStore.getState()
 
     if (isTriggerPluginNode(data)) {
-      return findTriggerPluginIcon(
-        [
-          data.plugin_id,
-          data.provider_id,
-          data.provider_name,
-        ],
-        triggerPlugins,
-        theme,
-      )
+      return undefined
     }
 
     if (isToolNode(data)) {
-      const primaryCollection = (() => {
-        switch (data.provider_type) {
-          case CollectionType.custom:
-            return storeCustomTools ?? customTools
-          case CollectionType.mcp:
-            return storeMcpTools ?? mcpTools
-          case CollectionType.workflow:
-            return storeWorkflowTools ?? workflowTools
-          case CollectionType.builtIn:
-          default:
-            return storeBuiltInTools ?? buildInTools
-        }
-      })()
-
-      const collectionsToSearch = [
-        primaryCollection,
-        storeBuiltInTools ?? buildInTools,
-        storeCustomTools ?? customTools,
-        storeWorkflowTools ?? workflowTools,
-        storeMcpTools ?? mcpTools,
-      ] as Array<ToolWithProvider[] | undefined>
-
-      const seen = new Set<ToolWithProvider[]>()
-      for (const collection of collectionsToSearch) {
-        if (!collection || seen.has(collection))
-          continue
-        seen.add(collection)
-        const matched = collection.find((toolWithProvider) => {
-          if (canFindTool(toolWithProvider.id, data.provider_id))
-            return true
-          if (data.plugin_id && toolWithProvider.plugin_id === data.plugin_id)
-            return true
-          return data.provider_name === toolWithProvider.name
-        })
-        if (matched) {
-          const icon = resolveIconByTheme(theme, matched.icon, matched.icon_dark)
-          if (icon)
-            return icon
-        }
-      }
-
       const fallbackIcon = resolveIconByTheme(theme, data.provider_icon, data.provider_icon_dark)
       if (fallbackIcon)
         return fallbackIcon
@@ -222,7 +106,7 @@ export const useGetToolIcon = () => {
       return dataSourceList?.find(toolWithProvider => toolWithProvider.plugin_id === data.plugin_id)?.icon
 
     return undefined
-  }, [workflowStore, triggerPlugins, buildInTools, customTools, workflowTools, mcpTools, theme])
+  }, [workflowStore, theme])
 
   return getToolIcon
 }

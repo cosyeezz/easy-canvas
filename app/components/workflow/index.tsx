@@ -317,40 +317,28 @@ export const Workflow: FC<WorkflowProps> = memo(({
 
   const { schemaTypeDefinitions } = useMatchSchemaType()
   const { fetchInspectVars } = useSetWorkflowVarsWithValue()
-  const { data: buildInTools } = useAllBuiltInTools()
-  const { data: customTools } = useAllCustomTools()
-  const { data: workflowTools } = useAllWorkflowTools()
-  const { data: mcpTools } = useAllMCPTools()
   const dataSourceList = useStore(s => s.dataSourceList)
-  // buildInTools, customTools, workflowTools, mcpTools, dataSourceList
-  const configsMap = useHooksStore(s => s.configsMap)
-  const [isLoadedVars, setIsLoadedVars] = useState(false)
+  
+  // Cleaned: Removed backend tool fetching
+  const [isLoadedVars, setIsLoadedVars] = useState(true) 
   const [vars, setVars] = useState<VarInInspect[]>([])
-  useEffect(() => {
-    (async () => {
-      if (!configsMap?.flowType || !configsMap?.flowId)
-        return
-      const data = await fetchAllInspectVars(configsMap.flowType, configsMap.flowId)
-      setVars(data)
-      setIsLoadedVars(true)
-    })()
-  }, [configsMap?.flowType, configsMap?.flowId])
+
   useEffect(() => {
     if (schemaTypeDefinitions && isLoadedVars) {
       fetchInspectVars({
         passInVars: true,
         vars,
         passedInAllPluginInfoList: {
-          buildInTools: buildInTools || [],
-          customTools: customTools || [],
-          workflowTools: workflowTools || [],
-          mcpTools: mcpTools || [],
+          buildInTools: [],
+          customTools: [],
+          workflowTools: [],
+          mcpTools: [],
           dataSourceList: dataSourceList ?? [],
         },
         passedInSchemaTypeDefinitions: schemaTypeDefinitions,
       })
     }
-  }, [schemaTypeDefinitions, fetchInspectVars, isLoadedVars, vars, customTools, buildInTools, workflowTools, mcpTools, dataSourceList])
+  }, [schemaTypeDefinitions, fetchInspectVars, isLoadedVars, vars, dataSourceList])
 
   const store = useStoreApi()
   if (process.env.NODE_ENV === 'development') {
