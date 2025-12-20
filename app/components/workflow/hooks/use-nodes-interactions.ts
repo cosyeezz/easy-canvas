@@ -788,16 +788,17 @@ export const useNodesInteractions = () => {
       const nodesWithSameType = nodes.filter(
         node => node.data.type === nodeType,
       )
-      const { defaultValue } = nodesMetaDataMap![nodeType]
+      const { defaultValue } = nodesMetaDataMap![nodeType] || { defaultValue: { title: nodeType } }
       const { newNode, newIterationStartNode, newLoopStartNode }
         = generateNewNode({
           type: getNodeCustomTypeByNodeDataType(nodeType),
           data: {
             ...(defaultValue as any),
+            type: nodeType,
             title:
               nodesWithSameType.length > 0
-                ? `${defaultValue.title} ${nodesWithSameType.length + 1}`
-                : defaultValue.title,
+                ? `${defaultValue.title || nodeType} ${nodesWithSameType.length + 1}`
+                : (defaultValue.title || nodeType),
             ...pluginDefaultValue,
             selected: true,
             _showAddVariablePopup:
@@ -1339,7 +1340,7 @@ export const useNodesInteractions = () => {
       const nodesWithSameType = nodes.filter(
         node => node.data.type === nodeType,
       )
-      const { defaultValue } = nodesMetaDataMap![nodeType]
+      const { defaultValue } = nodesMetaDataMap![nodeType] || { defaultValue: { title: nodeType } }
       const {
         newNode: newCurrentNode,
         newIterationStartNode,
@@ -1348,10 +1349,11 @@ export const useNodesInteractions = () => {
         type: getNodeCustomTypeByNodeDataType(nodeType),
         data: {
           ...(defaultValue as any),
+          type: nodeType,
           title:
             nodesWithSameType.length > 0
-              ? `${defaultValue.title} ${nodesWithSameType.length + 1}`
-              : defaultValue.title,
+              ? `${defaultValue.title || nodeType} ${nodesWithSameType.length + 1}`
+              : (defaultValue.title || nodeType),
           ...pluginDefaultValue,
           _connectedSourceHandleIds: [],
           _connectedTargetHandleIds: [],

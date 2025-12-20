@@ -176,6 +176,11 @@
 1.  **本地持久化**：集成 LocalStorage 实现草稿自动保存。
 2.  **Service 层清理**：虽然组件已断开调用，但 `service/` 目录下仍保留了大量无用的 API 定义文件，下一步可考虑物理删除或精简为仅保留类型定义。
 
+#### 🐛 缺陷修复 (Bug Fixes)
+1.  **修复新节点显示 "Initializing Node..." 的问题**
+    *   **原因**：部分节点的默认配置 (`defaultValue`) 缺少 `type` 字段，导致独立版画布在添加新节点时无法识别节点类型。
+    *   **修复**：在 `use-nodes-interactions.ts` 的 `handleNodeAdd` 和 `handleNodeChange` 中手动注入 `type` 字段，并增加了元数据缺失时的兜底处理。
+
 ## 4. 目录结构说明 (Easy-Canvas)
 ```text
 easy-canvas/
