@@ -276,6 +276,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
     handleNodeEnter,
     handleNodeLeave,
     handleNodeClick,
+    handleNodeDoubleClick,
     handleNodeConnect,
     handleNodeConnectStart,
     handleNodeConnectEnd,
@@ -398,6 +399,8 @@ export const Workflow: FC<WorkflowProps> = memo(({
         onNodeMouseEnter={handleNodeEnter}
         onNodeMouseLeave={handleNodeLeave}
         onNodeClick={handleNodeClick}
+        onNodeDoubleClick={handleNodeDoubleClick}
+        onNodeContextMenu={handleNodeContextMenu}
         onPaneClick={handleNodesCancelSelected}
         onPaneContextMenu={handlePaneContextMenu}
         onSelectionContextMenu={handleSelectionContextMenu}

@@ -395,6 +395,14 @@ export const useNodesInteractions = () => {
 
   const handleNodeClick = useCallback<NodeMouseHandler>(
     (_, node) => {
+      // Single click does nothing or could be used for simple selection
+      // if we wanted to separate selection from opening the panel.
+    },
+    [],
+  )
+
+  const handleNodeDoubleClick = useCallback<NodeMouseHandler>(
+    (_, node) => {
       if (node.type === CUSTOM_ITERATION_START_NODE) return
       if (node.type === CUSTOM_LOOP_START_NODE) return
       if (node.data.type === BlockEnum.DataSourceEmpty) return
@@ -2010,6 +2018,7 @@ export const useNodesInteractions = () => {
     handleNodeLeave,
     handleNodeSelect,
     handleNodeClick,
+    handleNodeDoubleClick,
     handleNodeConnect,
     handleNodeConnectStart,
     handleNodeConnectEnd,

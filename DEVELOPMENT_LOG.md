@@ -70,7 +70,7 @@
             *   补充数据结构：为 Start 节点补充 `variables: []`，为 End 节点补充 `outputs: []`，解决运行时崩溃。
 
 10. **项目瘦身与清理 (Cleanup)**
-    *   **删除**：移除了 `public/screenshots`、`public/logo`、`public/education` 等 Dify 原有品牌和演示素材。
+    *   **删除**：移除了 `public/screenshots`、`public/logo`、`public/education` 等 Dify 原有品牌 and 演示素材。
     *   **禁用**：禁用了 `ReactScan` 调试工具，避免页面闪烁干扰。
 
 ### 📅 2025-12-17：业务代码清理与类型修复 (Refactoring & Type Fixes)
@@ -207,6 +207,12 @@
     *   **原因**：`ReactFlow` 组件未绑定 `onPaneClick` 事件处理函数。
     *   **修复**：在 `app/components/workflow/index.tsx` 中，将 `useNodesInteractions` 提供的 `handleNodesCancelSelected` 方法绑定到 `ReactFlow` 的 `onPaneClick` 属性上。
     *   **验证**：现在点击画布空白处可正确取消节点选中状态，并关闭右侧面板。
+
+5.  **修改节点交互为双击打开编辑框**
+    *   **问题**：默认单击节点即打开右侧编辑面板，可能干扰正常的节点拖拽或多选操作。
+    *   **修改**：将 `onNodeClick` 中的面板触发逻辑移除，新增 `onNodeDoubleClick` 事件。
+    *   **实现**：在 `useNodesInteractions` 中新增 `handleNodeDoubleClick` 方法，并将 `handleNodeSelect` 逻辑移至其中；在 `Workflow` 组件中绑定该双击事件。
+    *   **结果**：现在单击节点仅用于基本选中（ReactFlow 默认行为），双击节点才会弹出右侧配置面板。
 
 ## 4. 目录结构说明 (Easy-Canvas)
 ```text
