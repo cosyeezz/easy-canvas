@@ -96,6 +96,7 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
   const getToolIcon = useGetToolIcon()
   const appMode = useAppStore.getState().appDetail?.mode
   const shouldCheckStartNode = appMode === AppModeEnum.WORKFLOW || appMode === AppModeEnum.ADVANCED_CHAT
+  const language = useGetLanguage()
 
   const map = useNodesAvailableVarList(nodes)
   const embeddingModelList: any[] = []

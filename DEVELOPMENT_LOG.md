@@ -190,6 +190,12 @@
     *   **修复**：在 `app/components/workflow/index.tsx` 中重新引入并渲染了 `<Panel />` 组件。
     *   **验证**：`Panel` 组件能正确监听 ReactFlow 的选中状态，并渲染基于本地配置 (`useNodeCrud`) 的节点表单，无需后端支持。
 
+2.  **修复 `Runtime ReferenceError: language is not defined` 错误**
+    *   **问题**：修复面板显示问题后，点击节点导致页面崩溃，报错 `language is not defined`。
+    *   **原因**：`app/components/workflow/hooks/use-checklist.ts` 中的 `useChecklist` Hook 使用了 `language` 变量（用于节点校验），但该变量未在函数作用域内定义。这可能是此前后端移除工作中的遗漏。
+    *   **修复**：在 `useChecklist` 中使用 `useGetLanguage()` Hook 获取当前语言设置。
+    *   **验证**：页面不再崩溃，节点配置面板可正常加载。
+
 ## 4. 目录结构说明 (Easy-Canvas)
 ```text
 easy-canvas/
