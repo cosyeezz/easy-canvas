@@ -67,6 +67,7 @@ import CustomEdge from './custom-edge'
 import CustomConnectionLine from './custom-connection-line'
 import HelpLine from './help-line'
 import CandidateNode from './candidate-node'
+import Panel from './panel'
 import PanelContextmenu from './panel-contextmenu'
 import NodeContextmenu from './node-contextmenu'
 import SelectionContextmenu from './selection-contextmenu'
@@ -372,6 +373,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
       <NodeContextmenu />
       <SelectionContextmenu />
       <HelpLine />
+      <Panel />
       {
         !!showConfirm && (
           <Confirm

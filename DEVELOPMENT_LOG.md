@@ -181,6 +181,15 @@
     *   **原因**：部分节点的默认配置 (`defaultValue`) 缺少 `type` 字段，导致独立版画布在添加新节点时无法识别节点类型。
     *   **修复**：在 `use-nodes-interactions.ts` 的 `handleNodeAdd` 和 `handleNodeChange` 中手动注入 `type` 字段，并增加了元数据缺失时的兜底处理。
 
+### 📅 2025-12-20
+
+#### 🐛 缺陷修复 (Bug Fixes)
+1.  **修复节点配置面板不显示的问题**
+    *   **问题**：点击画布中的节点，右侧配置/编辑面板未出现。
+    *   **原因**：在重构和移除后端依赖的过程中，`Workflow` 组件渲染树中缺失了 `<Panel />` 组件，导致选中节点后无法渲染对应的配置表单。
+    *   **修复**：在 `app/components/workflow/index.tsx` 中重新引入并渲染了 `<Panel />` 组件。
+    *   **验证**：`Panel` 组件能正确监听 ReactFlow 的选中状态，并渲染基于本地配置 (`useNodeCrud`) 的节点表单，无需后端支持。
+
 ## 4. 目录结构说明 (Easy-Canvas)
 ```text
 easy-canvas/
