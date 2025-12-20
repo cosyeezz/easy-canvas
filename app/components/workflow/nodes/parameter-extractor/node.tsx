@@ -1,11 +1,15 @@
 import type { FC } from 'react'
 import React from 'react'
 import type { ParameterExtractorNodeType } from './types'
-import {
-  useTextGenerationCurrentProviderAndModelAndModelList,
-} from '@/app/components/header/account-setting/model-provider-page/hooks'
-import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
+// import {
+//   useTextGenerationCurrentProviderAndModelAndModelList,
+// } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
 import type { NodeProps } from '@/app/components/workflow/types'
+
+// Mocks
+const useTextGenerationCurrentProviderAndModelAndModelList = () => ({ textGenerationModelList: [] })
+const ModelSelector = () => <div>Model Selector Mock</div>
 
 const Node: FC<NodeProps<ParameterExtractorNodeType>> = ({
   data,

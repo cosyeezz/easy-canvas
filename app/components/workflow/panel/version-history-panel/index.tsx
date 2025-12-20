@@ -16,7 +16,7 @@ import Empty from './empty'
 import { useSelector as useAppContextSelector } from '@/context/app-context'
 import RestoreConfirmModal from './restore-confirm-modal'
 import DeleteConfirmModal from './delete-confirm-modal'
-import VersionInfoModal from '@/app/components/app/app-publisher/version-info-modal'
+// import VersionInfoModal from '@/app/components/app/app-publisher/version-info-modal'
 import Toast from '@/app/components/base/toast'
 import { useHooksStore } from '../../hooks-store'
 
@@ -297,12 +297,12 @@ export const VersionHistoryPanel = ({
         onClose={handleCancel.bind(null, VersionHistoryContextMenuOptions.delete)}
         onDelete={handleDelete}
       />)}
-      {editModalOpen && (<VersionInfoModal
+      {/* {editModalOpen && (<VersionInfoModal
         isOpen={editModalOpen}
         versionInfo={operatedItem}
         onClose={handleCancel.bind(null, VersionHistoryContextMenuOptions.edit)}
         onPublish={handleUpdateWorkflow}
-      />)}
+      />)} */}
     </div>
   )
 }

@@ -33,7 +33,7 @@ import Input from '@/app/components/base/input'
 import {
   Plus02,
 } from '@/app/components/base/icons/src/vender/line/general'
-import SearchBox from '@/app/components/plugins/marketplace/search-box'
+// import SearchBox from '@/app/components/plugins/marketplace/search-box'
 
 export type NodeSelectorProps = {
   open?: boolean
@@ -214,15 +214,24 @@ const NodeSelector: FC<NodeSelectorProps> = ({
             filterElem={
               <div className='relative m-2' onClick={e => e.stopPropagation()}>
                 {activeTab === TabsEnum.Start && (
-                  <SearchBox
+                  <Input
+                    showLeftIcon
+                    showClearIcon
                     autoFocus
-                    search={searchText}
-                    onSearchChange={setSearchText}
-                    tags={tags}
-                    onTagsChange={setTags}
+                    value={searchText}
+                    onChange={e => setSearchText(e.target.value)}
+                    onClear={() => setSearchText('')}
                     placeholder={searchPlaceholder}
-                    inputClassName='grow'
                   />
+                  // <SearchBox
+                  //   autoFocus
+                  //   search={searchText}
+                  //   onSearchChange={setSearchText}
+                  //   tags={tags}
+                  //   onTagsChange={setTags}
+                  //   placeholder={searchPlaceholder}
+                  //   inputClassName='grow'
+                  // />
                 )}
                 {activeTab === TabsEnum.Blocks && (
                   <Input
@@ -247,15 +256,24 @@ const NodeSelector: FC<NodeSelectorProps> = ({
                   />
                 )}
                 {activeTab === TabsEnum.Tools && (
-                  <SearchBox
+                  <Input
+                    showLeftIcon
+                    showClearIcon
                     autoFocus
-                    search={searchText}
-                    onSearchChange={setSearchText}
-                    tags={tags}
-                    onTagsChange={setTags}
+                    value={searchText}
+                    onChange={e => setSearchText(e.target.value)}
+                    onClear={() => setSearchText('')}
                     placeholder={t('plugin.searchTools')!}
-                    inputClassName='grow'
                   />
+                  // <SearchBox
+                  //   autoFocus
+                  //   search={searchText}
+                  //   onSearchChange={setSearchText}
+                  //   tags={tags}
+                  //   onTagsChange={setTags}
+                  //   placeholder={t('plugin.searchTools')!}
+                  //   inputClassName='grow'
+                  // />
                 )}
               </div>
             }

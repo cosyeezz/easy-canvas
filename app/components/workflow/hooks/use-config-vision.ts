@@ -2,7 +2,7 @@ import { produce } from 'immer'
 import { useCallback } from 'react'
 import { useIsChatMode } from './use-workflow'
 import type { ModelConfig, VisionSetting } from '@/app/components/workflow/types'
-import { useTextGenerationCurrentProviderAndModelAndModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useTextGenerationCurrentProviderAndModelAndModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import {
   ModelFeatureEnum,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
@@ -23,14 +23,15 @@ const useConfigVision = (model: ModelConfig, {
   },
   onChange,
 }: Params) => {
-  const {
-    currentModel: currModel,
-  } = useTextGenerationCurrentProviderAndModelAndModelList(
-    {
-      provider: model.provider,
-      model: model.name,
-    },
-  )
+  // const {
+  //   currentModel: currModel,
+  // } = useTextGenerationCurrentProviderAndModelAndModelList(
+  //   {
+  //     provider: model.provider,
+  //     model: model.name,
+  //   },
+  // )
+  const currModel: any = null // Mock
 
   const isChatMode = useIsChatMode()
 

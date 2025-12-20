@@ -1,9 +1,10 @@
-import { useChatContext } from '@/app/components/base/chat/chat/context'
+// import { useChatContext } from '@/app/components/base/chat/chat/context'
 import Button from '@/app/components/base/button'
 import cn from '@/utils/classnames'
 import { isValidUrl } from './utils'
 const MarkdownButton = ({ node }: any) => {
-  const { onSend } = useChatContext()
+  // const { onSend } = useChatContext()
+  const onSend = (message: string) => { console.log('Mock send:', message) }
   const variant = node.properties.dataVariant
   const message = node.properties.dataMessage
   const link = node.properties.dataLink

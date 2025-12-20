@@ -3,17 +3,28 @@ import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import type { CustomRunFormProps } from './types'
 import { DatasourceType } from '@/models/pipeline'
-import LocalFile from '@/app/components/datasets/documents/create-from-pipeline/data-source/local-file'
-import OnlineDocuments from '@/app/components/datasets/documents/create-from-pipeline/data-source/online-documents'
-import WebsiteCrawl from '@/app/components/datasets/documents/create-from-pipeline/data-source/website-crawl'
-import OnlineDrive from '@/app/components/datasets/documents/create-from-pipeline/data-source/online-drive'
-import { useDataSourceStore } from '@/app/components/datasets/documents/create-from-pipeline/data-source/store'
-import { useOnlineDocument, useOnlineDrive, useWebsiteCrawl } from '@/app/components/rag-pipeline/components/panel/test-run/preparation/hooks'
+// import LocalFile from '@/app/components/datasets/documents/create-from-pipeline/data-source/local-file'
+// import OnlineDocuments from '@/app/components/datasets/documents/create-from-pipeline/data-source/online-documents'
+// import WebsiteCrawl from '@/app/components/datasets/documents/create-from-pipeline/data-source/website-crawl'
+// import OnlineDrive from '@/app/components/datasets/documents/create-from-pipeline/data-source/online-drive'
+// import { useDataSourceStore } from '@/app/components/datasets/documents/create-from-pipeline/data-source/store'
+// import { useOnlineDocument, useOnlineDrive, useWebsiteCrawl } from '@/app/components/rag-pipeline/components/panel/test-run/preparation/hooks'
 import Button from '@/app/components/base/button'
 import { useTranslation } from 'react-i18next'
-import DataSourceProvider from '@/app/components/datasets/documents/create-from-pipeline/data-source/store/provider'
+// import DataSourceProvider from '@/app/components/datasets/documents/create-from-pipeline/data-source/store/provider'
 import PanelWrap from '../_base/components/before-run-form/panel-wrap'
 import useBeforeRunForm from './hooks/use-before-run-form'
+
+// Mocks
+const LocalFile = () => <div>Local File Mock</div>
+const OnlineDocuments = () => <div>Online Documents Mock</div>
+const WebsiteCrawl = () => <div>Website Crawl Mock</div>
+const OnlineDrive = () => <div>Online Drive Mock</div>
+const useDataSourceStore = () => ({ getState: () => ({ setCurrentCredentialId: () => {} }) })
+const useOnlineDocument = () => ({ clearOnlineDocumentData: () => {} })
+const useWebsiteCrawl = () => ({ clearWebsiteCrawlData: () => {} })
+const useOnlineDrive = () => ({ clearOnlineDriveData: () => {} })
+const DataSourceProvider = ({ children }: any) => <>{children}</>
 
 const BeforeRunForm: FC<CustomRunFormProps> = (props) => {
   const {

@@ -1,9 +1,15 @@
 import type { SimpleSubscription } from '@/app/components/plugins/plugin-detail-panel/subscription-list'
-import { CreateButtonType, CreateSubscriptionButton } from '@/app/components/plugins/plugin-detail-panel/subscription-list/create'
-import { SubscriptionSelectorEntry } from '@/app/components/plugins/plugin-detail-panel/subscription-list/selector-entry'
-import { useSubscriptionList } from '@/app/components/plugins/plugin-detail-panel/subscription-list/use-subscription-list'
+// import { CreateButtonType, CreateSubscriptionButton } from '@/app/components/plugins/plugin-detail-panel/subscription-list/create'
+// import { SubscriptionSelectorEntry } from '@/app/components/plugins/plugin-detail-panel/subscription-list/selector-entry'
+// import { useSubscriptionList } from '@/app/components/plugins/plugin-detail-panel/subscription-list/use-subscription-list'
 import cn from '@/utils/classnames'
 import type { FC } from 'react'
+
+// Mocks
+const useSubscriptionList = () => ({ subscriptions: [] })
+const CreateSubscriptionButton = () => null
+const SubscriptionSelectorEntry = () => null
+const CreateButtonType = { FULL_BUTTON: 'full' }
 
 type TriggerSubscriptionProps = {
   subscriptionIdSelected?: string

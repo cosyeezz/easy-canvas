@@ -11,7 +11,7 @@ import type { InputVar, MoreInfo } from '@/app/components/workflow/types'
 import { Variable02 } from '@/app/components/base/icons/src/vender/solid/development'
 import { Edit03 } from '@/app/components/base/icons/src/vender/solid/general'
 import Badge from '@/app/components/base/badge'
-import ConfigVarModal from '@/app/components/app/configuration/config-var/config-modal'
+// import ConfigVarModal from '@/app/components/app/configuration/config-var/config-modal'
 import { noop } from 'lodash-es'
 import cn from '@/utils/classnames'
 
@@ -92,7 +92,7 @@ const VarItem: FC<Props> = ({
         </>)}
 
       </div>
-      {
+      {/* {
         isShowEditVarModal && (
           <ConfigVarModal
             isShow
@@ -103,7 +103,7 @@ const VarItem: FC<Props> = ({
             varKeys={varKeys}
           />
         )
-      }
+      } */}
     </div>
   )
 }

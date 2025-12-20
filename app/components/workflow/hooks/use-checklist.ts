@@ -36,25 +36,25 @@ import type { PluginTriggerNodeType } from '../nodes/trigger-plugin/types'
 import { useToastContext } from '@/app/components/base/toast'
 import { useGetLanguage } from '@/context/i18n'
 import type { AgentNodeType } from '../nodes/agent/types'
-import { useStrategyProviders } from '@/service/use-strategy'
-import { useAllTriggerPlugins } from '@/service/use-triggers'
+// Mocked service hooks
+const useStrategyProviders = () => ({ strategyProviders: [] })
+const useAllTriggerPlugins = () => ({ triggerPlugins: [] })
+const fetchDatasets = async () => ({ data: [], total: 0 })
+const useAllBuiltInTools = () => []
+const useAllCustomTools = () => []
+const useAllWorkflowTools = () => []
+
 import { useDatasetsDetailStore } from '../datasets-detail-store/store'
 import type { KnowledgeRetrievalNodeType } from '../nodes/knowledge-retrieval/types'
 import type { DataSet } from '@/models/datasets'
-import { fetchDatasets } from '@/service/datasets'
 import { MAX_TREE_DEPTH } from '@/config'
 import useNodesAvailableVarList, { useGetNodesAvailableVarList } from './use-nodes-available-var-list'
 import { getNodeUsedVars, isSpecialVar } from '../nodes/_base/components/variable/utils'
 import type { Emoji } from '@/app/components/tools/types'
-import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
-import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import type { KnowledgeBaseNodeType } from '../nodes/knowledge-base/types'
-import {
-  useAllBuiltInTools,
-  useAllCustomTools,
-  useAllWorkflowTools,
-} from '@/service/use-tools'
-import { useStore as useAppStore } from '@/app/components/app/store'
+
+// Mock useAppStore
+const useAppStore = { getState: () => ({ appDetail: { mode: 'workflow' } }) }
+
 import { AppModeEnum } from '@/types/app'
 import useNodes from '@/app/components/workflow/store/workflow/use-nodes'
 

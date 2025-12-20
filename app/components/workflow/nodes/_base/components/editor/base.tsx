@@ -7,10 +7,9 @@ import CodeGeneratorButton from '../code-generator-button'
 import type { CodeLanguage } from '../../../code/types'
 import Wrap from './wrap'
 import cn from '@/utils/classnames'
-import PromptEditorHeightResizeWrap from '@/app/components/app/configuration/config-prompt/prompt-editor-height-resize-wrap'
+// import PromptEditorHeightResizeWrap from '@/app/components/app/configuration/config-prompt/prompt-editor-height-resize-wrap'
 import {
-  Copy,
-  CopyCheck,
+  Copy,  CopyCheck,
 } from '@/app/components/base/icons/src/vender/line/files'
 import useToggleExpend from '@/app/components/workflow/nodes/_base/hooks/use-toggle-expend'
 import type { FileEntity } from '@/app/components/base/file-uploader/types'
@@ -117,16 +116,14 @@ const Base: FC<Props> = ({
           </div>
         </div>
         {tip && <div className='px-1 py-0.5'>{tip}</div>}
-        <PromptEditorHeightResizeWrap
-          height={isExpand ? editorExpandHeight : editorContentHeight}
-          minHeight={editorContentMinHeight}
-          onHeightChange={setEditorContentHeight}
-          hideResize={isExpand}
+        <div
+          style={{ height: isExpand ? editorExpandHeight : editorContentHeight }}
+          className='relative'
         >
           <div className='h-full pb-2 pl-2'>
             {children}
           </div>
-        </PromptEditorHeightResizeWrap>
+        </div>
         {showFileList && fileList.length > 0 && (
           <FileListInLog fileList={fileList} />
         )}

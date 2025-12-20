@@ -16,9 +16,12 @@ import GeneratedResult from './generated-result'
 import { useGenerateStructuredOutputRules } from '@/service/use-common'
 import Toast from '@/app/components/base/toast'
 import { type FormValue, ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { useVisualEditorStore } from '../visual-editor/store'
 import { useMittContext } from '../visual-editor/context'
+
+// Mocks
+const useModelListAndDefaultModelAndCurrentProviderAndModel = () => ({ defaultModel: null })
 
 type JsonSchemaGeneratorProps = {
   onApply: (schema: SchemaRoot) => void

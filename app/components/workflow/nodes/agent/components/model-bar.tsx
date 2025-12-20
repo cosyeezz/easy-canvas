@@ -1,10 +1,14 @@
 import Tooltip from '@/app/components/base/tooltip'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
-import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
+// import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
 import Indicator from '@/app/components/header/indicator'
 import { type FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+
+// Mocks
+const useModelList = (type: any) => ({ data: [] })
+const ModelSelector = () => <div>Model Selector Mock</div>
 
 export type ModelBarProps = {
   provider: string

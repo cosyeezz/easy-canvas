@@ -8,15 +8,22 @@ import { ParamType } from '../../types'
 import AddButton from '@/app/components/base/button/add-button'
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
-import Field from '@/app/components/app/configuration/config-var/config-modal/field'
+// import Field from '@/app/components/app/configuration/config-var/config-modal/field'
 import Input from '@/app/components/base/input'
 import Textarea from '@/app/components/base/textarea'
 import Select from '@/app/components/base/select'
 import Switch from '@/app/components/base/switch'
 import Toast from '@/app/components/base/toast'
-import ConfigSelect from '@/app/components/app/configuration/config-var/config-select'
+// import ConfigSelect from '@/app/components/app/configuration/config-select'
 import { ChangeType, type MoreInfo } from '@/app/components/workflow/types'
 import { checkKeys } from '@/utils/var'
+
+const Field = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  <div className='space-y-1'>
+    <div className='text-[13px] font-medium text-text-secondary'>{title}</div>
+    {children}
+  </div>
+)
 
 const i18nPrefix = 'workflow.nodes.parameterExtractor'
 const errorI18nPrefix = 'workflow.errorMsg'
@@ -157,11 +164,11 @@ const AddExtractParameter: FC<Props> = ({
                   }
                 />
               </Field>
-              {param.type === ParamType.select && (
+              {/* {param.type === ParamType.select && (
                 <Field title={t('appDebug.variableConfig.options')}>
                   <ConfigSelect options={param.options || []} onChange={handleParamChange('options')} />
                 </Field>
-              )}
+              )} */}
               <Field title={t(`${i18nPrefix}.addExtractParameterContent.description`)}>
                 <Textarea
                   value={param.description}

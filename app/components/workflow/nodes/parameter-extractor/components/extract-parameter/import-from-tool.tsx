@@ -15,13 +15,11 @@ import type {
 import type { ToolParameter } from '@/app/components/tools/types'
 import { CollectionType } from '@/app/components/tools/types'
 import type { BlockEnum } from '@/app/components/workflow/types'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { canFindTool } from '@/utils'
-import {
-  useAllBuiltInTools,
-  useAllCustomTools,
-  useAllWorkflowTools,
-} from '@/service/use-tools'
+
+// Mocks
+const useLanguage = () => 'en-US'
 
 const i18nPrefix = 'workflow.nodes.parameterExtractor'
 

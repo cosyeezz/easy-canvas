@@ -4,13 +4,21 @@ import { BlockEnum } from '../types'
 import { useStore, useWorkflowStore } from '../store'
 import { CollectionType } from '@/app/components/tools/types'
 import { canFindTool } from '@/utils'
-import {
-  useAllBuiltInTools,
-  useAllCustomTools,
-  useAllMCPTools,
-  useAllWorkflowTools,
-} from '@/service/use-tools'
-import { useAllTriggerPlugins } from '@/service/use-triggers'
+// Mocked service hooks
+const useAllBuiltInTools = () => []
+const useAllCustomTools = () => []
+const useAllMCPTools = () => []
+const useAllWorkflowTools = () => []
+const useAllTriggerPlugins = () => ({ triggerPlugins: [] })
+
+// Removed imports
+// import {
+//   useAllBuiltInTools,
+//   useAllCustomTools,
+//   useAllMCPTools,
+//   useAllWorkflowTools,
+// } from '@/service/use-tools'
+// import { useAllTriggerPlugins } from '@/service/use-triggers'
 import type { PluginTriggerNodeType } from '../nodes/trigger-plugin/types'
 import type { ToolNodeType } from '../nodes/tool/types'
 import type { DataSourceNodeType } from '../nodes/data-source/types'

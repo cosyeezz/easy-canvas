@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { useNodes } from 'reactflow'
 import { useNodesInteractions } from './use-nodes-interactions'
 import type { CommonNodeType } from '../types'
-import { workflowNodesAction } from '@/app/components/goto-anything/actions/workflow-nodes'
+// import { workflowNodesAction } from '@/app/components/goto-anything/actions/workflow-nodes'
 import BlockIcon from '@/app/components/workflow/block-icon'
 import { setupNodeSelectionListener } from '../utils/node-navigation'
 import { BlockEnum } from '../types'
@@ -166,6 +166,7 @@ export const useWorkflowSearch = () => {
   }, [searchableNodes, calculateScore])
 
   // Directly set the search function on the action object
+  /*
   useEffect(() => {
     if (searchableNodes.length > 0) {
       // Set the search function directly on the action
@@ -177,7 +178,7 @@ export const useWorkflowSearch = () => {
       workflowNodesAction.searchFn = undefined
     }
   }, [searchableNodes, searchWorkflowNodes])
-
+  */
   // Set up node selection event listener using the utility function
   useEffect(() => {
     return setupNodeSelectionListener(handleNodeSelect)

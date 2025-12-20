@@ -6,8 +6,11 @@ import Textarea from '@/app/components/base/textarea'
 import Tooltip from '@/app/components/base/tooltip'
 import Button from '@/app/components/base/button'
 import type { FormValue } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+// import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
 import type { Model } from '@/types/app'
+
+// Mocks
+const ModelParameterModal = () => <div>Model Parameter Mock</div>
 
 export type ModelInfo = {
   modelId: string

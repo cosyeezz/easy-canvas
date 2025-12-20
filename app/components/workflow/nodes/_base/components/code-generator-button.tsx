@@ -8,7 +8,7 @@ import { Generator } from '@/app/components/base/icons/src/vender/other'
 import { ActionButton } from '@/app/components/base/action-button'
 import { AppModeEnum } from '@/types/app'
 import type { GenRes } from '@/service/debug'
-import { GetCodeGeneratorResModal } from '@/app/components/app/configuration/config/code-generator/get-code-generator-res'
+// import { GetCodeGeneratorResModal } from '@/app/components/app/configuration/config/code-generator/get-code-generator-res'
 import { useHooksStore } from '../../../hooks-store'
 
 type Props = {
@@ -40,7 +40,7 @@ const CodeGenerateBtn: FC<Props> = ({
         onClick={showAutomaticTrue}>
         <Generator className='h-4 w-4 text-primary-600' />
       </ActionButton>
-      {showAutomatic && (
+      {/* {showAutomatic && (
         <GetCodeGeneratorResModal
           mode={AppModeEnum.CHAT}
           isShow={showAutomatic}
@@ -51,7 +51,7 @@ const CodeGenerateBtn: FC<Props> = ({
           nodeId={nodeId}
           currentCode={currentCode}
         />
-      )}
+      )} */}
     </div>
   )
 }

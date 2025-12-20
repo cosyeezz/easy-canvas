@@ -6,7 +6,7 @@ import DatePicker from '@/app/components/base/date-and-time-picker/date-picker'
 import TimePicker from '@/app/components/base/date-and-time-picker/time-picker'
 import Checkbox from '@/app/components/base/checkbox'
 import Select from '@/app/components/base/select'
-import { useChatContext } from '@/app/components/base/chat/chat/context'
+// import { useChatContext } from '@/app/components/base/chat/chat/context'
 import { formatDateForOutput } from '@/app/components/base/date-and-time-picker/utils/dayjs'
 
 enum DATA_FORMAT {
@@ -32,7 +32,8 @@ enum SUPPORTED_TYPES {
   HIDDEN = 'hidden',
 }
 const MarkdownForm = ({ node }: any) => {
-  const { onSend } = useChatContext()
+  // const { onSend } = useChatContext()
+  const onSend = (message: string) => { console.log('Mock send:', message) }
 
   const [formValues, setFormValues] = useState<{ [key: string]: any }>({})
 

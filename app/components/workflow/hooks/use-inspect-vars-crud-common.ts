@@ -1,29 +1,25 @@
-import { fetchNodeInspectVars } from '@/service/workflow'
-import { useWorkflowStore } from '@/app/components/workflow/store'
-import type { ValueSelector } from '@/app/components/workflow/types'
-import type { VarInInspect } from '@/types/workflow'
+// Mocked service hooks
+const fetchNodeInspectVars = async () => ({})
+const useFLow = () => ({
+  useInvalidateConversationVarValues: () => () => {},
+  useInvalidateSysVarValues: () => () => {},
+  useResetConversationVar: () => ({ mutateAsync: async () => {} }),
+  useResetToLastRunValue: () => ({ mutateAsync: async () => {} }),
+  useDeleteAllInspectorVars: () => ({ mutateAsync: async () => {} }),
+  useDeleteNodeInspectorVars: () => ({ mutateAsync: async () => {} }),
+  useDeleteInspectVar: () => ({ mutateAsync: async () => {} }),
+  useEditInspectorVar: () => ({ mutateAsync: async () => {} }),
+})
+const useAllBuiltInTools = () => []
+const useAllCustomTools = () => []
+const useAllMCPTools = () => []
+const useAllWorkflowTools = () => []
+
 import { VarInInspectType } from '@/types/workflow'
 import { useCallback } from 'react'
-import {
-  isConversationVar,
-  isENV,
-  isSystemVar,
-  toNodeOutputVars,
-} from '@/app/components/workflow/nodes/_base/components/variable/utils'
 import { produce } from 'immer'
 import type { Node } from '@/app/components/workflow/types'
-import { useNodesInteractionsWithoutSync } from '@/app/components/workflow/hooks/use-nodes-interactions-without-sync'
-import { useEdgesInteractionsWithoutSync } from '@/app/components/workflow/hooks/use-edges-interactions-without-sync'
-import type { FlowType } from '@/types/common'
-import useFLow from '@/service/use-flow'
 import { useStoreApi } from 'reactflow'
-import type { SchemaTypeDefinition } from '@/service/use-common'
-import {
-  useAllBuiltInTools,
-  useAllCustomTools,
-  useAllMCPTools,
-  useAllWorkflowTools,
-} from '@/service/use-tools'
 
 type Params = {
   flowId: string

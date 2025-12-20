@@ -1,135 +1,57 @@
-# Dify Frontend
+# Easy Canvas
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Easy Canvas** is a standalone, pure frontend workflow orchestration component extracted from [Dify](https://github.com/langgenius/dify). It allows developers to integrate a powerful, drag-and-drop flow editor into their own applications without any backend dependencies on the original Dify platform.
+
+> **Status:** 🟢 Build Passing | 🚀 Standalone Ready
+
+## Key Features
+
+*   **Backend-Free**: All API dependencies have been mocked or removed. The canvas runs entirely in the browser using local state.
+*   **Pure React**: Built with Next.js (App Router), ReactFlow, and TailwindCSS.
+*   **Easy Integration**: Designed to be dropped into existing React/Next.js projects.
+*   **Customizable**: Metadata-driven node configuration allows for easy extension.
 
 ## Getting Started
 
-### Run by source code
+### Prerequisites
 
-Before starting the web frontend service, please make sure the following environment is ready.
+*   Node.js >= v18
+*   pnpm >= v9
 
-- [Node.js](https://nodejs.org) >= v22.11.x
-- [pnpm](https://pnpm.io) v10.x
-
-First, install the dependencies:
+### Installation
 
 ```bash
 pnpm install
 ```
 
-Then, configure the environment variables. Create a file named `.env.local` in the current directory and copy the contents from `.env.example`. Modify the values of these environment variables according to your requirements:
+### Development
 
-```bash
-cp .env.example .env.local
-```
-
-```
-# For production release, change this to PRODUCTION
-NEXT_PUBLIC_DEPLOY_ENV=DEVELOPMENT
-# The deployment edition, SELF_HOSTED
-NEXT_PUBLIC_EDITION=SELF_HOSTED
-# The base URL of console application, refers to the Console base URL of WEB service if console domain is
-# different from api or web app domain.
-# example: http://cloud.dify.ai/console/api
-NEXT_PUBLIC_API_PREFIX=http://localhost:5001/console/api
-NEXT_PUBLIC_COOKIE_DOMAIN=
-# The URL for Web APP, refers to the Web App base URL of WEB service if web app domain is different from
-# console or api domain.
-# example: http://udify.app/api
-NEXT_PUBLIC_PUBLIC_API_PREFIX=http://localhost:5001/api
-
-# SENTRY
-NEXT_PUBLIC_SENTRY_DSN=
-```
-
-> [!IMPORTANT]
->
-> 1. When the frontend and backend run on different subdomains, set NEXT_PUBLIC_COOKIE_DOMAIN=1. The frontend and backend must be under the same top-level domain in order to share authentication cookies.
-> 1. It's necessary to set NEXT_PUBLIC_API_PREFIX and NEXT_PUBLIC_PUBLIC_API_PREFIX to the correct backend API URL.
-
-Finally, run the development server:
+Start the development server:
 
 ```bash
 pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3001/canvas` to see the workflow editor in action.
 
-You can start editing the file under folder `app`. The page auto-updates as you edit the file.
-
-## Deploy
-
-### Deploy on server
-
-First, build the app for production:
+### Production Build
 
 ```bash
 pnpm run build
-```
-
-Then, start the server:
-
-```bash
 pnpm run start
 ```
 
-If you want to customize the host and port:
-
-```bash
-pnpm run start --port=3001 --host=0.0.0.0
-```
-
-If you want to customize the number of instances launched by PM2, you can configure `PM2_INSTANCES` in `docker-compose.yaml` or `Dockerfile`.
-
-## Storybook
-
-This project uses [Storybook](https://storybook.js.org/) for UI component development.
-
-To start the storybook server, run:
-
-```bash
-pnpm storybook
-```
-
-Open [http://localhost:6006](http://localhost:6006) with your browser to see the result.
-
-## Lint Code
-
-If your IDE is VSCode, rename `web/.vscode/settings.example.json` to `web/.vscode/settings.json` for lint code setting.
-
-## Test
-
-We use [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for Unit Testing.
-
-**📖 Complete Testing Guide**: See [web/testing/testing.md](./testing/testing.md) for detailed testing specifications, best practices, and examples.
-
-Run test:
-
-```bash
-pnpm run test
-```
-
-### Example Code
-
-If you are not familiar with writing tests, refer to:
-
-- [classnames.spec.ts](./utils/classnames.spec.ts) - Utility function test example
-- [index.spec.tsx](./app/components/base/button/index.spec.tsx) - Component test example
-
-### Analyze Component Complexity
-
-Before writing tests, use the script to analyze component complexity:
-
-```bash
-pnpm analyze-component app/components/your-component/index.tsx
-```
-
-This will help you determine the testing strategy. See [web/testing/testing.md](./testing/testing.md) for details.
-
 ## Documentation
 
-Visit <https://docs.dify.ai/getting-started/readme> to view the full documentation.
+For a comprehensive guide on how to integrate this component into your own project, architecture details, and customization instructions, please refer to the **[Integration Guide](./README_CANVAS.md)**.
 
-## Community
+## Project Structure
 
-The Dify community can be found on [Discord community](https://discord.gg/5AEfbxcd9k), where you can ask questions, voice ideas, and share your projects.
+*   `app/canvas/`: The entry point for the standalone demo page.
+*   `app/components/workflow/`: The core Workflow component library. **This is what you want to copy.**
+*   `app/components/base/`: Shared UI components used by the workflow.
+*   `service/`: Mocked service layer to satisfy type dependencies.
+
+## License
+
+This project is derived from Dify and inherits its open-source license (Apache 2.0 / See original repo for details).

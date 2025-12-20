@@ -38,10 +38,14 @@ import { DATASET_DEFAULT } from '@/config'
 import type { DataSet } from '@/models/datasets'
 import { fetchDatasets } from '@/service/datasets'
 import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-crud'
-import { useCurrentProviderAndModel, useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useCurrentProviderAndModel, useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import useAvailableVarList from '@/app/components/workflow/nodes/_base/hooks/use-available-var-list'
 import { useDatasetsDetailStore } from '../../datasets-detail-store/store'
+
+// Mocks
+const useCurrentProviderAndModel = () => ({ currentModel: null, currentProvider: null })
+const useModelListAndDefaultModelAndCurrentProviderAndModel = () => ({ currentProvider: null, currentModel: null, modelList: [], defaultModel: null })
 
 const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly()

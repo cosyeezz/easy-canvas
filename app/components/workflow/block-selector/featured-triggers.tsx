@@ -15,7 +15,7 @@ import TriggerPluginItem from './trigger-plugin/item'
 import { formatNumber } from '@/utils/format'
 import Action from '@/app/components/workflow/block-selector/market-place-plugin/action'
 import { ArrowDownDoubleLine, ArrowDownRoundFill, ArrowUpDoubleLine } from '@/app/components/base/icons/src/vender/solid/arrows'
-import InstallFromMarketplace from '@/app/components/plugins/install-plugin/install-from-marketplace'
+// import InstallFromMarketplace from '@/app/components/plugins/install-plugin/install-from-marketplace'
 
 const MAX_RECOMMENDED_COUNT = 15
 const INITIAL_VISIBLE_COUNT = 5
@@ -75,7 +75,8 @@ const FeaturedTriggers = ({
     uninstalledPlugins,
   } = useMemo(() => {
     const installed: TriggerWithProvider[] = []
-    const uninstalled: Plugin[] = []
+    const uninstalled: Plugin[] = [] // Mocked to empty
+    // const uninstalled: Plugin[] = []
     const visitedProviderIds = new Set<string>()
 
     limitedPlugins.forEach((plugin) => {
@@ -304,7 +305,7 @@ function FeaturedTriggerUninstalledItem({
           </div>
         </div>
       </Tooltip>
-      {isInstallModalOpen && (
+      {/* {isInstallModalOpen && (
         <InstallFromMarketplace
           uniqueIdentifier={plugin.latest_package_identifier}
           manifest={plugin}
@@ -318,7 +319,7 @@ function FeaturedTriggerUninstalledItem({
             setIsActionHovered(false)
           }}
         />
-      )}
+      )} */}
     </>
   )
 }

@@ -9,7 +9,8 @@ import type {
   NodeOutPutVar,
 } from '@/app/components/workflow/types'
 import { BlockEnum } from '@/app/components/workflow/types'
-import PromptEditor from '@/app/components/base/prompt-editor'
+// import PromptEditor from '@/app/components/base/prompt-editor'
+import Textarea from '@/app/components/base/textarea'
 import { Variable02 } from '@/app/components/base/icons/src/vender/solid/development'
 import Tooltip from '@/app/components/base/tooltip'
 import { noop } from 'lodash-es'
@@ -62,7 +63,16 @@ const Editor: FC<Props> = ({
   return (
     <div className={cn(className, 'relative')}>
       <>
-        <PromptEditor
+        <Textarea
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          className={cn(promptMinHeightClassName, '!leading-[18px]')}
+          onBlur={setBlur}
+          onFocus={setFocus}
+          disabled={readOnly}
+        />
+        {/* <PromptEditor
           instanceId={instanceId}
           className={cn(promptMinHeightClassName, '!leading-[18px]')}
           placeholder={placeholder}
@@ -113,7 +123,7 @@ const Editor: FC<Props> = ({
           editable={!readOnly}
           onBlur={setBlur}
           onFocus={setFocus}
-        />
+        /> */}
         {/* to patch Editor not support dynamic change editable status */}
         {readOnly && <div className='absolute inset-0 z-10'></div>}
         {isFocus && (

@@ -10,15 +10,22 @@ import {
 import useAvailableVarList from '../_base/hooks/use-available-var-list'
 import useConfigVision from '../../hooks/use-config-vision'
 import type { LLMNodeType, StructuredOutput } from './types'
-import { useModelList, useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useModelList, useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import {
   ModelFeatureEnum,
   ModelTypeEnum,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-crud'
-import { checkHasContextBlock, checkHasHistoryBlock, checkHasQueryBlock } from '@/app/components/base/prompt-editor/constants'
+// import { checkHasContextBlock, checkHasHistoryBlock, checkHasQueryBlock } from '@/app/components/base/prompt-editor/constants'
 import useInspectVarsCrud from '@/app/components/workflow/hooks/use-inspect-vars-crud'
 import { AppModeEnum } from '@/types/app'
+
+// Mocks
+const useModelList = () => ({ data: [] })
+const useModelListAndDefaultModelAndCurrentProviderAndModel = () => ({ currentProvider: null, currentModel: null })
+const checkHasContextBlock = (t: string) => t?.includes('context')
+const checkHasHistoryBlock = (t: string) => t?.includes('history')
+const checkHasQueryBlock = (t: string) => t?.includes('query')
 
 const useConfig = (id: string, payload: LLMNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly()

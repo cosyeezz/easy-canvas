@@ -22,8 +22,7 @@ import { VarInInspectType } from '@/types/workflow'
 import cn from '@/utils/classnames'
 import useNodeInfo from '../nodes/_base/hooks/use-node-info'
 import { useBoolean } from 'ahooks'
-import GetAutomaticResModal from '@/app/components/app/configuration/config/automatic/get-automatic-res'
-import GetCodeGeneratorResModal from '../../app/configuration/config/code-generator/get-code-generator-res'
+// Removed GetAutomaticResModal and GetCodeGeneratorResModal
 import { AppModeEnum } from '@/types/app'
 import { useHooksStore } from '../hooks-store'
 import { useCallback, useMemo } from 'react'
@@ -32,7 +31,7 @@ import { CodeLanguage } from '../nodes/code/types'
 import useNodeCrud from '../nodes/_base/hooks/use-node-crud'
 import type { GenRes } from '@/service/debug'
 import { produce } from 'immer'
-import { PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER } from '../../base/prompt-editor/plugins/update-block'
+// import { PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER } from '../../base/prompt-editor/plugins/update-block'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
 import { VariableIconWithColor } from '@/app/components/workflow/nodes/_base/components/variable/variable-label'
 
@@ -124,6 +123,7 @@ const Right = ({
     doShowPromptGenerator()
   }, [doShowPromptGenerator, handleNodeSelect, nodeId])
 
+  /*
   const handleUpdatePrompt = useCallback((res: GenRes) => {
     const newInputs = produce(node?.data, (draft: any) => {
       switch (blockType) {
@@ -135,26 +135,20 @@ const Right = ({
               draft.prompt_template.text = res.modified
           }
           break
-
-        //  Agent is a plugin, may has many instructions, can not locate which one to update
-        // case BlockEnum.Agent:
-        //   if (draft?.agent_parameters?.instruction) {
-        //     draft.agent_parameters.instruction.value = res.modified
-        //   }
-        //   break
         case BlockEnum.Code:
           draft.code = res.modified
           break
       }
     })
     setInputs(newInputs)
-    eventEmitter?.emit({
-      type: PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER,
-      instanceId: `${nodeId}-chat-workflow-llm-prompt-editor`,
-      payload: res.modified,
-    } as any)
+    // eventEmitter?.emit({
+    //   type: PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER,
+    //   instanceId: `${nodeId}-chat-workflow-llm-prompt-editor`,
+    //   payload: res.modified,
+    // } as any)
     handleHidePromptGenerator()
   }, [setInputs, blockType, nodeId, node?.data, handleHidePromptGenerator])
+  */
 
   const displaySchemaType = currentNodeVar?.var.schemaType ? (`(${currentNodeVar.var.schemaType})`) : ''
 
@@ -279,28 +273,7 @@ const Right = ({
           />
         )}
       </div>
-      {isShowPromptGenerator && (
-        isCodeBlock
-          ? <GetCodeGeneratorResModal
-            isShow
-            mode={AppModeEnum.CHAT}
-            onClose={handleHidePromptGenerator}
-            flowId={configsMap?.flowId || ''}
-            nodeId={nodeId}
-            currentCode={currentPrompt}
-            codeLanguages={node?.data?.code_languages || CodeLanguage.python3}
-            onFinished={handleUpdatePrompt}
-          />
-          : <GetAutomaticResModal
-            mode={AppModeEnum.CHAT}
-            isShow
-            onClose={handleHidePromptGenerator}
-            onFinished={handleUpdatePrompt}
-            flowId={configsMap?.flowId || ''}
-            nodeId={nodeId}
-            currentPrompt={currentPrompt}
-          />
-      )}
+      {/* Prompt generators removed */}
     </div>
   )
 }

@@ -7,11 +7,16 @@ import { useInvalidLastRun } from '@/service/use-workflow'
 import type { NodeRunResult } from '@/types/workflow'
 import { fetchNodeInspectVars } from '@/service/workflow'
 import { FlowType } from '@/types/common'
-import { useDatasourceSingleRun } from '@/service/use-pipeline'
-import { useDataSourceStore, useDataSourceStoreWithSelector } from '@/app/components/datasets/documents/create-from-pipeline/data-source/store'
+// import { useDatasourceSingleRun } from '@/service/use-pipeline'
+// import { useDataSourceStore, useDataSourceStoreWithSelector } from '@/app/components/datasets/documents/create-from-pipeline/data-source/store'
 import { DatasourceType } from '@/models/pipeline'
 import { TransferMethod } from '@/types/app'
 import { useShallow } from 'zustand/react/shallow'
+
+// Mocks
+const useDatasourceSingleRun = () => ({ mutateAsync: async () => {}, isPending: false })
+const useDataSourceStore = () => ({ getState: () => ({ currentCredentialId: '', localFileList: [], onlineDocuments: [], websitePages: [], onlineDriveFileList: [], selectedFileIds: [] }) })
+const useDataSourceStoreWithSelector = (selector: any) => selector({ localFileList: [], onlineDocuments: [], websitePages: [], selectedFileIds: [] })
 
 const useBeforeRunForm = ({
   nodeId,

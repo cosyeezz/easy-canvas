@@ -9,7 +9,7 @@ import type { StartNodeType } from './types'
 import Split from '@/app/components/workflow/nodes/_base/components/split'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
 import AddButton from '@/app/components/base/button/add-button'
-import ConfigVarModal from '@/app/components/app/configuration/config-var/config-modal'
+// import ConfigVarModal from '@/app/components/app/configuration/config-var/config-modal'
 import type { InputVar, NodePanelProps } from '@/app/components/workflow/types'
 
 const i18nPrefix = 'workflow.nodes.start'
@@ -89,7 +89,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
         </Field>
       </div>
 
-      {isShowAddVarModal && (
+      {/* {isShowAddVarModal && (
         <ConfigVarModal
           isCreate
           supportFile
@@ -98,7 +98,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
           onConfirm={handleAddVarConfirm}
           varKeys={inputs.variables.map(v => v.variable)}
         />
-      )}
+      )} */}
 
       <RemoveEffectVarConfirm
         isShow={isShowRemoveVarConfirm}

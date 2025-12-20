@@ -5,7 +5,7 @@ import { useBoolean } from 'ahooks'
 import cn from 'classnames'
 import { Generator } from '@/app/components/base/icons/src/vender/other'
 import { ActionButton } from '@/app/components/base/action-button'
-import GetAutomaticResModal from '@/app/components/app/configuration/config/automatic/get-automatic-res'
+// import GetAutomaticResModal from '@/app/components/app/configuration/config/automatic/get-automatic-res'
 import { AppModeEnum } from '@/types/app'
 import type { GenRes } from '@/service/debug'
 import type { ModelConfig } from '@/app/components/workflow/types'
@@ -40,7 +40,7 @@ const PromptGeneratorBtn: FC<Props> = ({
         onClick={showAutomaticTrue}>
         <Generator className='h-4 w-4 text-primary-600' />
       </ActionButton>
-      {showAutomatic && (
+      {/* {showAutomatic && (
         <GetAutomaticResModal
           mode={AppModeEnum.CHAT}
           isShow={showAutomatic}
@@ -51,7 +51,7 @@ const PromptGeneratorBtn: FC<Props> = ({
           editorId={editorId}
           currentPrompt={currentPrompt}
         />
-      )}
+      )} */}
     </div>
   )
 }

@@ -1,30 +1,23 @@
-import {
-  type QueryKey,
-  useQueryClient,
-} from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
-export const useInvalid = (key?: QueryKey) => {
+/**
+ * Mocked utility hooks for React Query cache management.
+ */
+
+export const useInvalid = (queryKey?: any[]) => {
   const queryClient = useQueryClient()
-  return () => {
-    if (!key)
-      return
-    queryClient.invalidateQueries(
-      {
-        queryKey: key,
-      },
-    )
+  return (customKey?: any[]) => {
+    queryClient.invalidateQueries({
+      queryKey: customKey || queryKey,
+    })
   }
 }
 
-export const useReset = (key?: QueryKey) => {
+export const useReset = (queryKey?: any[]) => {
   const queryClient = useQueryClient()
-  return () => {
-    if (!key)
-      return
-    queryClient.resetQueries(
-      {
-        queryKey: key,
-      },
-    )
+  return (customKey?: any[]) => {
+    queryClient.resetQueries({
+      queryKey: customKey || queryKey,
+    })
   }
 }

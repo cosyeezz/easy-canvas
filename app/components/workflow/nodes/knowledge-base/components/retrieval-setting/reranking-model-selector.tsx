@@ -2,11 +2,15 @@ import {
   memo,
   useMemo,
 } from 'react'
-import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
-import { useModelListAndDefaultModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
+// import { useModelListAndDefaultModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import type { DefaultModel } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import type { RerankingModel } from '../../types'
+
+// Mocks
+const ModelSelector = () => <div>Model Selector Mock</div>
+const useModelListAndDefaultModel = (type: any) => ({ modelList: [], defaultModel: null })
 
 export type RerankingModelSelectorProps = {
   rerankingModel?: RerankingModel

@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import type { CredentialFormSchema, CredentialFormSchemaNumberInput, CredentialFormSchemaSelect } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { VarType as VarKindType } from '@/app/components/workflow/nodes/tool/types'
 import type { Var } from '@/app/components/workflow/types'
 import { SimpleSelect } from '@/app/components/base/select'
@@ -27,7 +27,8 @@ const ConstantField: FC<Props> = ({
   onOpenChange,
   isLoading,
 }) => {
-  const language = useLanguage()
+  // const language = useLanguage()
+  const language = 'en-US'
   const placeholder = (schema as CredentialFormSchemaSelect).placeholder
   const handleStaticChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === '' ? '' : Number.parseFloat(e.target.value)

@@ -1,15 +1,12 @@
+/* Mocked CSS to remove broken imports */
 .copyIcon {
-  background-image: url(~@/app/components/develop/secret-key/assets/copy.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .copyIcon:hover {
-  background-image: url(~@/app/components/develop/secret-key/assets/copy-hover.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .copyIcon.copied {
-  background-image: url(~@/app/components/develop/secret-key/assets/copied.svg);
+  background-color: transparent;
 }

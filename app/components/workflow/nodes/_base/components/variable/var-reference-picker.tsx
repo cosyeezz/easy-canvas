@@ -48,7 +48,7 @@ import { isExceptionVariable } from '@/app/components/workflow/utils'
 import VarFullPathPanel from './var-full-path-panel'
 import { noop } from 'lodash-es'
 import type { Tool } from '@/app/components/tools/types'
-import { useFetchDynamicOptions } from '@/service/use-plugins'
+// import { useFetchDynamicOptions } from '@/service/use-plugins'
 import { VariableIconWithColor } from '@/app/components/workflow/nodes/_base/components/variable/variable-label'
 import { VAR_SHOW_NAME_MAP } from '@/app/components/workflow/constants'
 
@@ -346,10 +346,11 @@ const VarReferencePicker: FC<Props> = ({
 
   const [dynamicOptions, setDynamicOptions] = useState<FormOption[] | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { mutateAsync: fetchDynamicOptions } = useFetchDynamicOptions(
-    currentProvider?.plugin_id || '', currentProvider?.name || '', currentTool?.name || '', (schema as CredentialFormSchemaSelect)?.variable || '',
-    'tool',
-  )
+  // const { mutateAsync: fetchDynamicOptions } = useFetchDynamicOptions(
+  //   currentProvider?.plugin_id || '', currentProvider?.name || '', currentTool?.name || '', (schema as CredentialFormSchemaSelect)?.variable || '',
+  //   'tool',
+  // )
+  const fetchDynamicOptions = async () => ({ options: [] })
   const handleFetchDynamicOptions = async () => {
     if (schema?.type !== FormTypeEnum.dynamicSelect || !currentTool || !currentProvider)
       return

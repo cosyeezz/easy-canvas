@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { FOCUS_COMMAND } from 'lexical'
-import { $insertNodes } from 'lexical'
-import { CustomTextNode } from '@/app/components/base/prompt-editor/plugins/custom-text/node'
+// import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+// import { FOCUS_COMMAND } from 'lexical'
+// import { $insertNodes } from 'lexical'
+// import { CustomTextNode } from '@/app/components/base/prompt-editor/plugins/custom-text/node'
 import Badge from '@/app/components/base/badge'
 
 type PlaceholderProps = {
@@ -12,15 +12,18 @@ type PlaceholderProps = {
 
 const Placeholder = ({ disableVariableInsertion = false }: PlaceholderProps) => {
   const { t } = useTranslation()
-  const [editor] = useLexicalComposerContext()
+  // const [editor] = useLexicalComposerContext()
 
   const handleInsert = useCallback((text: string) => {
+    /*
     editor.update(() => {
       const textNode = new CustomTextNode(text)
       $insertNodes([textNode])
     })
     editor.dispatchCommand(FOCUS_COMMAND, undefined as any)
-  }, [editor])
+    */
+    console.log('Mock insert:', text)
+  }, [])
 
   return (
     <div

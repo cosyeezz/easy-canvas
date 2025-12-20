@@ -4,7 +4,7 @@
  * Handles special rendering for paragraphs that directly contain an image.
  */
 import ImageGallery from '@/app/components/base/image-gallery'
-import { usePluginReadmeAsset } from '@/service/use-plugins'
+// import { usePluginReadmeAsset } from '@/service/use-plugins'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { SimplePluginInfo } from '../markdown/react-markdown-wrapper'
 import { getMarkdownImageURL } from './utils'
@@ -22,10 +22,11 @@ export const PluginParagraph: React.FC<PluginParagraphProps> = ({ pluginInfo, no
   const isImageParagraph = firstChild?.tagName === 'img'
   const imageSrc = isImageParagraph ? firstChild?.properties?.src : undefined
 
-  const { data: assetData } = usePluginReadmeAsset({
-    plugin_unique_identifier: pluginUniqueIdentifier,
-    file_name: isImageParagraph && imageSrc ? imageSrc : '',
-  })
+  // const { data: assetData } = usePluginReadmeAsset({
+  //   plugin_unique_identifier: pluginUniqueIdentifier,
+  //   file_name: isImageParagraph && imageSrc ? imageSrc : '',
+  // })
+  const assetData: Blob | undefined = undefined // Mock
 
   const [blobUrl, setBlobUrl] = useState<string>()
 

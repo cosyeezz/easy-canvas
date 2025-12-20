@@ -4,6 +4,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { WorkflowWithInnerContext } from '@/app/components/workflow/index'
 import { CUSTOM_NODE } from '@/app/components/workflow/constants'
 import { EventEmitterContextProvider } from '@/context/event-emitter'
+import { BlockEnum } from '@/app/components/workflow/types'
 import { availableNodesMetaData } from './node-defaults'
 
 export default function CanvasPage() {
@@ -11,13 +12,13 @@ export default function CanvasPage() {
     {
       id: 'start',
       type: CUSTOM_NODE,
-      data: { title: 'Start', type: 'start', desc: 'Start Node', variables: [] },
+      data: { title: 'Start', type: BlockEnum.Start, desc: 'Start Node', variables: [] },
       position: { x: 100, y: 100 },
     },
     {
       id: 'end',
       type: CUSTOM_NODE,
-      data: { title: 'End', type: 'end', desc: 'End Node', outputs: [] },
+      data: { title: 'End', type: BlockEnum.End, desc: 'End Node', outputs: [] },
       position: { x: 600, y: 100 },
     },
   ]

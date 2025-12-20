@@ -1,15 +1,16 @@
 import { useCallback } from 'react'
 import { produce } from 'immer'
 import { useStoreApi } from 'reactflow'
-import { useStore as useAppStore } from '@/app/components/app/store'
+// import { useStore as useAppStore } from '@/app/components/app/store'
 import { BlockEnum } from '@/app/components/workflow/types'
-import { fetchWebhookUrl } from '@/service/apps'
+// import { fetchWebhookUrl } from '@/service/apps'
 
 export const useAutoGenerateWebhookUrl = () => {
   const reactFlowStore = useStoreApi()
 
   return useCallback(async (nodeId: string) => {
-    const appId = useAppStore.getState().appDetail?.id
+    // const appId = useAppStore.getState().appDetail?.id
+    const appId = 'mock-app-id'
     if (!appId)
       return
 
@@ -22,7 +23,8 @@ export const useAutoGenerateWebhookUrl = () => {
       return
 
     try {
-      const response = await fetchWebhookUrl({ appId, nodeId })
+      // const response = await fetchWebhookUrl({ appId, nodeId })
+      const response = { webhook_url: `https://api.example.com/v1/webhook/${nodeId}`, webhook_debug_url: `https://api.example.com/v1/webhook/${nodeId}/debug` }
       const { getNodes: getLatestNodes, setNodes } = reactFlowStore.getState()
       let hasUpdated = false
       const updatedNodes = produce(getLatestNodes(), (draft) => {

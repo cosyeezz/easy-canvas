@@ -9,8 +9,11 @@ import Collapse from '@/app/components/workflow/nodes/_base/components/collapse'
 import Tooltip from '@/app/components/base/tooltip'
 import type { MetadataShape } from '@/app/components/workflow/nodes/knowledge-retrieval/types'
 import { MetadataFilteringModeEnum } from '@/app/components/workflow/nodes/knowledge-retrieval/types'
-import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+// import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
 import { noop } from 'lodash-es'
+
+// Mocks
+const ModelParameterModal = () => <div>Model Parameter Mock</div>
 
 type MetadataFilterProps = {
   metadataFilterMode?: MetadataFilteringModeEnum

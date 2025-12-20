@@ -35,7 +35,7 @@ import type { LoopNodeType } from '../nodes/loop/types'
 import { CUSTOM_NOTE_NODE } from '../note-node/constants'
 import { findUsedVarNodes, getNodeOutputVars, updateNodeVars } from '../nodes/_base/components/variable/utils'
 import { useAvailableBlocks } from './use-available-blocks'
-import { useStore as useAppStore } from '@/app/components/app/store'
+// import { useStore as useAppStore } from '@/app/components/app/store'
 
 import { CUSTOM_ITERATION_START_NODE } from '@/app/components/workflow/nodes/iteration-start/constants'
 import { CUSTOM_LOOP_START_NODE } from '@/app/components/workflow/nodes/loop-start/constants'
@@ -43,7 +43,8 @@ import { useNodesMetaData } from '.'
 import { AppModeEnum } from '@/types/app'
 
 export const useIsChatMode = () => {
-  const appDetail = useAppStore(s => s.appDetail)
+  // const appDetail = useAppStore(s => s.appDetail)
+  const appDetail = { mode: AppModeEnum.ADVANCED_CHAT } // Mocked
 
   return appDetail?.mode === AppModeEnum.ADVANCED_CHAT
 }

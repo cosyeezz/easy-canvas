@@ -11,7 +11,7 @@ import {
   svgToBase64,
   waitForDOMElement,
 } from './utils'
-import LoadingAnim from '@/app/components/base/chat/chat/loading-anim'
+// import LoadingAnim from '@/app/components/base/chat/chat/loading-anim'
 import cn from '@/utils/classnames'
 import ImagePreview from '@/app/components/base/image-uploader/image-preview'
 import { Theme } from '@/types/app'
@@ -531,7 +531,8 @@ const Flowchart = (props: FlowchartProps) => {
 
       {isLoading && !svgString && (
         <div className='px-[26px] py-4'>
-          <LoadingAnim type='text'/>
+          {/* <LoadingAnim type='text'/> */}
+          <div className='animate-pulse text-gray-400'>Loading...</div>
           <div className="mt-2 text-sm text-gray-500">
             {t('common.wait_for_completion', 'Waiting for diagram code to complete...')}
           </div>

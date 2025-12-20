@@ -3,7 +3,7 @@ import React from 'react'
 import { useContext } from 'use-context-selector'
 import { useTranslation } from 'react-i18next'
 import type { Plugin } from '@/app/components/plugins/types'
-import InstallFromMarketplace from '@/app/components/plugins/install-plugin/install-from-marketplace'
+// import InstallFromMarketplace from '@/app/components/plugins/install-plugin/install-from-marketplace'
 import I18n from '@/context/i18n'
 import { useBoolean } from 'ahooks'
 import { BlockEnum } from '../../types'
@@ -48,14 +48,14 @@ const UninstalledItem = ({
         >
           {t('plugin.installAction')}
         </div>
-        {isShowInstallModal && (
+        {/* {isShowInstallModal && (
           <InstallFromMarketplace
             uniqueIdentifier={payload.latest_package_identifier}
             manifest={payload}
             onSuccess={hideInstallModal}
             onClose={hideInstallModal}
           />
-        )}
+        )} */}
       </div>
     </div>
   )

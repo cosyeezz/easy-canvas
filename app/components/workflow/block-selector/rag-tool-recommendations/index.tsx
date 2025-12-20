@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { getMarketplaceUrl } from '@/utils/var'
 import { useRAGRecommendedPlugins } from '@/service/use-tools'
 import List from './list'
-import { getFormattedPlugin } from '@/app/components/plugins/marketplace/utils'
+// import { getFormattedPlugin } from '@/app/components/plugins/marketplace/utils'
 import { ArrowDownRoundFill } from '@/app/components/base/icons/src/vender/solid/arrows'
 
 type RAGToolRecommendationsProps = {
@@ -61,8 +61,8 @@ const RAGToolRecommendations = ({
   }, [ragRecommendedPlugins])
 
   const unInstalledPlugins = useMemo(() => {
-    if (ragRecommendedPlugins)
-      return (ragRecommendedPlugins.uninstalled_recommended_plugins).map(getFormattedPlugin)
+    // if (ragRecommendedPlugins)
+    //   return (ragRecommendedPlugins.uninstalled_recommended_plugins).map(getFormattedPlugin)
     return []
   }, [ragRecommendedPlugins])
 

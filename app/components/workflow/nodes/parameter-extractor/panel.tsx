@@ -13,12 +13,12 @@ import AddExtractParameter from './components/extract-parameter/update'
 import ReasoningModePicker from './components/reasoning-mode-picker'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
 import Split from '@/app/components/workflow/nodes/_base/components/split'
-import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+// import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
 import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
 import type { NodePanelProps } from '@/app/components/workflow/types'
-import Tooltip from '@/app/components/base/tooltip'
-import { VarType } from '@/app/components/workflow/types'
-import { FieldCollapse } from '@/app/components/workflow/nodes/_base/components/collapse'
+
+// Mocks
+const ModelParameterModal = () => <div>Model Parameter Mock</div>
 
 const i18nPrefix = 'workflow.nodes.parameterExtractor'
 const i18nCommonPrefix = 'workflow.common'

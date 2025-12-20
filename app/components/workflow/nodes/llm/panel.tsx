@@ -11,7 +11,7 @@ import VarList from '@/app/components/workflow/nodes/_base/components/variable/v
 import AddButton2 from '@/app/components/base/button/add-button'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
 import Split from '@/app/components/workflow/nodes/_base/components/split'
-import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+// import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
 import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
 import type { NodePanelProps } from '@/app/components/workflow/types'
 import Tooltip from '@/app/components/base/tooltip'
@@ -22,6 +22,8 @@ import Switch from '@/app/components/base/switch'
 import { RiAlertFill, RiQuestionLine } from '@remixicon/react'
 import { fetchAndMergeValidCompletionParams } from '@/utils/completion-params'
 import Toast from '@/app/components/base/toast'
+
+const ModelParameterModal = () => <div>Model Parameter Mock</div>
 
 const i18nPrefix = 'workflow.nodes.llm'
 

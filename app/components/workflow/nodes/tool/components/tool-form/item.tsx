@@ -6,14 +6,18 @@ import {
 import type { ToolVarInputs } from '../../types'
 import type { CredentialFormSchema } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import Button from '@/app/components/base/button'
 import Tooltip from '@/app/components/base/tooltip'
 import FormInputItem from '@/app/components/workflow/nodes/_base/components/form-input-item'
 import { useBoolean } from 'ahooks'
-import SchemaModal from '@/app/components/plugins/plugin-detail-panel/tool-selector/schema-modal'
+// import SchemaModal from '@/app/components/plugins/plugin-detail-panel/tool-selector/schema-modal'
 import type { ToolWithProvider } from '@/app/components/workflow/types'
 import type { Tool } from '@/app/components/tools/types'
+
+// Mocks
+const useLanguage = () => 'en-US'
+const SchemaModal = () => <div>Schema Modal Mock</div>
 
 type Props = {
   readOnly: boolean

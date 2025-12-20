@@ -15,7 +15,7 @@ import {
   useAllTriggerPlugins,
   useInvalidateAllTriggerPlugins,
 } from '@/service/use-triggers'
-import { useInvalidDataSourceList } from '@/service/use-pipeline'
+// import { useInvalidDataSourceList } from '@/service/use-pipeline'
 import { useStore } from '../store'
 import { canFindTool } from '@/utils'
 
@@ -155,7 +155,8 @@ const useTriggerInstallation = (data: PluginTriggerNodeType): InstallationState 
 
 const useDataSourceInstallation = (data: DataSourceNodeType): InstallationState => {
   const dataSourceList = useStore(s => s.dataSourceList)
-  const invalidateDataSourceList = useInvalidDataSourceList()
+  // const invalidateDataSourceList = useInvalidDataSourceList()
+  const invalidateDataSourceList = () => {}
 
   const matchedPlugin = useMemo(() => {
     if (!dataSourceList || !dataSourceList.length)

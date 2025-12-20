@@ -15,7 +15,7 @@ import {
 import { getProcessedFiles, getProcessedFilesFromResponse } from '@/app/components/base/file-uploader/utils'
 import { JSON_SCHEMA_MAX_DEPTH } from '@/config'
 import { TransferMethod } from '@/types/app'
-import { FILE_EXTS } from '@/app/components/base/prompt-editor/constants'
+import { FILE_EXTS } from '@/app/components/base/file-uploader/constants'
 import { SupportUploadFileTypes } from '@/app/components/workflow/types'
 import type { VarInInspect } from '@/types/workflow'
 import { VarInInspectType } from '@/types/workflow'

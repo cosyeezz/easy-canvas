@@ -1,12 +1,12 @@
 import Button from '@/app/components/base/button'
 import { RiInstallLine, RiLoader2Line } from '@remixicon/react'
 import type { ComponentProps, MouseEventHandler } from 'react'
-import { useState } from 'react'
+// import { useState } from 'react'
 import classNames from '@/utils/classnames'
 import { useTranslation } from 'react-i18next'
-import checkTaskStatus from '@/app/components/plugins/install-plugin/base/check-task-status'
-import { TaskStatus } from '@/app/components/plugins/types'
-import { useCheckInstalled, useInstallPackageFromMarketPlace } from '@/service/use-plugins'
+// import checkTaskStatus from '@/app/components/plugins/install-plugin/base/check-task-status'
+// import { TaskStatus } from '@/app/components/plugins/types'
+// import { useCheckInstalled, useInstallPackageFromMarketPlace } from '@/service/use-plugins'
 
 type InstallPluginButtonProps = Omit<ComponentProps<typeof Button>, 'children' | 'loading'> & {
   uniqueIdentifier: string
@@ -15,6 +15,8 @@ type InstallPluginButtonProps = Omit<ComponentProps<typeof Button>, 'children' |
 }
 
 export const InstallPluginButton = (props: InstallPluginButtonProps) => {
+  return null
+  /*
   const {
     className,
     uniqueIdentifier,
@@ -101,4 +103,5 @@ export const InstallPluginButton = (props: InstallPluginButtonProps) => {
     {!isLoading ? t('workflow.nodes.agent.pluginInstaller.install') : t('workflow.nodes.agent.pluginInstaller.installing')}
     {!isLoading ? <RiInstallLine className='ml-1 size-3.5' /> : <RiLoader2Line className='ml-1 size-3.5 animate-spin' />}
   </Button>
+  */
 }

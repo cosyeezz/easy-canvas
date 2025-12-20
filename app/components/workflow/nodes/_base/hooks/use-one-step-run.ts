@@ -38,7 +38,8 @@ import DocumentExtractorDefault from '@/app/components/workflow/nodes/document-e
 import LoopDefault from '@/app/components/workflow/nodes/loop/default'
 import { post, ssePost } from '@/service/base'
 import { noop } from 'lodash-es'
-import { getInputVars as doGetInputVars } from '@/app/components/base/prompt-editor/constants'
+// import { getInputVars as doGetInputVars } from '@/app/components/base/prompt-editor/constants'
+import { getInputVars as doGetInputVars } from '@/app/components/base/file-uploader/constants'
 import type { NodeRunResult, NodeTracing } from '@/types/workflow'
 const { checkValid: checkLLMValid } = LLMDefault
 const { checkValid: checkKnowledgeRetrievalValid } = KnowledgeRetrievalDefault

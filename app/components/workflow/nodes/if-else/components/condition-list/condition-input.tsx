@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useStore } from '@/app/components/workflow/store'
-import PromptEditor from '@/app/components/base/prompt-editor'
+// import PromptEditor from '@/app/components/base/prompt-editor'
+import Input from '@/app/components/base/input'
 import { BlockEnum } from '@/app/components/workflow/types'
 import type {
   Node,
@@ -27,36 +28,16 @@ const ConditionInput = ({
   const setShowInputFieldPanel = useStore(s => s.setShowInputFieldPanel)
 
   return (
-    <PromptEditor
+    <Input
       key={controlPromptEditorRerenderKey}
-      compact
       value={value}
+      onChange={e => onChange(e.target.value)}
       placeholder={t('workflow.nodes.ifElse.enterValue') || ''}
-      workflowVariableBlock={{
-        show: true,
-        variables: nodesOutputVars || [],
-        workflowNodesMap: availableNodes.reduce((acc, node) => {
-          acc[node.id] = {
-            title: node.data.title,
-            type: node.data.type,
-            width: node.width,
-            height: node.height,
-            position: node.position,
-          }
-          if (node.data.type === BlockEnum.Start) {
-            acc.sys = {
-              title: t('workflow.blocks.start'),
-              type: BlockEnum.Start,
-            }
-          }
-          return acc
-        }, {} as any),
-        showManageInputField: !!pipelineId,
-        onManageInputField: () => setShowInputFieldPanel?.(true),
-      }}
-      onChange={onChange}
-      editable={!disabled}
+      disabled={disabled}
     />
+    // <PromptEditor
+    //   ...
+    // />
   )
 }
 

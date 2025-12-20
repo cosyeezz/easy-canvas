@@ -6,8 +6,10 @@ import { Markdown } from '@/app/components/base/markdown'
 import SchemaEditor from '@/app/components/workflow/nodes/llm/components/json-schema-config-modal/schema-editor'
 import { SegmentedControl } from '@/app/components/base/segmented-control'
 import cn from '@/utils/classnames'
-import { ChunkCardList } from '@/app/components/rag-pipeline/components/chunk-card-list'
-import type { ChunkInfo } from '@/app/components/rag-pipeline/components/chunk-card-list/types'
+
+const ChunkCardList = (props: any) => <div>Mock Chunk Card List</div>
+type ChunkInfo = any
+
 import type { ParentMode } from '@/models/datasets'
 import { ChunkingMode } from '@/models/datasets'
 import { PreviewType, ViewMode } from './types'

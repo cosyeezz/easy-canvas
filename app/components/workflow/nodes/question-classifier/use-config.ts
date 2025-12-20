@@ -11,11 +11,15 @@ import useAvailableVarList from '../_base/hooks/use-available-var-list'
 import useConfigVision from '../../hooks/use-config-vision'
 import type { QuestionClassifierNodeType, Topic } from './types'
 import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-crud'
-import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { checkHasQueryBlock } from '@/app/components/base/prompt-editor/constants'
+// import { checkHasQueryBlock } from '@/app/components/base/prompt-editor/constants'
 import { useUpdateNodeInternals } from 'reactflow'
 import { AppModeEnum } from '@/types/app'
+
+// Mocks
+const useModelListAndDefaultModelAndCurrentProviderAndModel = () => ({ currentProvider: null, currentModel: null })
+const checkHasQueryBlock = (t: string) => t?.includes('query')
 
 const useConfig = (id: string, payload: QuestionClassifierNodeType) => {
   const updateNodeInternals = useUpdateNodeInternals()

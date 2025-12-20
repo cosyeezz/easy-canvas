@@ -13,7 +13,7 @@ import { BlockEnum as BlockEnumValues } from '../types'
 import { START_BLOCKS } from './constants'
 import type { TriggerDefaultValue } from './types'
 import Tooltip from '@/app/components/base/tooltip'
-import { useAvailableNodesMetaData } from '../../workflow-app/hooks'
+// import { useAvailableNodesMetaData } from '../../workflow-app/hooks'
 
 type StartBlocksProps = {
   searchText: string
@@ -33,7 +33,7 @@ const StartBlocks = ({
   const { t } = useTranslation()
   const nodes = useNodes()
   // const nodeMetaData = useNodeMetaData()
-  const availableNodesMetaData = useAvailableNodesMetaData()
+  const availableNodesMetaData = {} // Mocked
 
   const filteredBlocks = useMemo(() => {
     // Check if Start node already exists in workflow

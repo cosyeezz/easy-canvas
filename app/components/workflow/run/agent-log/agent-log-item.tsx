@@ -14,7 +14,10 @@ import CodeEditor from '@/app/components/workflow/nodes/_base/components/editor/
 import { CodeLanguage } from '@/app/components/workflow/nodes/code/types'
 import BlockIcon from '@/app/components/workflow/block-icon'
 import { BlockEnum } from '@/app/components/workflow/types'
-import useGetIcon from '@/app/components/plugins/install-plugin/base/use-get-icon'
+
+const useGetIcon = () => ({
+  getIconUrl: (icon: string) => icon,
+})
 
 type AgentLogItemProps = {
   item: AgentLogItemWithChildren

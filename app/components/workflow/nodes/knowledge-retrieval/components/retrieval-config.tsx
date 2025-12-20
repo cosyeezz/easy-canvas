@@ -11,12 +11,15 @@ import {
   PortalToFollowElemContent,
   PortalToFollowElemTrigger,
 } from '@/app/components/base/portal-to-follow-elem'
-import ConfigRetrievalContent from '@/app/components/app/configuration/dataset-config/params-config/config-content'
+// import ConfigRetrievalContent from '@/app/components/app/configuration/dataset-config/params-config/config-content'
 import { RETRIEVE_TYPE } from '@/types/app'
 import { DATASET_DEFAULT } from '@/config'
 import Button from '@/app/components/base/button'
 import type { DatasetConfigs } from '@/models/debug'
 import type { DataSet } from '@/models/datasets'
+
+// Mocks
+const ConfigRetrievalContent = () => <div>Retrieval Content Mock</div>
 
 type Props = {
   payload: {

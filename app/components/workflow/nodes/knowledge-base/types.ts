@@ -1,11 +1,18 @@
 import type { CommonNodeType } from '@/app/components/workflow/types'
-import type { IndexingType } from '@/app/components/datasets/create/step-two'
+// import type { IndexingType } from '@/app/components/datasets/create/step-two'
 import type { RETRIEVE_METHOD } from '@/types/app'
 import type { WeightedScoreEnum } from '@/models/datasets'
 import type { RerankingModeEnum } from '@/models/datasets'
 import type { Model } from '@/app/components/header/account-setting/model-provider-page/declarations'
+
+export enum IndexingType {
+  QUALIFIED = 'high_quality',
+  ECONOMICAL = 'economy',
+}
+
 export { WeightedScoreEnum } from '@/models/datasets'
-export { IndexingType as IndexMethodEnum } from '@/app/components/datasets/create/step-two'
+// export { IndexingType as IndexMethodEnum } from '@/app/components/datasets/create/step-two'
+export const IndexMethodEnum = IndexingType
 export { RETRIEVE_METHOD as RetrievalSearchMethodEnum } from '@/types/app'
 export { RerankingModeEnum as HybridSearchModeEnum } from '@/models/datasets'
 

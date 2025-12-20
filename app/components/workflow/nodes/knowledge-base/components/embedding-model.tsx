@@ -5,10 +5,14 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Field } from '@/app/components/workflow/nodes/_base/components/layout'
-import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
-import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import ModelSelector from '@/app/components/header/account-setting/model-provider-page/model-selector'
+// import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import type { DefaultModel } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
+
+// Mocks
+const useModelList = (type: any) => ({ data: [] })
+const ModelSelector = () => <div>Model Selector Mock</div>
 
 type EmbeddingModelProps = {
   embeddingModel?: string

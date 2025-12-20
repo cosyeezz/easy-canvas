@@ -3,11 +3,11 @@ import type { FC } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { type ResourceVarInputs, VarKindType } from '../types'
 import type { CredentialFormSchema, FormOption } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { VarType } from '@/app/components/workflow/types'
-import { useFetchDynamicOptions } from '@/service/use-plugins'
-import { useTriggerPluginDynamicOptions } from '@/service/use-triggers'
+// import { useFetchDynamicOptions } from '@/service/use-plugins'
+// import { useTriggerPluginDynamicOptions } from '@/service/use-triggers'
 
 import type { ToolWithProvider, ValueSelector, Var } from '@/app/components/workflow/types'
 import type { TriggerWithProvider } from '@/app/components/workflow/block-selector/types'
@@ -17,8 +17,8 @@ import useAvailableVarList from '@/app/components/workflow/nodes/_base/hooks/use
 import Input from '@/app/components/base/input'
 import { SimpleSelect } from '@/app/components/base/select'
 import MixedVariableTextInput from '@/app/components/workflow/nodes/tool/components/mixed-variable-text-input'
-import AppSelector from '@/app/components/plugins/plugin-detail-panel/app-selector'
-import ModelParameterModal from '@/app/components/plugins/plugin-detail-panel/model-selector'
+// import AppSelector from '@/app/components/plugins/plugin-detail-panel/app-selector'
+// import ModelParameterModal from '@/app/components/plugins/plugin-detail-panel/model-selector'
 import VarReferencePicker from '@/app/components/workflow/nodes/_base/components/variable/var-reference-picker'
 import CodeEditor from '@/app/components/workflow/nodes/_base/components/editor/code-editor'
 import { CodeLanguage } from '@/app/components/workflow/nodes/code/types'
@@ -27,9 +27,22 @@ import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headless
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { RiCheckLine, RiLoader4Line } from '@remixicon/react'
 import type { Event } from '@/app/components/tools/types'
-import { PluginCategoryEnum } from '@/app/components/plugins/types'
+// import { PluginCategoryEnum } from '@/app/components/plugins/types'
 import CheckboxList from '@/app/components/base/checkbox-list'
 import FormInputBoolean from './form-input-boolean'
+
+const AppSelector = () => <div>App Selector</div>
+const ModelParameterModal = () => <div>Model Parameter</div>
+const useLanguage = () => 'en-US'
+const useFetchDynamicOptions = () => ({ mutateAsync: async () => ({ options: [] }) })
+const useTriggerPluginDynamicOptions = () => ({ data: { options: [] }, isLoading: false })
+
+export enum PluginCategoryEnum {
+  tool = 'tool',
+  trigger = 'trigger',
+  model = 'model',
+  extension = 'extension',
+}
 
 type Props = {
   readOnly: boolean

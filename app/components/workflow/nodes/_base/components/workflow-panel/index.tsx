@@ -1,17 +1,17 @@
-import { useStore as useAppStore } from '@/app/components/app/store'
+// import { useStore as useAppStore } from '@/app/components/app/store'
 import { Stop } from '@/app/components/base/icons/src/vender/line/mediaAndDevices'
 import Tooltip from '@/app/components/base/tooltip'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
-import {
-  AuthCategory,
-  AuthorizedInDataSourceNode,
-  AuthorizedInNode,
-  PluginAuth,
-  PluginAuthInDataSourceNode,
-} from '@/app/components/plugins/plugin-auth'
-import { usePluginStore } from '@/app/components/plugins/plugin-detail-panel/store'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import {
+//   AuthCategory,
+//   AuthorizedInDataSourceNode,
+//   AuthorizedInNode,
+//   PluginAuth,
+//   PluginAuthInDataSourceNode,
+// } from '@/app/components/plugins/plugin-auth'
+// import { usePluginStore } from '@/app/components/plugins/plugin-detail-panel/store'
 import type { SimpleSubscription } from '@/app/components/plugins/plugin-detail-panel/subscription-list'
-import { ReadmeEntrance } from '@/app/components/plugins/readme-panel/entrance'
+// import { ReadmeEntrance } from '@/app/components/plugins/readme-panel/entrance'
 import BlockIcon from '@/app/components/workflow/block-icon'
 import {
   WorkflowHistoryEvent,
@@ -45,7 +45,7 @@ import { useAllTriggerPlugins } from '@/service/use-triggers'
 import { FlowType } from '@/types/common'
 import { canFindTool } from '@/utils'
 import cn from '@/utils/classnames'
-import { ACCOUNT_SETTING_TAB } from '@/app/components/header/account-setting/constants'
+// import { ACCOUNT_SETTING_TAB } from '@/app/components/header/account-setting/constants'
 import {
   RiCloseLine,
   RiPlayLargeLine,
@@ -76,6 +76,29 @@ import LastRun from './last-run'
 import useLastRun from './last-run/use-last-run'
 import Tab, { TabType } from './tab'
 import { TriggerSubscription } from './trigger-subscription'
+
+// Mocks
+const usePluginStore = () => ({ setDetail: () => {} })
+const ReadmeEntrance = () => null
+const ACCOUNT_SETTING_TAB = { DATA_SOURCE: 'data-source' }
+const useAppStore = (selector: any) => {
+  const mockState = { 
+    showMessageLogModal: false, 
+    appDetail: { id: 'mock', mode: 'advanced-chat' },
+    setCurrentLogItem: () => {},
+    setShowMessageLogModal: () => {},
+  }
+  if (typeof selector === 'function') {
+    return selector(mockState)
+  }
+  return mockState
+}
+const useLanguage = () => 'en-US'
+const PluginAuth = ({ children }: any) => <>{children}</>
+const PluginAuthInDataSourceNode = ({ children }: any) => <>{children}</>
+const AuthorizedInNode = () => null
+const AuthorizedInDataSourceNode = () => null
+const AuthCategory = { tool: 'tool' }
 
 const getCustomRunForm = (params: CustomRunFormProps): React.JSX.Element => {
   const nodeType = params.payload.type

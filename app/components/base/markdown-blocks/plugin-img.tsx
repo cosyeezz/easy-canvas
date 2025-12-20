@@ -6,7 +6,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import ImageGallery from '@/app/components/base/image-gallery'
 import { getMarkdownImageURL } from './utils'
-import { usePluginReadmeAsset } from '@/service/use-plugins'
+// import { usePluginReadmeAsset } from '@/service/use-plugins'
 import type { SimplePluginInfo } from '../markdown/react-markdown-wrapper'
 
 type ImgProps = {
@@ -16,7 +16,8 @@ type ImgProps = {
 
 export const PluginImg: React.FC<ImgProps> = ({ src, pluginInfo }) => {
   const { pluginUniqueIdentifier, pluginId } = pluginInfo || {}
-  const { data: assetData } = usePluginReadmeAsset({ plugin_unique_identifier: pluginUniqueIdentifier, file_name: src })
+  // const { data: assetData } = usePluginReadmeAsset({ plugin_unique_identifier: pluginUniqueIdentifier, file_name: src })
+  const assetData: Blob | undefined = undefined // Mock
   const [blobUrl, setBlobUrl] = useState<string>()
 
   useEffect(() => {

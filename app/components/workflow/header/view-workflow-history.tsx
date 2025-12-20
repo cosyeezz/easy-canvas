@@ -24,7 +24,7 @@ import {
   PortalToFollowElemContent,
   PortalToFollowElemTrigger,
 } from '@/app/components/base/portal-to-follow-elem'
-import { useStore as useAppStore } from '@/app/components/app/store'
+// import { useStore as useAppStore } from '@/app/components/app/store'
 import classNames from '@/utils/classnames'
 
 type ChangeHistoryEntry = {
@@ -44,11 +44,13 @@ const ViewWorkflowHistory = () => {
   const [open, setOpen] = useState(false)
 
   const { nodesReadOnly } = useNodesReadOnly()
-  const { setCurrentLogItem, setShowMessageLogModal } = useAppStore(useShallow(state => ({
-    appDetail: state.appDetail,
-    setCurrentLogItem: state.setCurrentLogItem,
-    setShowMessageLogModal: state.setShowMessageLogModal,
-  })))
+  // const { setCurrentLogItem, setShowMessageLogModal } = useAppStore(useShallow(state => ({
+  //   appDetail: state.appDetail,
+  //   setCurrentLogItem: state.setCurrentLogItem,
+  //   setShowMessageLogModal: state.setShowMessageLogModal,
+  // })))
+  const setCurrentLogItem = () => {}
+  const setShowMessageLogModal = (_: boolean) => {}
   const reactFlowStore = useStoreApi()
   const { store, getHistoryLabel } = useWorkflowHistory()
 

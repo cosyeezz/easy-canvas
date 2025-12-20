@@ -12,7 +12,7 @@ import {
   PortalToFollowElemTrigger,
 } from '@/app/components/base/portal-to-follow-elem'
 import cn from '@/utils/classnames'
-import { useDownloadPlugin } from '@/service/use-plugins'
+// import { useDownloadPlugin } from '@/service/use-plugins'
 import { downloadFile } from '@/utils/format'
 import { getMarketplaceUrl } from '@/utils/var'
 import { useQueryClient } from '@tanstack/react-query'
@@ -51,7 +51,10 @@ const OperationDropdown: FC<Props> = ({
     pluginName: name,
     version,
   }), [author, name, version])
-  const { data: blob, isLoading } = useDownloadPlugin(downloadInfo, needDownload)
+  // const { data: blob, isLoading } = useDownloadPlugin(downloadInfo, needDownload)
+  const blob: Blob | undefined = undefined
+  const isLoading = false
+
   const handleDownload = useCallback(() => {
     if (isLoading) return
     queryClient.removeQueries({

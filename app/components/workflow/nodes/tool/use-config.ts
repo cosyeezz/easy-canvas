@@ -4,7 +4,7 @@ import { produce } from 'immer'
 import { useBoolean } from 'ahooks'
 import { useWorkflowStore } from '../../store'
 import type { ToolNodeType, ToolVarInputs } from './types'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-crud'
 import {
   getConfiguredValue,
@@ -14,6 +14,9 @@ import type { InputVar } from '@/app/components/workflow/types'
 import {
   useNodesReadOnly,
 } from '@/app/components/workflow/hooks'
+
+// Mocks
+const useLanguage = () => 'en-US'
 
 const useConfig = (id: string, payload: ToolNodeType) => {
   const workflowStore = useWorkflowStore()

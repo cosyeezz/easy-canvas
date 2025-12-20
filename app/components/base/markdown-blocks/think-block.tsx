@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useChatContext } from '../chat/chat/context'
+// import { useChatContext } from '../chat/chat/context'
 import cn from '@/utils/classnames'
 
 const hasEndThink = (children: any): boolean => {
@@ -37,7 +37,8 @@ const removeEndThink = (children: any): any => {
 }
 
 const useThinkTimer = (children: any) => {
-  const { isResponding } = useChatContext()
+  // const { isResponding } = useChatContext()
+  const isResponding = false // Mocked for standalone canvas
   const [startTime] = useState(() => Date.now())
   const [elapsedTime, setElapsedTime] = useState(0)
   const [isComplete, setIsComplete] = useState(false)

@@ -8,7 +8,7 @@ import {
 } from '@/app/components/workflow/hooks'
 import { useCallback, useEffect, useMemo } from 'react'
 import { type ToolVarInputs, VarType } from '../tool/types'
-import { useCheckInstalled, useFetchPluginsInMarketPlaceByIds } from '@/service/use-plugins'
+// import { useCheckInstalled, useFetchPluginsInMarketPlaceByIds } from '@/service/use-plugins'
 import type { Memory, Var } from '../../types'
 import { VarType as VarKindType } from '../../types'
 import useAvailableVarList from '../_base/hooks/use-available-var-list'
@@ -16,6 +16,10 @@ import { produce } from 'immer'
 import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { isSupportMCP } from '@/utils/plugin-version-feature'
 import { generateAgentToolValue, toolParametersToFormSchemas } from '@/app/components/tools/utils/to-form-schema'
+
+// Mocks
+const useCheckInstalled = () => ({ data: { plugins: [] } })
+const useFetchPluginsInMarketPlaceByIds = () => ({ data: { data: { plugins: [] } }, isLoading: false })
 
 export type StrategyStatus = {
   plugin: {

@@ -4,16 +4,36 @@ import {
   RiBracesLine,
 } from '@remixicon/react'
 import type { PluginTriggerVarInputs } from '@/app/components/workflow/nodes/trigger-plugin/types'
-import type { CredentialFormSchema } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { FormTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
-import { useLanguage } from '@/app/components/header/account-setting/model-provider-page/hooks'
+import { useGetLanguage } from '@/context/i18n'
 import Button from '@/app/components/base/button'
 import Tooltip from '@/app/components/base/tooltip'
 import FormInputItem from '@/app/components/workflow/nodes/_base/components/form-input-item'
 import { useBoolean } from 'ahooks'
-import SchemaModal from '@/app/components/plugins/plugin-detail-panel/tool-selector/schema-modal'
 import type { Event } from '@/app/components/tools/types'
 import type { TriggerWithProvider } from '@/app/components/workflow/block-selector/types'
+
+export enum FormTypeEnum {
+  textInput = 'text-input',
+  secretInput = 'secret-input',
+  select = 'select',
+  radio = 'radio',
+  switch = 'switch',
+  checkbox = 'checkbox',
+  dropdown = 'dropdown',
+  object = 'object',
+  array = 'array',
+}
+
+export type CredentialFormSchema = {
+  name: string
+  label: Record<string, string>
+  type: FormTypeEnum
+  required: boolean
+  tooltip?: Record<string, string>
+  input_schema?: Record<string, any>
+}
+
+const SchemaModal = (props: any) => <div>Mock Schema Modal</div>
 
 type Props = {
   readOnly: boolean
@@ -40,7 +60,7 @@ const TriggerFormItem: FC<Props> = ({
   extraParams,
   disableVariableInsertion = false,
 }) => {
-  const language = useLanguage()
+  const language = useGetLanguage()
   const { name, label, type, required, tooltip, input_schema } = schema
   const showSchemaButton = type === FormTypeEnum.object || type === FormTypeEnum.array
   const showDescription = type === FormTypeEnum.textInput || type === FormTypeEnum.secretInput

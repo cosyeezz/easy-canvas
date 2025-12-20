@@ -25,9 +25,13 @@ import Split from '../_base/components/split'
 import { useNodesReadOnly } from '@/app/components/workflow/hooks'
 import VarReferencePicker from '@/app/components/workflow/nodes/_base/components/variable/var-reference-picker'
 import type { Var } from '@/app/components/workflow/types'
-import { checkShowMultiModalTip } from '@/app/components/datasets/settings/utils'
-import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { checkShowMultiModalTip } from '@/app/components/datasets/settings/utils'
+// import { useModelList } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
+
+// Mocks
+const checkShowMultiModalTip = () => false
+const useModelList = (type: any) => ({ data: [] })
 
 const Panel: FC<NodePanelProps<KnowledgeBaseNodeType>> = ({
   id,

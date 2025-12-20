@@ -17,11 +17,11 @@ import ViewTypeSelect, { ViewType } from './view-type-select'
 import cn from '@/utils/classnames'
 import Button from '@/app/components/base/button'
 import { SearchMenu } from '@/app/components/base/icons/src/vender/line/general'
-import type { ListRef } from '@/app/components/workflow/block-selector/market-place-plugin/list'
-import PluginList, { type ListProps } from '@/app/components/workflow/block-selector/market-place-plugin/list'
-import type { Plugin } from '../../plugins/types'
-import { PluginCategoryEnum } from '../../plugins/types'
-import { useMarketplacePlugins } from '../../plugins/marketplace/hooks'
+// import type { ListRef } from '@/app/components/workflow/block-selector/market-place-plugin/list'
+// import PluginList, { type ListProps } from '@/app/components/workflow/block-selector/market-place-plugin/list'
+// import type { Plugin } from '../../plugins/types'
+// import { PluginCategoryEnum } from '../../plugins/types'
+// import { useMarketplacePlugins } from '../../plugins/marketplace/hooks'
 import { useGlobalPublicStore } from '@/context/global-public-context'
 import RAGToolRecommendations from './rag-tool-recommendations'
 import FeaturedTools from './featured-tools'
@@ -38,7 +38,7 @@ type AllToolsProps = {
   className?: string
   toolContentClassName?: string
   searchText: string
-  tags: ListProps['tags']
+  tags: string[]
   buildInTools: ToolWithProvider[]
   customTools: ToolWithProvider[]
   workflowTools: ToolWithProvider[]
@@ -50,7 +50,7 @@ type AllToolsProps = {
   canChooseMCPTool?: boolean
   onTagsChange?: Dispatch<SetStateAction<string[]>>
   isInRAGPipeline?: boolean
-  featuredPlugins?: Plugin[]
+  featuredPlugins?: any[]
   featuredLoading?: boolean
   showFeatured?: boolean
   onFeaturedInstallSuccess?: () => Promise<void> | void
@@ -164,25 +164,26 @@ const AllTools = ({
     }, [])
   }, [activeTab, buildInTools, customTools, workflowTools, mcpTools, trimmedSearchText, hasFilter, language])
 
-  const {
-    queryPluginsWithDebounced: fetchPlugins,
-    plugins: notInstalledPlugins = [],
-  } = useMarketplacePlugins()
+  // const {
+  //   queryPluginsWithDebounced: fetchPlugins,
+  //   plugins: notInstalledPlugins = [],
+  // } = useMarketplacePlugins()
+  const notInstalledPlugins: any[] = []
 
   const { enable_marketplace } = useGlobalPublicStore(s => s.systemFeatures)
 
   useEffect(() => {
-    if (!enable_marketplace) return
-    if (hasFilter) {
-      fetchPlugins({
-        query: searchText,
-        tags,
-        category: PluginCategoryEnum.tool,
-      })
-    }
-  }, [searchText, tags, enable_marketplace, hasFilter, fetchPlugins])
+    // if (!enable_marketplace) return
+    // if (hasFilter) {
+    //   fetchPlugins({
+    //     query: searchText,
+    //     tags,
+    //     category: PluginCategoryEnum.tool,
+    //   })
+    // }
+  }, [searchText, tags, enable_marketplace, hasFilter])
 
-  const pluginRef = useRef<ListRef>(null)
+  // const pluginRef = useRef<ListRef>(null)
   const wrapElemRef = useRef<HTMLDivElement>(null)
   const isSupportGroupView = [ToolTypeEnum.All, ToolTypeEnum.BuiltIn].includes(activeTab)
 
@@ -231,7 +232,7 @@ const AllTools = ({
         <div
           ref={wrapElemRef}
           className='flex-1 overflow-y-auto'
-          onScroll={() => pluginRef.current?.handleScroll()}
+          // onScroll={() => pluginRef.current?.handleScroll()}
         >
           <div className={cn(shouldShowEmptyState && 'hidden')}>
             {isShowRAGRecommendations && onTagsChange && (
@@ -278,7 +279,7 @@ const AllTools = ({
                 />
               </>
             )}
-            {enable_marketplace && (
+            {/* {enable_marketplace && (
               <PluginList
                 ref={pluginRef}
                 wrapElemRef={wrapElemRef as RefObject<HTMLElement>}
@@ -289,7 +290,7 @@ const AllTools = ({
                 tags={tags}
                 hideFindMoreFooter
               />
-            )}
+            )} */}
           </div>
 
           {shouldShowEmptyState && (

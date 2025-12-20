@@ -9,14 +9,18 @@ import {
 import { useTranslation } from 'react-i18next'
 import type { DataSet } from '@/models/datasets'
 import ActionButton, { ActionButtonState } from '@/app/components/base/action-button'
-import SettingsModal from '@/app/components/app/configuration/dataset-config/settings-modal'
+// import SettingsModal from '@/app/components/app/configuration/dataset-config/settings-modal'
 import Drawer from '@/app/components/base/drawer'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import Badge from '@/app/components/base/badge'
 import { useKnowledge } from '@/hooks/use-knowledge'
 import AppIcon from '@/app/components/base/app-icon'
-import FeatureIcon from '@/app/components/header/account-setting/model-provider-page/model-selector/feature-icon'
+// import FeatureIcon from '@/app/components/header/account-setting/model-provider-page/model-selector/feature-icon'
 import { ModelFeatureEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
+
+// Mocks
+const SettingsModal = () => <div>Settings Modal Mock</div>
+const FeatureIcon = () => <div>FI</div>
 
 type Props = {
   payload: DataSet

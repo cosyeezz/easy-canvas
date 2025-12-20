@@ -25,11 +25,21 @@ import { BlockEnum as BlockEnumValue } from '../types'
 import FeaturedTriggers from './featured-triggers'
 import Divider from '@/app/components/base/divider'
 import { useGlobalPublicStore } from '@/context/global-public-context'
-import { useAllTriggerPlugins, useInvalidateAllTriggerPlugins } from '@/service/use-triggers'
-import { useFeaturedTriggersRecommendations } from '@/service/use-plugins'
-import { PluginCategoryEnum } from '../../plugins/types'
-import { useMarketplacePlugins } from '../../plugins/marketplace/hooks'
-import PluginList, { type ListRef } from './market-place-plugin/list'
+// Mocked imports
+const useAllTriggerPlugins = () => ({ triggerPlugins: [] })
+const useInvalidateAllTriggerPlugins = () => (() => {})
+const useFeaturedTriggersRecommendations = () => ({})
+const PluginCategoryEnum = { TRIGGER: 'trigger' }
+const useMarketplacePlugins = () => ({ plugins: [] })
+const PluginList = () => <div>Plugin List Mock</div>
+type ListRef = any
+
+// Removed imports
+// import { useAllTriggerPlugins, useInvalidateAllTriggerPlugins } from '@/service/use-triggers'
+// import { useFeaturedTriggersRecommendations } from '@/service/use-plugins'
+// import { PluginCategoryEnum } from '../../plugins/types'
+// import { useMarketplacePlugins } from '../../plugins/marketplace/hooks'
+// import PluginList, { type ListRef } from './market-place-plugin/list'
 
 const marketplaceFooterClassName = 'system-sm-medium z-10 flex h-8 flex-none cursor-pointer items-center rounded-b-lg border-[0.5px] border-t border-components-panel-border bg-components-panel-bg-blur px-4 py-1 text-text-accent-light-mode-only shadow-lg'
 

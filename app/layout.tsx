@@ -1,5 +1,4 @@
 // import { ReactScan } from './components/react-scan'
-import RoutePrefixHandle from './routePrefixHandle'
 import type { Viewport } from 'next'
 import I18nServer from './components/i18n-server'
 import BrowserInitializer from './components/browser-initializer'
@@ -108,7 +107,6 @@ const LocaleLayout = async ({
             </SentryInitializer>
           </BrowserInitializer>
         </ThemeProvider>
-        <RoutePrefixHandle />
       </body>
     </html>
   )

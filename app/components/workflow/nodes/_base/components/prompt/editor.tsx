@@ -21,13 +21,14 @@ import PromptGeneratorBtn from '../../../llm/components/prompt-generator-btn'
 import cn from '@/utils/classnames'
 import ToggleExpandBtn from '@/app/components/workflow/nodes/_base/components/toggle-expand-btn'
 import useToggleExpend from '@/app/components/workflow/nodes/_base/hooks/use-toggle-expend'
-import PromptEditor from '@/app/components/base/prompt-editor'
+// import PromptEditor from '@/app/components/base/prompt-editor'
+import Textarea from '@/app/components/base/textarea'
 import {
   Copy,
   CopyCheck,
 } from '@/app/components/base/icons/src/vender/line/files'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
-import { PROMPT_EDITOR_INSERT_QUICKLY } from '@/app/components/base/prompt-editor/plugins/update-block'
+// import { PROMPT_EDITOR_INSERT_QUICKLY } from '@/app/components/base/prompt-editor/plugins/update-block'
 import { Variable02 } from '@/app/components/base/icons/src/vender/solid/development'
 import ActionButton from '@/app/components/base/action-button'
 import Tooltip from '@/app/components/base/tooltip'
@@ -146,7 +147,7 @@ const Editor: FC<Props> = ({
 
   const handleInsertVariable = () => {
     setFocus()
-    eventEmitter?.emit({ type: PROMPT_EDITOR_INSERT_QUICKLY, instanceId } as any)
+    // eventEmitter?.emit({ type: PROMPT_EDITOR_INSERT_QUICKLY, instanceId } as any)
   }
 
   const getVarType = useWorkflowVariableType()
@@ -237,7 +238,17 @@ const Editor: FC<Props> = ({
             {!(isSupportJinja && editionType === EditionType.jinja2)
               ? (
                 <div className={cn(isExpand ? 'grow' : 'max-h-[536px]', 'relative min-h-[56px] overflow-y-auto  px-3', editorContainerClassName)}>
-                  <PromptEditor
+                  <Textarea
+                    key={controlPromptEditorRerenderKey}
+                    placeholder={placeholder}
+                    className={cn('min-h-[56px]', inputClassName)}
+                    value={value}
+                    onChange={e => onChange(e.target.value)}
+                    onBlur={setBlur}
+                    onFocus={setFocus}
+                    disabled={readOnly}
+                  />
+                  {/* <PromptEditor
                     key={controlPromptEditorRerenderKey}
                     placeholder={placeholder}
                     placeholderClassName={placeholderClassName}
@@ -291,7 +302,7 @@ const Editor: FC<Props> = ({
                     onFocus={setFocus}
                     editable={!readOnly}
                     isSupportFileVar={isSupportFileVar}
-                  />
+                  /> */}
                   {/* to patch Editor not support dynamic change editable status */}
                   {readOnly && <div className='absolute inset-0 z-10'></div>}
                 </div>

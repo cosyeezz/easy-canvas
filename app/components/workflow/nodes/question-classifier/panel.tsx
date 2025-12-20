@@ -8,11 +8,11 @@ import ClassList from './components/class-list'
 import AdvancedSetting from './components/advanced-setting'
 import type { QuestionClassifierNodeType } from './types'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
-import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+// import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
 import type { NodePanelProps } from '@/app/components/workflow/types'
-import Split from '@/app/components/workflow/nodes/_base/components/split'
-import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
-import { FieldCollapse } from '@/app/components/workflow/nodes/_base/components/collapse'
+
+// Mocks
+const ModelParameterModal = () => <div>Model Parameter Mock</div>
 
 const i18nPrefix = 'workflow.nodes.questionClassifiers'
 

@@ -3,8 +3,11 @@ import { useBoolean } from 'ahooks'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import AddButton from '@/app/components/base/button/add-button'
-import SelectDataset from '@/app/components/app/configuration/dataset-config/select-dataset'
+// import SelectDataset from '@/app/components/app/configuration/dataset-config/select-dataset'
 import type { DataSet } from '@/models/datasets'
+
+// Mocks
+const SelectDataset = () => null
 
 type Props = {
   selectedIds: string[]

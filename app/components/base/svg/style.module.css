@@ -1,11 +1,8 @@
+/* Mocked CSS to remove broken imports */
 .svgIcon {
-  background-image: url(~@/app/components/develop/secret-key/assets/svg.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .svgIconed {
-  background-image: url(~@/app/components/develop/secret-key/assets/svged.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 }

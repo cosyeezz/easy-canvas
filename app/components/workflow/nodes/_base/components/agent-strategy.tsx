@@ -5,15 +5,15 @@ import ListEmpty from '@/app/components/base/list-empty'
 import { AgentStrategySelector } from './agent-strategy-selector'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import Form from '@/app/components/header/account-setting/model-provider-page/model-modal/Form'
+// import Form from '@/app/components/header/account-setting/model-provider-page/model-modal/Form'
 import { Agent } from '@/app/components/base/icons/src/vender/workflow'
 import { InputNumber } from '@/app/components/base/input-number'
 import Slider from '@/app/components/base/slider'
-import ToolSelector from '@/app/components/plugins/plugin-detail-panel/tool-selector'
-import MultipleToolSelector from '@/app/components/plugins/plugin-detail-panel/multiple-tool-selector'
+// import ToolSelector from '@/app/components/plugins/plugin-detail-panel/tool-selector'
+// import MultipleToolSelector from '@/app/components/plugins/plugin-detail-panel/multiple-tool-selector'
 import Field from './field'
 import { type ComponentProps, memo } from 'react'
-import { useDefaultModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
+// import { useDefaultModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import Editor from './prompt/editor'
 import { useWorkflowStore } from '../../../store'
 import { useRenderI18nObject } from '@/hooks/use-i18n'
@@ -23,6 +23,12 @@ import type { PluginMeta } from '@/app/components/plugins/types'
 import { noop } from 'lodash-es'
 import { useDocLink } from '@/context/i18n'
 import { AppModeEnum } from '@/types/app'
+
+// Mocks
+const Form = (props: any) => <div>{JSON.stringify(props.value)}</div>
+const ToolSelector = () => <div>Tool Selector Mock</div>
+const MultipleToolSelector = () => <div>Multiple Tool Selector Mock</div>
+const useDefaultModel = (type: any) => ({ data: null })
 
 export type Strategy = {
   agent_strategy_provider_name: string

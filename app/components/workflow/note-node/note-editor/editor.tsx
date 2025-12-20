@@ -16,7 +16,12 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import LinkEditorPlugin from './plugins/link-editor-plugin'
 import FormatDetectorPlugin from './plugins/format-detector-plugin'
 // import TreeView from '@/app/components/base/prompt-editor/plugins/tree-view'
-import Placeholder from '@/app/components/base/prompt-editor/plugins/placeholder'
+
+const Placeholder = ({ value, compact }: { value: string; compact?: boolean }) => (
+  <div className={`absolute top-[1px] left-[1px] pointer-events-none text-text-quaternary ${compact ? 'system-xs-regular' : 'system-md-regular'}`}>
+    {value}
+  </div>
+)
 
 type EditorProps = {
   placeholder?: string
