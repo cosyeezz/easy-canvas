@@ -196,6 +196,18 @@
     *   **修复**：在 `useChecklist` 中使用 `useGetLanguage()` Hook 获取当前语言设置。
     *   **验证**：页面不再崩溃，节点配置面板可正常加载。
 
+3.  **修复添加节点列表无文本显示的问题**
+    *   **问题**：点击“添加节点”出现的列表（Node Selector）中，每一行只有图标，节点名称（Title）和描述（Description）未显示。
+    *   **原因**：节点列表的数据源 (`availableNodesMetaData`) 来自本地静态文件 (`node-defaults.ts`)，其元数据中的 `title` 字段默认为空。原版实现依赖于在组件层动态注入翻译，但在切换到静态数据源后，这一步被遗漏了。
+    *   **修复**：在 `app/components/workflow/block-selector/index.tsx` 中，使用 `useTranslation` Hook 在运行时动态为节点列表注入翻译后的标题和描述。
+    *   **验证**：节点列表现在正确显示节点名称和描述。
+
+4.  **修复点击空白处无法关闭配置面板的问题**
+    *   **问题**：打开节点配置面板后，点击画布的非编辑区域（空白处），面板不会自动消失（节点未取消选中）。
+    *   **原因**：`ReactFlow` 组件未绑定 `onPaneClick` 事件处理函数。
+    *   **修复**：在 `app/components/workflow/index.tsx` 中，将 `useNodesInteractions` 提供的 `handleNodesCancelSelected` 方法绑定到 `ReactFlow` 的 `onPaneClick` 属性上。
+    *   **验证**：现在点击画布空白处可正确取消节点选中状态，并关闭右侧面板。
+
 ## 4. 目录结构说明 (Easy-Canvas)
 ```text
 easy-canvas/

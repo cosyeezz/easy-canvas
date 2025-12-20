@@ -280,6 +280,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
     handleNodeConnectStart,
     handleNodeConnectEnd,
     handleNodeContextMenu,
+    handleNodesCancelSelected,
     handleHistoryBack,
     handleHistoryForward,
   } = useNodesInteractions()
@@ -397,16 +398,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
         onNodeMouseEnter={handleNodeEnter}
         onNodeMouseLeave={handleNodeLeave}
         onNodeClick={handleNodeClick}
-        onNodeContextMenu={handleNodeContextMenu}
-        onConnect={handleNodeConnect}
-        onConnectStart={handleNodeConnectStart}
-        onConnectEnd={handleNodeConnectEnd}
-        onEdgeMouseEnter={handleEdgeEnter}
-        onEdgeMouseLeave={handleEdgeLeave}
-        onEdgesChange={handleEdgesChange}
-        onSelectionStart={handleSelectionStart}
-        onSelectionChange={handleSelectionChange}
-        onSelectionDrag={handleSelectionDrag}
+        onPaneClick={handleNodesCancelSelected}
         onPaneContextMenu={handlePaneContextMenu}
         onSelectionContextMenu={handleSelectionContextMenu}
         connectionLineComponent={CustomConnectionLine}
