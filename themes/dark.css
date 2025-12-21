@@ -1,5 +1,7 @@
 /* Attention: Generate by code. Don't update by hand!!! */
-html[data-theme="dark"] {
+html[data-theme="dark"],
+:root.dark,
+html.dark {
   --color-components-input-bg-normal: rgb(255 255 255 / 0.08);
   --color-components-input-text-placeholder: rgb(200 206 218 / 0.3);
   --color-components-input-bg-hover: rgb(255 255 255 / 0.03);

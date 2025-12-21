@@ -1,6 +1,7 @@
 // import type { Config } from 'tailwindcss'
 import commonConfig from './tailwind-common-config'
 const config = {
+  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',

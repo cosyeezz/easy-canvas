@@ -89,7 +89,7 @@ const LocaleLayout = async ({
       >
         {/* <ReactScan /> */}
         <ThemeProvider
-          attribute='data-theme'
+          attribute='class'
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange

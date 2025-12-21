@@ -1,5 +1,7 @@
 /* Attention: Generate by code. Don't update by hand!!! */
-html[data-theme="light"] {
+html[data-theme="light"],
+:root.light,
+html.light {
   --color-components-input-bg-normal: rgb(200 206 218 / 0.25);
   --color-components-input-text-placeholder: #98a2b2;
   --color-components-input-bg-hover: rgb(200 206 218 / 0.14);
