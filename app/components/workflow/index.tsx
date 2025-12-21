@@ -136,7 +136,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
   const workflowStore = useWorkflowStore()
   const reactflow = useReactFlow()
   const [nodes, setNodes] = useNodesState(originalNodes)
-  const [edges, setEdges] = useEdgesState(originalEdges)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(originalEdges)
   const controlMode = useStore(s => s.controlMode)
   const nodeAnimation = useStore(s => s.nodeAnimation)
   const showConfirm = useStore(s => s.showConfirm)
@@ -288,8 +288,13 @@ export const Workflow: FC<WorkflowProps> = memo(({
   const {
     handleEdgeEnter,
     handleEdgeLeave,
-    handleEdgesChange,
   } = useEdgesInteractions()
+
+  const handleEdgesChangeWrapper = useCallback((changes: any) => {
+    if (nodesReadOnly) return
+    onEdgesChange(changes)
+  }, [nodesReadOnly, onEdgesChange])
+
   const {
     handleSelectionStart,
     handleSelectionChange,
@@ -404,7 +409,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
         onConnect={handleNodeConnect}
         onConnectStart={handleNodeConnectStart}
         onConnectEnd={handleNodeConnectEnd}
-        onEdgesChange={handleEdgesChange}
+        onEdgesChange={handleEdgesChangeWrapper}
         onEdgeMouseEnter={handleEdgeEnter}
         onEdgeMouseLeave={handleEdgeLeave}
         onPaneClick={handleNodesCancelSelected}
