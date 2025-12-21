@@ -542,11 +542,53 @@ export const useNodesInteractions = () => {
         setEnteringNodePayload,
       } = workflowStore.getState()
 
-      console.log('ConnectEnd Triggered:', { e, connectingNodePayload, enteringNodePayload })
-
       if (getNodesReadOnly()) return
 
+      // Case 1: Dragging to a node body (Collision Detection)
       if (connectingNodePayload && !enteringNodePayload && e) {
+        const nodes = reactflow.getNodes()
+        const { screenToFlowPosition } = reactflow
+
+        const event = e as MouseEvent | TouchEvent
+        const clientX = 'clientX' in event ? event.clientX : (event.touches && event.touches[0] ? event.touches[0].clientX : 0)
+        const clientY = 'clientY' in event ? event.clientY : (event.touches && event.touches[0] ? event.touches[0].clientY : 0)
+
+        if (clientX !== 0 || clientY !== 0) {
+          const { x, y } = screenToFlowPosition({ x: clientX, y: clientY })
+
+          const targetNode = nodes.find((n) => {
+            if (n.id === connectingNodePayload.nodeId)
+              return false
+            if (n.hidden)
+              return false
+            if (n.type === CUSTOM_NOTE_NODE)
+              return false
+
+            const nx = n.positionAbsolute?.x ?? n.position.x
+            const ny = n.positionAbsolute?.y ?? n.position.y
+            const nw = n.width ?? 0
+            const nh = n.height ?? 0
+
+            return x >= nx && x <= nx + nw && y >= ny && y <= ny + nh
+          })
+
+          if (targetNode) {
+            const isEntryNode = isTriggerNode(targetNode.data.type as any) || targetNode.data.type === BlockEnum.Start
+            
+            if (!isEntryNode) {
+              handleNodeConnect({
+                source: connectingNodePayload.nodeId,
+                sourceHandle: connectingNodePayload.handleId,
+                target: targetNode.id,
+                targetHandle: 'target',
+              })
+            }
+          }
+        }
+      }
+
+      // Case 2: Dragging to a specific handle
+      if (connectingNodePayload && enteringNodePayload) {
         const { setShowAssignVariablePopup, hoveringAssignVariableGroupId }
           = workflowStore.getState()
         const { screenToFlowPosition } = reactflow
