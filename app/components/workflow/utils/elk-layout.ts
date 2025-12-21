@@ -513,8 +513,39 @@ export const getLayoutForChildNodes = async (
     || (edge.data?.isInLoop && edge.data?.loop_id === parentNodeId),
   )
 
-  const elkNodes: ElkNodeShape[] = nodes.map(toElkNode)
-  const elkEdges: ElkEdgeShape[] = edges.map(edge => createEdge(edge.source, edge.target))
+  const elkNodes: ElkNodeShape[] = []
+  const elkEdges: ElkEdgeShape[] = []
+
+  // Track which edges have been processed for If/Else nodes with ports
+  const edgeToPortMap = new Map<string, string>()
+
+  // Build nodes with ports for If/Else nodes
+  nodes.forEach((node) => {
+    if (node.data.type === BlockEnum.IfElse) {
+      const portsResult = buildIfElseWithPorts(node, edges)
+      if (portsResult) {
+        // Use node with ports
+        elkNodes.push(portsResult.node)
+        // Store port mappings for edges
+        portsResult.portMap.forEach((portId, edgeId) => {
+          edgeToPortMap.set(edgeId, portId)
+        })
+      }
+      else {
+        // No multiple branches, use normal node
+        elkNodes.push(toElkNode(node))
+      }
+    }
+    else {
+      elkNodes.push(toElkNode(node))
+    }
+  })
+
+  // Build edges with port connections
+  edges.forEach((edge) => {
+    const sourcePort = edgeToPortMap.get(edge.id)
+    elkEdges.push(createEdge(edge.source, edge.target, sourcePort))
+  })
 
   const graph = {
     id: parentNodeId,
