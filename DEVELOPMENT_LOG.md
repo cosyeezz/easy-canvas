@@ -76,6 +76,9 @@
 4.  **文档更新**
     *   创建 `README_CANVAS.md` 作为核心集成指南。
     *   更新项目根 `README.md` 以反映独立项目状态。
+    
+5.  **交互修复**
+    *   修复了节点连线无法创建和删除的问题。原因是 `ReactFlow` 组件缺少 `onConnect`, `onEdgesChange` 等关键事件处理器的绑定，已补全绑定。
 
 #### 🚀 当前状态
 *   **Ready for Integration**: 项目已完全独立，可作为独立组件嵌入其他系统。
