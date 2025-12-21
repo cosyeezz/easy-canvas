@@ -504,7 +504,9 @@ export const useNodesInteractions = () => {
   )
 
   const handleNodeConnectStart = useCallback<OnConnectStart>(
-    (_, { nodeId, handleType, handleId }) => {
+    (event, params) => {
+      console.log('ConnectStart:', params)
+      const { nodeId, handleType, handleId } = params
       if (getNodesReadOnly()) return
 
       if (nodeId && handleType) {
@@ -533,8 +535,6 @@ export const useNodesInteractions = () => {
 
   const handleNodeConnectEnd = useCallback<OnConnectEnd>(
     (e: any) => {
-      if (getNodesReadOnly()) return
-
       const {
         connectingNodePayload,
         setConnectingNodePayload,
@@ -542,59 +542,11 @@ export const useNodesInteractions = () => {
         setEnteringNodePayload,
       } = workflowStore.getState()
 
+      console.log('ConnectEnd Triggered:', { e, connectingNodePayload, enteringNodePayload })
+
+      if (getNodesReadOnly()) return
+
       if (connectingNodePayload && !enteringNodePayload && e) {
-        const nodes = reactflow.getNodes()
-        const { screenToFlowPosition } = reactflow
-
-        const event = e as MouseEvent | TouchEvent
-        const clientX = 'clientX' in event ? event.clientX : (event.touches && event.touches[0] ? event.touches[0].clientX : 0)
-        const clientY = 'clientY' in event ? event.clientY : (event.touches && event.touches[0] ? event.touches[0].clientY : 0)
-
-        // Debug logs
-        console.log('ConnectEnd Debug:', { clientX, clientY, connectingNodePayload })
-
-        if (clientX !== 0 || clientY !== 0) {
-          const { x, y } = screenToFlowPosition({ x: clientX, y: clientY })
-          console.log('ConnectEnd Flow Pos:', { x, y })
-
-          const targetNode = nodes.find((n) => {
-            if (n.id === connectingNodePayload.nodeId)
-              return false
-            if (n.hidden)
-              return false
-            if (n.type === CUSTOM_NOTE_NODE)
-              return false
-
-            const nx = n.positionAbsolute?.x ?? n.position.x
-            const ny = n.positionAbsolute?.y ?? n.position.y
-            const nw = n.width ?? 0
-            const nh = n.height ?? 0
-
-            return x >= nx && x <= nx + nw && y >= ny && y <= ny + nh
-          })
-          
-          console.log('ConnectEnd Target:', targetNode)
-
-          if (targetNode) {
-            const isEntryNode = isTriggerNode(targetNode.data.type as any) || targetNode.data.type === BlockEnum.Start
-            
-            if (!isEntryNode) {
-              console.log('ConnectEnd: Attempting to connect', {
-                source: connectingNodePayload.nodeId,
-                target: targetNode.id
-              })
-              handleNodeConnect({
-                source: connectingNodePayload.nodeId,
-                sourceHandle: connectingNodePayload.handleId,
-                target: targetNode.id,
-                targetHandle: 'target',
-              })
-            }
-          }
-        }
-      }
-
-      if (connectingNodePayload && enteringNodePayload) {
         const { setShowAssignVariablePopup, hoveringAssignVariableGroupId }
           = workflowStore.getState()
         const { screenToFlowPosition } = reactflow
