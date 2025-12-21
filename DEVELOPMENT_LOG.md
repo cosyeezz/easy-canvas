@@ -88,6 +88,18 @@
 1.  **手动测试**：在浏览器中全面测试各节点交互。
 2.  **清理代码**：移除不再使用的残留文件和类型定义。
 
+### 📅 2025-12-21 (Late)：交互体验与布局算法优化
+
+#### ✅ 已完成事项
+1.  **智能连线 (Smart Connect)**
+    *   优化了 `handleNodeConnectEnd` 逻辑。现在用户拖拽连线时，无需精确对准目标 Handle，只需将连线松开在**目标节点及其子元素（如 Logo、标题）的任意区域**，即可自动吸附并建立连接。
+    *   解决了在 Group 或 Iteration 内部嵌套节点时，因 `positionAbsolute` 计算问题导致的无法连接 bug。
+
+2.  **高级自动布局 (Enhanced ELK Layout)**
+    *   修复了 `elk-layout.ts` 中的 `getLayoutForChildNodes` 算法。
+    *   **问题**：原算法在整理 Loop/Iteration 内部的 `If/Else` 节点时，忽略了分支端口（Ports），导致 True/False 连线重叠混乱。
+    *   **修复**：将主布局（Canvas Root）中处理 `If/Else` 端口的逻辑同步到了子布局函数中，现在嵌套结构内的条件分支也能完美自动排列。
+
 
 ---
 *记录人：Gemini CLI Agent*

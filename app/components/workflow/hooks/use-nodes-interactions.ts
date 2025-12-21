@@ -505,7 +505,6 @@ export const useNodesInteractions = () => {
 
   const handleNodeConnectStart = useCallback<OnConnectStart>(
     (event, params) => {
-      console.log('ConnectStart:', params)
       const { nodeId, handleType, handleId } = params
       if (getNodesReadOnly()) return
 
