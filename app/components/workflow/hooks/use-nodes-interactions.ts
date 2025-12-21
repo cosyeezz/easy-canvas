@@ -543,8 +543,7 @@ export const useNodesInteractions = () => {
       } = workflowStore.getState()
 
       if (connectingNodePayload && !enteringNodePayload && e) {
-        const { getNodes } = store.getState()
-        const nodes = getNodes()
+        const nodes = reactflow.getNodes()
         const { screenToFlowPosition } = reactflow
 
         const event = e as MouseEvent | TouchEvent
