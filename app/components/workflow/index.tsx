@@ -299,6 +299,12 @@ export const Workflow: FC<WorkflowProps> = memo(({
     handleSelectionDrag,
     handleSelectionContextMenu,
   } = useSelectionInteractions()
+  const {
+    handlePaneContextMenu,
+  } = usePanelInteractions()
+  const {
+    isValidConnection,
+  } = useWorkflow()
 
   useOnViewportChange({
     onEnd: () => {
