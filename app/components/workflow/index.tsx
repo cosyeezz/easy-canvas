@@ -71,6 +71,7 @@ import Panel from './panel'
 import PanelContextmenu from './panel-contextmenu'
 import NodeContextmenu from './node-contextmenu'
 import SelectionContextmenu from './selection-contextmenu'
+import EdgeContextmenu from './edge-contextmenu'
 import SyncingDataModal from './syncing-data-modal'
 import { setupScrollToNodeListener } from './utils/node-navigation'
 import {
@@ -288,12 +289,9 @@ export const Workflow: FC<WorkflowProps> = memo(({
   const {
     handleEdgeEnter,
     handleEdgeLeave,
+    handleEdgesChange,
+    handleEdgeContextMenu,
   } = useEdgesInteractions()
-
-  const handleEdgesChangeWrapper = useCallback((changes: any) => {
-    if (nodesReadOnly) return
-    onEdgesChange(changes)
-  }, [nodesReadOnly, onEdgesChange])
 
   const {
     handleSelectionStart,
@@ -307,6 +305,9 @@ export const Workflow: FC<WorkflowProps> = memo(({
   const {
     isValidConnection,
   } = useWorkflow()
+
+  const [nodes, setNodes] = useNodesState(originalNodes)
+  const [edges, setEdges] = useEdgesState(originalEdges)
 
   useOnViewportChange({
     onEnd: () => {
@@ -379,6 +380,7 @@ export const Workflow: FC<WorkflowProps> = memo(({
       <PanelContextmenu />
       <NodeContextmenu />
       <SelectionContextmenu />
+      <EdgeContextmenu />
       <HelpLine />
       <Panel />
       {
@@ -409,9 +411,10 @@ export const Workflow: FC<WorkflowProps> = memo(({
         onConnect={handleNodeConnect}
         onConnectStart={handleNodeConnectStart}
         onConnectEnd={handleNodeConnectEnd}
-        onEdgesChange={handleEdgesChangeWrapper}
+        onEdgesChange={handleEdgesChange}
         onEdgeMouseEnter={handleEdgeEnter}
         onEdgeMouseLeave={handleEdgeLeave}
+        onEdgeContextMenu={handleEdgeContextMenu}
         onPaneClick={handleNodesCancelSelected}
         onPaneContextMenu={handlePaneContextMenu}
         onSelectionContextMenu={handleSelectionContextMenu}

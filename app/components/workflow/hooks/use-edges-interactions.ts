@@ -14,9 +14,11 @@ import { getNodesConnectedSourceOrTargetHandleIdsMap } from '../utils'
 import { useNodesSyncDraft } from './use-nodes-sync-draft'
 import { useNodesReadOnly } from './use-workflow'
 import { WorkflowHistoryEvent, useWorkflowHistory } from './use-workflow-history'
+import { useWorkflowStore } from '../store'
 
 export const useEdgesInteractions = () => {
   const store = useStoreApi()
+  const workflowStore = useWorkflowStore()
   const { handleSyncWorkflowDraft } = useNodesSyncDraft()
   const { getNodesReadOnly } = useNodesReadOnly()
   const { saveStateToHistory } = useWorkflowHistory()
@@ -151,11 +153,43 @@ export const useEdgesInteractions = () => {
     setEdges(newEdges)
   }, [store, getNodesReadOnly])
 
+  const handleEdgeContextMenu = useCallback<EdgeMouseHandler>((e, edge) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (getNodesReadOnly())
+      return
+
+    const container = document.querySelector('#workflow-container')
+    const { x, y } = container!.getBoundingClientRect()
+
+    workflowStore.setState({
+      edgeMenu: {
+        top: e.clientY - y,
+        left: e.clientX - x,
+        edgeId: edge.id,
+      },
+    })
+
+    // Also select the edge when right clicking
+    const {
+      edges,
+      setEdges,
+    } = store.getState()
+    const newEdges = produce(edges, (draft) => {
+      draft.forEach((e) => {
+        e.selected = e.id === edge.id
+      })
+    })
+    setEdges(newEdges)
+  }, [store, workflowStore, getNodesReadOnly])
+
   return {
     handleEdgeEnter,
     handleEdgeLeave,
     handleEdgeDeleteByDeleteBranch,
     handleEdgeDelete,
     handleEdgesChange,
+    handleEdgeContextMenu,
   }
 }
