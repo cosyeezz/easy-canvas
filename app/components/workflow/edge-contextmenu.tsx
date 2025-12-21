@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next'
 import { useClickAway } from 'ahooks'
 import { RiDeleteBinLine } from '@remixicon/react'
 import { useEdgesInteractions } from './hooks'
-import { useWorkflowStore } from './store'
+import { useStore } from './store'
 
 const EdgeContextmenu = () => {
   const { t } = useTranslation()
   const ref = useRef(null)
   const { handleEdgeDelete } = useEdgesInteractions()
-  const edgeMenu = useWorkflowStore(s => s.edgeMenu)
-  const setEdgeMenu = useWorkflowStore(s => s.setEdgeMenu)
+  const edgeMenu = useStore(s => s.edgeMenu)
+  const setEdgeMenu = useStore(s => s.setEdgeMenu)
 
   useClickAway(() => {
     if (edgeMenu)
