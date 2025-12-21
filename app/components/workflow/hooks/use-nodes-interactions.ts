@@ -550,8 +550,12 @@ export const useNodesInteractions = () => {
         const clientX = 'clientX' in event ? event.clientX : (event.touches && event.touches[0] ? event.touches[0].clientX : 0)
         const clientY = 'clientY' in event ? event.clientY : (event.touches && event.touches[0] ? event.touches[0].clientY : 0)
 
+        // Debug logs
+        console.log('ConnectEnd Debug:', { clientX, clientY, connectingNodePayload })
+
         if (clientX !== 0 || clientY !== 0) {
           const { x, y } = screenToFlowPosition({ x: clientX, y: clientY })
+          console.log('ConnectEnd Flow Pos:', { x, y })
 
           const targetNode = nodes.find((n) => {
             if (n.id === connectingNodePayload.nodeId)
@@ -568,11 +572,17 @@ export const useNodesInteractions = () => {
 
             return x >= nx && x <= nx + nw && y >= ny && y <= ny + nh
           })
+          
+          console.log('ConnectEnd Target:', targetNode)
 
           if (targetNode) {
             const isEntryNode = isTriggerNode(targetNode.data.type as any) || targetNode.data.type === BlockEnum.Start
             
             if (!isEntryNode) {
+              console.log('ConnectEnd: Attempting to connect', {
+                source: connectingNodePayload.nodeId,
+                target: targetNode.id
+              })
               handleNodeConnect({
                 source: connectingNodePayload.nodeId,
                 sourceHandle: connectingNodePayload.handleId,
